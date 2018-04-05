@@ -1,0 +1,8 @@
+language: csharp
+solution: "./OnlineLibrary.sln"
+script: 
+  - xbuild /p:Configuration=Release ./OnlineLibrary.sln
+deploy:
+  provider: azure_web_apps
+notifications:
+  email: false
