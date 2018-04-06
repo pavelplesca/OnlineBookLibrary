@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
 namespace OnlineLibrary.Models
 {
-    public class HomeModel
+    public class OnlineLibraryDb : DbContext
     {
-        public string Message { get; set; }
-        
+        public DbSet<Book> Books { get; set; }
     }
 }
