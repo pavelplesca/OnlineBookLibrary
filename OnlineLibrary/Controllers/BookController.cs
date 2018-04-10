@@ -16,7 +16,7 @@ namespace OnlineLibrary.Controllers
 
         public ActionResult BookDetails(int id)
         {
-            return Content("Place Holder,id = " + id);
+            return View();
         }
     }
 }
