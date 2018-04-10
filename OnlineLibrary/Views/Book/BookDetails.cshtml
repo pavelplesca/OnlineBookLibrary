@@ -1,13 +1,15 @@
-﻿@model IEnumerable<OnlineLibrary.Models.Book>
+﻿@model OnlineLibrary.Models.Book
 @{
     ViewBag.Title = "BookDetails";
+
 }
+
 
 
 
 <div class="row">
     <div class="col-md-12">
-        <h1>C# in a nutshell</h1>
+        <h1>@Model.Name</h1>
     </div>
 </div>
 <div class="row">

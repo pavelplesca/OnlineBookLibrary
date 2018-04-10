@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineLibrary.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,9 +15,14 @@ namespace OnlineLibrary.Controllers
             return View();
         }
 
+
+        private OnlineLibraryDb _db = new OnlineLibraryDb();
+
         public ActionResult BookDetails(int id)
         {
-            return View();
+            
+            var Book = _db.Books.ToList().Where(x=> x.Id == id).FirstOrDefault();
+            return View(Book);
         }
     }
 }
