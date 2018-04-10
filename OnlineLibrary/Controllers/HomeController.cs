@@ -27,13 +27,15 @@ namespace OnlineLibrary.Controllers
             base.Dispose(disposing);
         }
 
+
+        public ActionResult DropDb()
+        {
+            _db.Database.Delete();
+            return Content("Db is dropped");
+        }
+
         public ActionResult FillDb()
         {
-            /*if (_db.Books.Any())
-            {
-                return Content("It is already Done!");
-            }
-            */
             _db.Books.RemoveRange(_db.Books.ToList());
 
             _db.Books.Add(new Book
@@ -97,7 +99,6 @@ namespace OnlineLibrary.Controllers
             _db.SaveChanges();
             
             return Content("Done!");
-
         }
 
     }

@@ -185,9 +185,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804101222035_InitialCreate.cs" />
+    <Compile Include="Migrations\201804101222035_InitialCreate.Designer.cs">
+      <DependentUpon>201804101222035_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804101504200_AddTagsMigration.cs" />
+    <Compile Include="Migrations\201804101504200_AddTagsMigration.Designer.cs">
+      <DependentUpon>201804101504200_AddTagsMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\OnlineLibraryDb.cs" />
+    <Compile Include="Models\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +208,14 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804101222035_InitialCreate.resx">
+      <DependentUpon>201804101222035_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804101504200_AddTagsMigration.resx">
+      <DependentUpon>201804101504200_AddTagsMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
