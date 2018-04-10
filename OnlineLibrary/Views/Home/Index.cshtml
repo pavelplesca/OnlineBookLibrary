@@ -13,7 +13,7 @@
                     <div class="col-md-6">
                         <div class="card-img-bottom">
                             
-                            <a href="@Url.Action("BookDetails","Home",new {id = book.Id})"><img class="card-img-top  mx-auto d-block" src="~/Content/Images/Books/@book.Image" alt="Card image cap"></a>
+                            <a href="@Url.Action("BookDetails","Book",new {id = book.Id})"><img class="card-img-top  mx-auto d-block" src="~/Content/Images/Books/@book.Image" alt="Card image cap"></a>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -21,7 +21,7 @@
                             
                             <h5 class="card-title">@book.Name</h5>
                             <p class="card-text">Cras convallis ut turpis vitae facilisis. </p>
-                            <a href="@Url.Action("BookDetails","Home",new {id = book.Id})" class="btn btn-primary">Details</a>
+                            <a href="@Url.Action("BookDetails","Book",new {id = book.Id})" class="btn btn-primary">Details</a>
                         </div>
                     </div>
                 </div>

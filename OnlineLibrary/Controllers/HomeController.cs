@@ -17,10 +17,7 @@ namespace OnlineLibrary.Controllers
             return View(Books);
         }
 
-        public ActionResult BookDetails(int id)
-        {
-            return Content("Place Holder,id = "+id);
-        }
+
 
         protected override void Dispose(bool disposing)
         {
