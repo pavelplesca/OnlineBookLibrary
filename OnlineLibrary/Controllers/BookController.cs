@@ -22,7 +22,7 @@ namespace OnlineLibrary.Controllers
         {
             
             var Book = _db.Books.ToList().Where(x=> x.Id == id).FirstOrDefault();
-            
+            if (Book == null) return RedirectToAction("Index", "Home");
             return View(Book);
         }
     }
