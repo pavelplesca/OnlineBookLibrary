@@ -1,0 +1,48 @@
+﻿@model IEnumerable<OnlineLibrary.Models.Book>
+
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Header
+{
+    <nav class="navbar navbar-expand-sm bg-dark">
+        <ul class="navbar-nav">
+            <li class="nav-item ">
+                <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new { style = @"text-decoration:none;", @class = "text-white" })</h4>
+            </li>
+        </ul>
+    </nav>
+    <br>
+    <div class="container" name="onlineLibraryLogo">
+        <div class="row text-center">
+            <div class="col-md-12 col-sm-12 ">
+                <h1 class="display-1">Online Library</h1>
+            </div>
+        </div>
+    </div>
+}
+
+@section Body
+{
+    <div class="container" name="loansContainer">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h5 class="">Top 3 Rented Books of the Month</h5>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-body" style="border-style: solid; border-color:black; border-radius:5px; border-width:1px; background-color:rgb(251, 251, 251);">
+                <div class="row">
+                    @Html.Action("ReturnTopLoans")
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" name="categoriesContainer">
+
+    </div>
+}
