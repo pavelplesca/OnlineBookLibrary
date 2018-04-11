@@ -161,6 +161,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Book\BookDetails.cshtml" />
     <Content Include="Views\Book\_TopLoans.cshtml" />
+    <Content Include="Views\Book\_BookPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -181,6 +182,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Migrations\201804101222035_InitialCreate.cs" />
     <Compile Include="Migrations\201804101222035_InitialCreate.Designer.cs">
       <DependentUpon>201804101222035_InitialCreate.cs</DependentUpon>
