@@ -25,5 +25,19 @@ namespace OnlineLibrary.Controllers
             if (Book == null) return RedirectToAction("Index", "Home");
             return View(Book);
         }
+
+        [ChildActionOnly]
+        public ActionResult TopLoans()
+        {
+            IEnumerable<Book> loans = _db.Books.ToList().Take(3);
+
+            return PartialView("_TopLoans", loans);
+        }
+
+        [ChildActionOnly]
+        public ActionResult BookPage(int page)
+        {
+            return PartialView("_BookPage", _db.Books.Skip(page * 6).Take(6));
+        }
     }
 }
