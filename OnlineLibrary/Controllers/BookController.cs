@@ -18,10 +18,11 @@ namespace OnlineLibrary.Controllers
 
         private OnlineLibraryDb _db = new OnlineLibraryDb();
 
-        public ActionResult BookDetails(int id)
+        public ActionResult BookDetails(int? id)
         {
             
             var Book = _db.Books.ToList().Where(x=> x.Id == id).FirstOrDefault();
+            
             return View(Book);
         }
     }
