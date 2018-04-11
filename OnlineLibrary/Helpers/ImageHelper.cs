@@ -20,3 +20,4 @@ namespace OnlineLibrary.Helpers
             return MvcHtmlString.Create(tagBuilder.ToString(TagRenderMode.SelfClosing));
         }
     }
+}
