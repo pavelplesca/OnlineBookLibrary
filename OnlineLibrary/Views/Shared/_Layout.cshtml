@@ -12,26 +12,21 @@
 </head>
 <body>
 
-    
-        <div class="row">
-            <div class="col-lg-12 ">
-                <h1 style="text-align: center" >Online Library</h1>
-            </div>
-        </div>
-   
-
-<div class="container">
-    @RenderBody()
-</div>
-
-<footer class="footer">
-    <div class="container ">
-        <span class="text-muted  "><p class="text-center">&copy; @DateTime.Now.Year - Endava Online Book Library.</p></span>
+    <div>
+        @RenderSection("Header", false)
     </div>
-</footer>
+    <div>
+        @RenderSection("Body", true)
+    </div>
 
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
-<script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <footer class="footer">
+        <div class="container ">
+            <span class="text-muted  "><p class="text-center">&copy; @DateTime.Now.Year - Endava Online Book Library.</p></span>
+        </div>
+    </footer>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
 </body>
 </html>
