@@ -3,6 +3,7 @@ solution: "./OnlineLibrary.sln"
 script: 
   - xbuild /p:Configuration=Release ./OnlineLibrary.sln
 deploy:
+  skip_cleanup: true
   provider: azure_web_apps
   on:
     branch: master
