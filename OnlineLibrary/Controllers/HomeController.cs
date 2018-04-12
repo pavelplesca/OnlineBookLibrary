@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using PagedList.Mvc;
 
 namespace OnlineLibrary.Controllers
 {
@@ -11,12 +13,11 @@ namespace OnlineLibrary.Controllers
     {
         private OnlineLibraryDb _db = new OnlineLibraryDb();
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var Books = _db.Books.ToList(); 
+            var Books = _db.Books.ToList().ToPagedList(page ?? 1, 3 ); 
             return View(Books);
         }
-
 
         protected override void Dispose(bool disposing)
         {
