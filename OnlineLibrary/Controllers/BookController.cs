@@ -37,7 +37,9 @@ namespace OnlineLibrary.Controllers
         [ChildActionOnly]
         public ActionResult BookPage(int page)
         {
-            return PartialView("_BookPage", _db.Books.Skip(page * 6).Take(6).ToList());
+            
+            
+            return PartialView("_BookPage", _db.Books.ToList().Skip(page * 6).Take(6));
         }
     }
 }
