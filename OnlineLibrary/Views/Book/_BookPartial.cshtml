@@ -2,18 +2,16 @@
 @model OnlineLibrary.Models.Book
 
 <div class="row">
-    <div class="col-md-6 col-sm-12">
-        @Html.Image($"/Content/Images/Books/{Model.Image}", "112px", "175px", "padding:5px;", "empty")
+    <div class=" col-md-6">
+        <a href="@Url.Action("BookDetails","Book",new {id = Model.Id})">
+            @Html.Image($"/Content/Images/Books/{Model.Image}", "112px", "175px", "padding:5px;", "card-img-top")
+        </a>
     </div>
-    <div class="col-md-6 col-sm-12 text-left">
-        <div class="row">
-            <div class="col-md-12">@Model.Name</div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">@Model.Year</div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">@Model.Author</div>
+    <div class=" col-md-6">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Name</h5>
+            <h6 class="card-text">@Model.Year</h6>
+            <h6 class="card-text">@Model.Author</h6>
         </div>
     </div>
 </div>
