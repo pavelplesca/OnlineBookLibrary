@@ -13,8 +13,8 @@ namespace OnlineLibrary.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            var Books = _db.Books.ToList(); 
-            return View(Books);
+           
+            return RedirectToAction("Index","Book");
         }
 
 
