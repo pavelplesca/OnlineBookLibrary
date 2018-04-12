@@ -162,6 +162,8 @@
     <Content Include="Views\Book\BookDetails.cshtml" />
     <Content Include="Views\Book\_TopLoans.cshtml" />
     <Content Include="Views\Book\_BookPage.cshtml" />
+    <Content Include="Views\Book\Index.cshtml" />
+    <Content Include="Views\Book\_BookPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
