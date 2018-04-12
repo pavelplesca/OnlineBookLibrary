@@ -29,13 +29,43 @@
     <div class="container" name="loansContainer">
         <div class="row">
             <div class="col-sm-12 text-center">
-                <h5 class="">Top 3 Rented Books of the Month</h5>
+                <h5>Top 3 Rented Books of the Month</h5>
             </div>
         </div>
-     @Html.Action("TopLoans")
+        @Html.Action("TopLoans")
     </div>
-
-    <div class="container-fluid" name="categoriesContainer">
-
+    <br />
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <h5>Available books</h5>
+        </div>
+    </div>
+    <div class="container" name="categoriesContainer">
+        <div class="card text-white" style="background-color:black;">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-2 col-sm-12">
+                        <h5>Select a category</h5>
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Category
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Action 1</a>
+                                <a class="dropdown-item" href="#">Action 2</a>
+                                <a class="dropdown-item" href="#">Action 3</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                @Html.Action("TopLoans")
+            </div>
+        </div>
     </div>
 }
