@@ -36,10 +36,16 @@ namespace OnlineLibrary.Controllers
 
         [ChildActionOnly]
         public ActionResult BookPage(int page)
-        {
-            
+        {       
             
             return PartialView("_BookPage", _db.Books.ToList().Skip(page * 6).Take(6));
+        }
+
+        [ChildActionOnly]
+        public ActionResult getTags()
+        {
+            var tags = _db.Tags.ToList();
+            return PartialView("_TagsView", tags);
         }
     }
 }
