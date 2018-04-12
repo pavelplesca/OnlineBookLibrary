@@ -1,24 +1,18 @@
 ﻿@model IEnumerable<OnlineLibrary.Models.Book>
-<div class="card-deck">
-    <div class="card text-black" style="background-color:white;">
-        @Html.Partial("_BookPartial", Model.ElementAt(0))
-    </div>
-    <div class="card text-black" style="background-color:white;">
-        @Html.Partial("_BookPartial", Model.ElementAt(1))
-    </div>
-    <div class="card text-black" style="background-color:white;">
-        @Html.Partial("_BookPartial", Model.ElementAt(2))
-    </div>
-</div>
-<br />
-<div class="card-deck">
-    <div class="card text-black" style="background-color:white;">
-        @Html.Partial("_BookPartial", Model.ElementAt(3))
-    </div>
-    <div class="card text-black" style="background-color:white;">
-        @Html.Partial("_BookPartial", Model.ElementAt(4))
-    </div>
-    <div class="card text-black" style="background-color:white;">
-        @Html.Partial("_BookPartial", Model.ElementAt(5))
-    </div>
-</div>
+
+@{
+    int nrOfBooks = Model.Count();
+}
+
+@if (nrOfBooks < 3)
+{
+    @Html.Partial("_RowOfBooks", Model)
+}
+else
+{
+    @Html.Partial("_RowOfBooks", Model.Take(3))
+    <br />
+    @Html.Partial("_RowOfBooks", Model.Skip(3))
+}
+
+
