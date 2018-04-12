@@ -7,7 +7,7 @@
 
 @section Header
 {
-    <nav class="navbar navbar-expand-sm bg-dark">
+    <nav class="navbar navbar-expand-sm" style="background-color:black;">
         <ul class="navbar-nav">
             <li class="nav-item ">
                 <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new { style = @"text-decoration:none;", @class = "text-white" })</h4>
@@ -32,14 +32,7 @@
                 <h5 class="">Top 3 Rented Books of the Month</h5>
             </div>
         </div>
-
-        <div class="panel panel-primary">
-            <div class="panel-body" style="border-style: solid; border-color:black; border-radius:5px; border-width:1px; background-color:rgb(251, 251, 251);">
-                <div class="row">
-                    @Html.Action("TopLoans")
-                </div>
-            </div>
-        </div>
+     @Html.Action("TopLoans")
     </div>
 
     <div class="container-fluid" name="categoriesContainer">
