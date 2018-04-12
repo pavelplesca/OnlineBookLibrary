@@ -4,7 +4,7 @@
     int nrOfBooks = Model.Count();
 }
 
-@if (nrOfBooks < 3)
+@if (nrOfBooks <= 3)
 {
     @Html.Partial("_RowOfBooks", Model)
 }
