@@ -1,11 +1,13 @@
 ﻿@model IEnumerable<OnlineLibrary.Models.Book>
 
-<div class="col-md-4 col-sm-4">
-    @Html.Partial("_BookPartial", Model.ElementAt(0))
-</div>
-<div class="col-md-4 col-sm-4">
-    @Html.Partial("_BookPartial", Model.ElementAt(1))
-</div>
-<div class="col-md-4 col-sm-4">
-    @Html.Partial("_BookPartial", Model.ElementAt(2))
+<div class="card-deck ">
+    <div class="card text-white" style="background-color:black;">
+        @Html.Partial("_BookPartial", Model.ElementAt(0))
+    </div>
+    <div class="card text-white" style="background-color:black;">
+        @Html.Partial("_BookPartial", Model.ElementAt(1))
+    </div>
+    <div class="card text-white" style="background-color:black;">
+        @Html.Partial("_BookPartial", Model.ElementAt(2))
+    </div>
 </div>
