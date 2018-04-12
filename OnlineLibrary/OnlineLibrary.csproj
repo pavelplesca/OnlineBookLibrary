@@ -166,6 +166,7 @@
     <Content Include="Views\Book\_BookPartial.cshtml" />
     <Content Include="Views\Book\_BooksContainer.cshtml" />
     <Content Include="Views\Book\_TagDropdown.cshtml" />
+    <Content Include="Views\Book\_RowOfBooks.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
