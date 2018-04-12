@@ -12,6 +12,7 @@ namespace OnlineLibrary.Controllers
         // GET: Book
         public ActionResult Index()
         {
+            ViewBag.Page = 1;
             return View();
         }
 
@@ -34,16 +35,30 @@ namespace OnlineLibrary.Controllers
             return PartialView("_TopLoans", loans);
         }
 
-        [ChildActionOnly]
+//        [ChildActionOnly]
         public ActionResult BookPage(int page)
         {
-            return PartialView("_BookPage", _db.Books.ToList().Take(3));
+            ViewBag.Page = page;
+            return PartialView("_BookPage", _db.Books.ToList().Skip((page-1)*6).Take(6));
+        }
+
+        public ActionResult TaggedBookPage(int page, string tag)
+        {
+            if (tag is null || tag == "All")
+            {
+                return BookPage(page);
+            }
+            return PartialView("_BookPage", _db.Books.Where(b => b.Tags.Select(t => t.Name).Contains(tag))
+                .ToList()
+                .Skip((page - 1) * 6)
+                .Take(6));
         }
 
         [ChildActionOnly]
         public ActionResult ReturnTags()
         {
-            var tags = _db.Tags.ToList();
+            var tags = new List<Tag>(){new Tag(){Id = 0, Name = "All"}};
+            tags.AddRange(_db.Tags.ToList()); 
             return PartialView("_TagDropdown", tags);
         }
     }

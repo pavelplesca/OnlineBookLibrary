@@ -38,4 +38,42 @@
     <br />
     <br />
     @Html.Partial("_BooksContainer")
+    
+    <script>
+        $(function () {
+            $("select").change(
+                function() {
+                    $("#books-container").load("@Url.Action("TaggedBookPage","Book")/" +
+                        $("#currentPage").text() +
+                        "/" +
+                        $(this).val()
+                    );
+                });
+
+
+            $("#prev-button").click(
+                function () {
+                    let pagenum = parseInt($("#currentPage").text());
+                    if (pagenum > 1) pagenum--;
+                    $("#currentPage").text(pagenum);
+                    $("#books-container").load("@Url.Action("TaggedBookPage","Book")/" +
+                        pagenum +
+                        "/" +
+                        $("select").val()
+                    );
+                });
+
+            $("#next-button").click(
+                function () {
+                    let pagenum = parseInt($("#currentPage").text());
+                    pagenum++;
+                    $("#currentPage").text(pagenum);
+                    $("#books-container").load("@Url.Action("TaggedBookPage","Book")/" +
+                        pagenum +
+                        "/" +
+                        $("select").val()
+                    );
+                });
+        })
+    </script>
 }

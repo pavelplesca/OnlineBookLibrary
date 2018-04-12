@@ -17,19 +17,19 @@
                 </div>
             </div>
         </div>
-        <div class="card-body">
+        <div id="books-container" class="card-body">
             @Html.Action("BookPage", new { page = 0 })
         </div>
         <div class="card-footer">
             <div class="row">
                 <div class="col-md-4 text-center">
-                    <button type="button" class="btn btn-light">Prev</button>
+                    <button id="prev-button" type="button" class="btn btn-light">Prev</button>
                 </div>
                 <div class="col-md-4 text-center">
-                    <h5 class="text-white">Current page</h5>
+                    <h5 class="text-white">Current page <span id="currentPage">@ViewBag.Page</span></h5>
                 </div>
                 <div class="col-md-4 text-center">
-                    <button type="button" class="btn btn-light">Next</button>
+                    <button id="next-button" type="button" class="btn btn-light">Next</button>
                 </div>
             </div>
         </div>
