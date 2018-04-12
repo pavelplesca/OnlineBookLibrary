@@ -13,16 +13,7 @@
                     <h5>Select a category</h5>
                 </div>
                 <div class="col-md-6 col-sm-12">
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Category
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action 1</a>
-                            <a class="dropdown-item" href="#">Action 2</a>
-                            <a class="dropdown-item" href="#">Action 3</a>
-                        </div>
-                    </div>
+                    @Html.Action("ReturnTags", "Book")
                 </div>
             </div>
         </div>
