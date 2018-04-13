@@ -38,20 +38,23 @@ namespace OnlineLibrary.Controllers
 //        [ChildActionOnly]
         public ActionResult BookPage(int page)
         {
+            int maxPage = _db.Books.Count() / 6 +1;
+            ViewBag.maxpage = maxPage;
             ViewBag.Page = page;
             return PartialView("_BookPage", _db.Books.ToList().Skip((page-1)*6).Take(6));
         }
 
         public ActionResult TaggedBookPage(int page, string tag)
         {
+            var books =_db.Books.Where(b => b.Tags.Select(t => t.Name).Contains(tag));
+            int maxPage = (books.Count() / 6)+1;
+            ViewBag.maxpage = maxPage;
+
             if (tag is null || tag == "All")
             {
                 return BookPage(page);
             }
-            return PartialView("_BookPage", _db.Books.Where(b => b.Tags.Select(t => t.Name).Contains(tag))
-                .ToList()
-                .Skip((page - 1) * 6)
-                .Take(6));
+            return PartialView("_BookPage", books.ToList().Skip((page - 1) * 6).Take(6));
         }
 
         [ChildActionOnly]
@@ -63,3 +66,15 @@ namespace OnlineLibrary.Controllers
         }
     }
 }
+/*
+ * ViewBag.Page = page;
+            int booksOnPage = 6;
+            var books = _db.Books.ToList();
+
+            int maxPage = books.Count/ booksOnPage
+
+            books=(List<Book>)books.Skip((page - 1) * booksOnPage).Take(booksOnPage);
+            if (books.Count > 0) return PartialView("_BookPage", books);
+            else return Content("No any books");
+ *
+ */

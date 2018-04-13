@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<OnlineLibrary.Models.Book>
 
 @{
-    ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -34,45 +33,59 @@
         </div>
         @Html.Action("TopLoans")
     </div>
-    <br />
-    <br />
-    <br />
+    <br/>
+    <br/>
+    <br/>
     @Html.Partial("_BooksContainer")
-    
+
     <script>
-        $(function () {
+        $(function() {
+            var maxPage = $("#maxpage").text();
+
             $("select").change(
-                function() {
-                    $("#books-container").load("@Url.Action("TaggedBookPage","Book")/" +
+                function () {
+                    $("#currentPage").text("1");
+                    $("#books-container").load("@Url.Action("TaggedBookPage", "Book")/" +
                         $("#currentPage").text() +
                         "/" +
-                        $(this).val()
+                        $(this).val(),
+                        function() {
+                            maxPage = $("#maxpage").text();
+                            
+                        }
                     );
+                    
                 });
 
 
             $("#prev-button").click(
-                function () {
+                function() {
                     let pagenum = parseInt($("#currentPage").text());
-                    if (pagenum > 1) pagenum--;
-                    $("#currentPage").text(pagenum);
-                    $("#books-container").load("@Url.Action("TaggedBookPage","Book")/" +
-                        pagenum +
-                        "/" +
-                        $("select").val()
-                    );
+                    if (pagenum > 1) {
+                        pagenum--;
+                        $("#currentPage").text(pagenum);
+                        $("#books-container").load("@Url.Action("TaggedBookPage", "Book")/" +
+                            pagenum +
+                            "/" +
+                            $("select").val()
+                        );
+                    }
                 });
 
             $("#next-button").click(
-                function () {
+                function() {
                     let pagenum = parseInt($("#currentPage").text());
-                    pagenum++;
-                    $("#currentPage").text(pagenum);
-                    $("#books-container").load("@Url.Action("TaggedBookPage","Book")/" +
-                        pagenum +
-                        "/" +
-                        $("select").val()
-                    );
+
+                    if (pagenum < maxPage) {
+                        pagenum++;
+
+                        $("#currentPage").text(pagenum);
+                        $("#books-container").load("@Url.Action("TaggedBookPage", "Book")/" +
+                            pagenum +
+                            "/" +
+                            $("select").val()
+                        );
+                    }
                 });
         })
     </script>
