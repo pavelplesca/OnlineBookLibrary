@@ -42,6 +42,9 @@
         $(function() {
             var maxPage = $("#maxpage").text();
 
+            $('#maxPageSpan').text(maxPage);
+            
+
             $("select").change(
                 function () {
                     $("#currentPage").text("1");
@@ -51,6 +54,7 @@
                         $(this).val(),
                         function() {
                             maxPage = $("#maxpage").text();
+                            $('#maxPageSpan').text(maxPage);
                             
                         }
                     );
