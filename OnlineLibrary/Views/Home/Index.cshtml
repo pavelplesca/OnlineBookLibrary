@@ -4,31 +4,39 @@
     ViewBag.Title = "Home";
 }
 
-<div class="row">
-    @foreach (var book in Model)
-    {
-        <div class="col-lg-4">
-            <div class="card " >
-               <div class="row">
-                    <div class="col-md-6">
-                        <div class="card-img-bottom">
-                            
-                            <a href="@Url.Action("BookDetails","Book",new {id = book.Id})"><img class="card-img-top  mx-auto d-block" src="~/Content/Images/Books/@book.Image" alt="Card image cap"></a>
+@section Header
+{
+}
+
+@section Body
+{
+    <div class="row">
+        @foreach (var book in Model)
+        {
+            <div class="col-lg-4">
+                <div class="card ">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card-img-bottom">
+
+                                <a href="@Url.Action("BookDetails","Book",new {id = book.Id})"><img class="card-img-top  mx-auto d-block" src="~/Content/Images/Books/@book.Image" alt="Card image cap"></a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card-body">
-                            
-                            <h5 class="card-title">@book.Name</h5>
-                            <p class="card-text">Cras convallis ut turpis vitae facilisis. </p>
-                            <a href="@Url.Action("BookDetails","Book",new {id = book.Id})" class="btn btn-primary">Details</a>
+                        <div class="col-md-6">
+                            <div class="card-body">
+
+                                <h5 class="card-title">@book.Name</h5>
+                                <p class="card-text">Cras convallis ut turpis vitae facilisis. </p>
+                                <a href="@Url.Action("BookDetails","Book",new {id = book.Id})" class="btn btn-primary">Details</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
+        }
 
     </div>
- 
+}
+
+
 

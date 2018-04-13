@@ -111,6 +111,14 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="packages.config" />
+    <Content Include="Content\Images\Books\aspnet.jpg" />
+    <Content Include="Content\Images\Books\a_brief_history_of_time.jpg" />
+    <Content Include="Content\Images\Books\CSharpInANutshell.jpg" />
+    <Content Include="Content\Images\Books\DarkTower1.JPG" />
+    <Content Include="Content\Images\Books\GameOfThrones.jpg" />
+    <Content Include="Content\Images\Books\HarryPotter1.jpg" />
+    <Content Include="Content\Images\Books\java.jpg" />
+    <Content Include="Content\Images\Books\ReadyPlayerOne.jpg" />
     <Content Include="Content\sticky-footer.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -160,6 +168,13 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Book\BookDetails.cshtml" />
+    <Content Include="Views\Book\_TopLoans.cshtml" />
+    <Content Include="Views\Book\_BookPage.cshtml" />
+    <Content Include="Views\Book\Index.cshtml" />
+    <Content Include="Views\Book\_BookPartial.cshtml" />
+    <Content Include="Views\Book\_BooksContainer.cshtml" />
+    <Content Include="Views\Book\_TagDropdown.cshtml" />
+    <Content Include="Views\Book\_RowOfBooks.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -180,6 +195,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Migrations\201804101222035_InitialCreate.cs" />
     <Compile Include="Migrations\201804101222035_InitialCreate.Designer.cs">
       <DependentUpon>201804101222035_InitialCreate.cs</DependentUpon>
@@ -195,9 +211,7 @@
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\Images\Books\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>

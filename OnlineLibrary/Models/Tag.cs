@@ -15,5 +15,10 @@ namespace OnlineLibrary.Models
         {
             Books = new List<Book>();
         }
+
+        public override string ToString()
+        {
+            return this.Name.ToString();
+        }
     }
 }

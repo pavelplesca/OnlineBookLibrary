@@ -13,8 +13,8 @@ namespace OnlineLibrary.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            var Books = _db.Books.ToList(); 
-            return View(Books);
+           
+            return RedirectToAction("Index","Book");
         }
 
 
@@ -45,7 +45,11 @@ namespace OnlineLibrary.Controllers
                 Author = "Stephen King",
                 Description = "Blablabla",
                 Image = "DarkTower1.jpg",
-                Year = 2018
+                Year = 2018,
+                Tags = new List<Tag>()
+                {
+                    _db.Tags.Find(6)
+                }
             });
 
             _db.Books.Add(new Book
@@ -55,7 +59,11 @@ namespace OnlineLibrary.Controllers
                 Author = "J. K. Rolling",
                 Description = "Blablabla",
                 Image = "HarryPotter1.jpg",
-                Year = 2018
+                Year = 2018,
+                Tags = new List<Tag>()
+                {
+                    _db.Tags.Find(6)
+                }
             });
             _db.Books.Add(new Book
             {
@@ -64,7 +72,11 @@ namespace OnlineLibrary.Controllers
                 Author = "Stephen Hawking",
                 Description = "Blablabla",
                 Image = "a_brief_history_of_time.jpg",
-                Year = 2018
+                Year = 2018,
+                Tags = new List<Tag>()
+                {
+                    _db.Tags.Find(6)
+                }
             });
             _db.Books.Add(new Book
             {
@@ -73,7 +85,11 @@ namespace OnlineLibrary.Controllers
                 Author = "G. R. R. Martin",
                 Description = "Blablabla",
                 Image = "GameOfThrones.jpg",
-                Year = 2018
+                Year = 2018,
+                Tags = new List<Tag>()
+                {
+                    _db.Tags.Find(6)
+                }
             });
 
             _db.Books.Add(new Book
@@ -83,18 +99,58 @@ namespace OnlineLibrary.Controllers
                 Author = "Ernest Cline",
                 Description = "Blablabla",
                 Image = "ReadyPlayerOne.jpg",
-                Year = 2018
+                Year = 2018,
+                Tags = new List<Tag>()
+                {
+                    _db.Tags.Find(6)
+                }
             });
 
             _db.Books.Add(new Book
             {
                 Id = 6,
-                Name = "CSharpInANutshell",
+                Name = "C# In A Nutshell",
                 Author = "Joseph Albahari",
                 Description = "Blablabla",
                 Image = "CSharpInANutshell.jpg",
-                Year = 2018
+                Year = 2018,
+                Tags = new List<Tag>()
+                {
+                    _db.Tags.Find(5)
+                }
             });
+
+            _db.Books.Add(new Book
+            {
+                Id = 7,
+                Name = "Java In A Nutshell",
+                Author = "Author A. B.",
+                Description = "Blablabla",
+                Image = "java.jpg",
+                Year = 2018,
+                Tags = new List<Tag>()
+                {
+                    _db.Tags.Find(5),
+                    _db.Tags.Find(1)
+                }
+            });
+
+            _db.Books.Add(new Book
+            {
+                Id = 8,
+                Name = "Asp.NET 4",
+                Author = "John Smith",
+                Description = "Blablabla",
+                Image = "aspnet.jpg",
+                Year = 2018,
+                Tags = new List<Tag>()
+                {
+                    _db.Tags.Find(5),
+                    _db.Tags.Find(4)
+                }
+            });
+
+            
 
             _db.SaveChanges();
             
