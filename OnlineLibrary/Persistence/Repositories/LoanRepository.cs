@@ -15,10 +15,35 @@ namespace OnlineLibrary.Persistence.Repositories
             context = new OnlineLibraryDb();
         }      
 
-        public void DisposeAndSave()
+        public void SaveAndDispose()
         {
             context.SaveChanges();
             context.Dispose();
+        }
+
+        public void CreateLoan(int bookID, int userID)
+        {
+            context.Loans.Add(
+                new Loan
+                {
+                    BorrowDate = DateTime.Now,
+                    DueDate = DateTime.Now.AddDays(7),
+                    ReturnedDate = null,
+                    Status = Status.NowRenting,
+                    BookID = bookID,
+                    UserID = userID
+                });
+        }
+
+        public void CancelLoan(int bookID, int userID)
+        {
+            Loan canceledLoan = context.Loans.Where(x => x.BookID == bookID && x.UserID == userID).SingleOrDefault();
+            context.Loans.Remove(canceledLoan);
+        }
+
+        public ICollection<Loan> ReturnLoans(int userID)
+        {
+            return context.Loans.Where(x => x.UserID == userID).ToList();
         }
     }
 }
