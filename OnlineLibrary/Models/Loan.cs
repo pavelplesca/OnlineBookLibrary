@@ -35,5 +35,20 @@ namespace OnlineLibrary.Models
         
         [Required]
         public Book Book { get; set; }
+
+        #region Constructors
+        public Loan() { }
+
+        public Loan(int iD, DateTime returnDate, DateTime borrowDate, DateTime returnedDate, Status status, int bookID, Book book)
+        {
+            ID = iD;
+            ReturnDate = returnDate;
+            BorrowDate = borrowDate;
+            ReturnedDate = returnedDate;
+            Status = status;
+            BookID = bookID;
+            Book = book;
+        }
+        #endregion
     }
 }
