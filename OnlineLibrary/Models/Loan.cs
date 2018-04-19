@@ -8,8 +8,8 @@ namespace OnlineLibrary.Models
 {
     public enum Status
     {
-        Active,
-        Canceled,
+        NowRenting,
+        Rented,
         Violated
     }
 
@@ -19,7 +19,7 @@ namespace OnlineLibrary.Models
         public int ID { get; set; }
 
         [Required]
-        public DateTime ReturnDate { get; set; }
+        public DateTime DueDate { get; set; }
 
         [Required]
         public DateTime BorrowDate { get; set; }
@@ -42,7 +42,7 @@ namespace OnlineLibrary.Models
         public Loan(int iD, DateTime returnDate, DateTime borrowDate, DateTime returnedDate, Status status, int bookID, Book book)
         {
             ID = iD;
-            ReturnDate = returnDate;
+            DueDate = returnDate;
             BorrowDate = borrowDate;
             ReturnedDate = returnedDate;
             Status = status;
