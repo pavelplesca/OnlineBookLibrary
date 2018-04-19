@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace OnlineLibrary.Controllers
 {
@@ -17,8 +18,9 @@ namespace OnlineLibrary.Controllers
         }
 
         public ActionResult DisplayLoans()
-        {          
-            return View();
+        {
+            var result = context.Loans.Include(x => x.Book);
+            return View(result);
         }
 
         public ActionResult CreateLoan(Book book)
@@ -31,8 +33,7 @@ namespace OnlineLibrary.Controllers
                         BorrowDate = DateTime.Now,
                         DueDate = DateTime.Now.AddDays(7),
                         ReturnedDate = null, 
-                        Status = Status.NowRenting,
-                        Book = book,
+                        Status = Status.NowRenting,                    
                         BookID = book.Id                      
                     });
 
@@ -40,6 +41,16 @@ namespace OnlineLibrary.Controllers
             }
 
             return RedirectToAction("DisplayLoans");
+        }
+
+        public ActionResult CancelLoan(Book book)
+        {
+            Loan canceledLoan = context.Loans.Where(x => x.BookID == book.Id).SingleOrDefault();
+            context.Loans.Remove(canceledLoan);
+
+            context.SaveChanges();
+
+            return RedirectToAction("DisplayLoans"); ;
         }
 
         protected override void Dispose(bool disposing)
