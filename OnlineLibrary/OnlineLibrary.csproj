@@ -207,6 +207,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="Models\Loan.cs" />
     <Compile Include="Models\OnlineLibraryDb.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
