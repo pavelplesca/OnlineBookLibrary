@@ -12,7 +12,7 @@ namespace OnlineLibrary.Models
         public OnlineLibraryDb()
         {
             this.Database.Connection.ConnectionString =
-                ConfigurationManager.ConnectionStrings["onlinelibrary2018"].ConnectionString;
+                ConfigurationManager.ConnectionStrings["DBConnection"].ConnectionString;
         }
 
         public DbSet<Book> Books { get; set; }

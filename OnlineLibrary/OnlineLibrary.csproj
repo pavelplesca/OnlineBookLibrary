@@ -206,6 +206,10 @@
     <Compile Include="Migrations\201804101504200_AddTagsMigration.Designer.cs">
       <DependentUpon>201804101504200_AddTagsMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804190715596_LoansTestUsersAdd.cs" />
+    <Compile Include="Migrations\201804190715596_LoansTestUsersAdd.Designer.cs">
+      <DependentUpon>201804190715596_LoansTestUsersAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\HomeModel.cs" />
@@ -228,6 +232,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804101504200_AddTagsMigration.resx">
       <DependentUpon>201804101504200_AddTagsMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804190715596_LoansTestUsersAdd.resx">
+      <DependentUpon>201804190715596_LoansTestUsersAdd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
