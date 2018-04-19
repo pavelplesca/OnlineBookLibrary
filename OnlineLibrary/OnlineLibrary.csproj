@@ -175,6 +175,7 @@
     <Content Include="Views\Book\_BooksContainer.cshtml" />
     <Content Include="Views\Book\_TagDropdown.cshtml" />
     <Content Include="Views\Book\_RowOfBooks.cshtml" />
+    <Content Include="Views\Loan\DisplayLoans.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -214,9 +215,7 @@
     <Compile Include="Models\TestUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Loan\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>

@@ -21,19 +21,25 @@ namespace OnlineLibrary.Controllers
         public List<Loan> loans = new List<Loan>
         {
             new Loan(1, DateTime.Parse("2009/02/26 18:37:58"), DateTime.Now,
-                DateTime.MinValue, Status.Active, 0, null),
+                DateTime.MinValue, Status.NowRenting, 0, null),
             new Loan(2, DateTime.Parse("2009/02/26 18:37:58"), DateTime.Now,
-                DateTime.MinValue, Status.Active, 0, null),
+                DateTime.MinValue, Status.NowRenting, 0, null),
             new Loan(3, DateTime.Parse("2009/02/26 18:37:58"), DateTime.Now,
-                DateTime.MinValue, Status.Active, 0, null),
+                DateTime.MinValue, Status.NowRenting, 0, null),
         };
 
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult DisplayLoans()
+        {
             loans[0].BookID = 1;
-            loans[0].Book = new Book {
+            loans[0].Book = new Book
+            {
                 Author = "Chris Nirones",
-                Id = 1, 
+                Id = 1,
                 Name = "How to survive life",
                 Year = 2018
             };
