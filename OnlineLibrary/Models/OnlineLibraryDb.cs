@@ -17,6 +17,8 @@ namespace OnlineLibrary.Models
 
         public DbSet<Book> Books { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Loan> Loans { get; set; }
+        public DbSet<TestUser> TestUsers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
