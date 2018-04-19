@@ -22,7 +22,23 @@ namespace OnlineLibrary.Controllers
         }
 
         public ActionResult CreateLoan(Book book)
-        {           
+        {
+            if (book != null)
+            {
+                context.Loans.Add(
+                    new Loan
+                    {
+                        BorrowDate = DateTime.Now,
+                        DueDate = DateTime.Now.AddDays(7),
+                        ReturnedDate = null, 
+                        Status = Status.NowRenting,
+                        Book = book,
+                        BookID = book.Id                      
+                    });
+
+                context.SaveChanges();
+            }
+
             return RedirectToAction("DisplayLoans");
         }
 
