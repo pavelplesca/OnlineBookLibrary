@@ -218,6 +218,14 @@
     <Compile Include="Migrations\201804191353445_LoanBookPropertyRemoved.Designer.cs">
       <DependentUpon>201804191353445_LoanBookPropertyRemoved.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804191412151_AddedUserPropToLoan.cs" />
+    <Compile Include="Migrations\201804191412151_AddedUserPropToLoan.Designer.cs">
+      <DependentUpon>201804191412151_AddedUserPropToLoan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804191417005_BrokeStuff.cs" />
+    <Compile Include="Migrations\201804191417005_BrokeStuff.Designer.cs">
+      <DependentUpon>201804191417005_BrokeStuff.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\HomeModel.cs" />
@@ -250,6 +258,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804191353445_LoanBookPropertyRemoved.resx">
       <DependentUpon>201804191353445_LoanBookPropertyRemoved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804191412151_AddedUserPropToLoan.resx">
+      <DependentUpon>201804191412151_AddedUserPropToLoan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804191417005_BrokeStuff.resx">
+      <DependentUpon>201804191417005_BrokeStuff.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
