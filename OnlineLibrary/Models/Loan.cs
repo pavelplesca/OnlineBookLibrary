@@ -32,7 +32,6 @@ namespace OnlineLibrary.Models
         [Required]
         public int BookID { get; set; }
         
-        [Required]
         public Book Book { get; set; }
 
         #region Constructors

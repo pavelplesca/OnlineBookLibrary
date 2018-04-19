@@ -214,6 +214,10 @@
     <Compile Include="Migrations\201804190850183_LoanReturnedDateModified.Designer.cs">
       <DependentUpon>201804190850183_LoanReturnedDateModified.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804191353445_LoanBookPropertyRemoved.cs" />
+    <Compile Include="Migrations\201804191353445_LoanBookPropertyRemoved.Designer.cs">
+      <DependentUpon>201804191353445_LoanBookPropertyRemoved.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\HomeModel.cs" />
@@ -242,6 +246,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804190850183_LoanReturnedDateModified.resx">
       <DependentUpon>201804190850183_LoanReturnedDateModified.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804191353445_LoanBookPropertyRemoved.resx">
+      <DependentUpon>201804191353445_LoanBookPropertyRemoved.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
