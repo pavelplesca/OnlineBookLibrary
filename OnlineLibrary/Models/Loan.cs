@@ -24,8 +24,7 @@ namespace OnlineLibrary.Models
         [Required]
         public DateTime BorrowDate { get; set; }
 
-        [Required]
-        public DateTime ReturnedDate { get; set; }
+        public DateTime? ReturnedDate { get; set; }
 
         [Required]
         public Status Status { get; set; }
