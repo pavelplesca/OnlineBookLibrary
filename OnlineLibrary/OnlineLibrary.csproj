@@ -225,6 +225,7 @@
     <Compile Include="Models\OnlineLibraryDb.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\TestUser.cs" />
+    <Compile Include="Persistence\Repositories\LoanRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
