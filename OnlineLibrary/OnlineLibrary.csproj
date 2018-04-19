@@ -175,6 +175,7 @@
     <Content Include="Views\Book\_BooksContainer.cshtml" />
     <Content Include="Views\Book\_TagDropdown.cshtml" />
     <Content Include="Views\Book\_RowOfBooks.cshtml" />
+    <Content Include="Views\User\Authentication.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
