@@ -22,7 +22,7 @@ namespace OnlineLibrary.Persistence.Repositories
             context.Dispose();
         }
 
-        public void CreateLoan(int bookID, int userID)
+        public void CreateLoan(int bookId, int userId)
         {
             context.Loans.Add(
                 new Loan
@@ -31,25 +31,35 @@ namespace OnlineLibrary.Persistence.Repositories
                     DueDate = DateTime.Now.AddDays(7),
                     ReturnedDate = null,
                     Status = Status.NowRenting,
-                    BookID = bookID,
-                    UserID = userID
+                    BookID = bookId,
+                    UserID = userId
                 });
         }
 
-        public void CancelLoan(int bookID, int userID)
+        public void CancelLoan(int bookId, int userId)
         {
-            Loan canceledLoan = context.Loans.Where(x => x.BookID == bookID && x.UserID == userID).SingleOrDefault();
+            Loan canceledLoan = context.Loans
+                .Where(x => x.BookID == bookId && x.UserID == userId)
+                .SingleOrDefault();
+
             context.Loans.Remove(canceledLoan);
         }
 
-        public IQueryable<Loan> ReturnLoanHistory(int userID)
+        public IQueryable<Loan> ReturnLoanHistory(int userId)
         {
-            return context.Loans.Where(x => x.UserID == userID && x.Status != Status.NowRenting).Include(z => z.Book).Include(y => y.Book.Tags);
+            return context.Loans
+                .Where(x => x.UserID == userId && x.Status != Status.NowRenting)
+                .Include(z => z.Book)
+                .Include(y => y.Book.Tags);
         }
 
-        public Loan ReturnActiveLoan(int userID)
+        public Loan ReturnActiveLoan(int userId)
         {
-            return context.Loans.Where(x => x.UserID == userID && x.Status == Status.NowRenting).Include(z => z.Book).Include(y => y.Book.Tags).SingleOrDefault();
+            return context.Loans
+                .Where(x => x.UserID == userId && x.Status == Status.NowRenting)
+                .Include(z => z.Book)
+                .Include(y => y.Book.Tags)
+                .SingleOrDefault();
         }
     }
 }
