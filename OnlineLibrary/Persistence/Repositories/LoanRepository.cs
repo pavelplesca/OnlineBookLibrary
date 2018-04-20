@@ -44,12 +44,12 @@ namespace OnlineLibrary.Persistence.Repositories
 
         public IQueryable<Loan> ReturnLoanHistory(int userID)
         {
-            return context.Loans.Where(x => x.UserID == userID && x.Status != Status.NowRenting).Include(z => z.Book);
+            return context.Loans.Where(x => x.UserID == userID && x.Status != Status.NowRenting).Include(z => z.Book).Include(y => y.Book.Tags);
         }
 
         public Loan ReturnActiveLoan(int userID)
         {
-            return context.Loans.Where(x => x.Status == Status.NowRenting).Include(z => z.Book).SingleOrDefault();
+            return context.Loans.Where(x => x.UserID == userID && x.Status == Status.NowRenting).Include(z => z.Book).Include(y => y.Book.Tags).SingleOrDefault();
         }
     }
 }
