@@ -32,66 +32,48 @@ namespace OnlineLibrary.Controllers
 
         [HttpGet]
         [ChildActionOnly]
-        public ActionResult DisplayHistory(int? userId)
+        public ActionResult DisplayHistory(int userId)
         {
-            if (userId.HasValue)
+            ICollection<Loan> loanHistory = loanRepository.ReturnLoanHistory(userId).ToList();
+
+            if(loanHistory.Count != 0)
             {
-                ICollection<Loan> loanHistory = loanRepository.ReturnLoanHistory(userId.Value).ToList();
-
-                if(loanHistory.Count != 0)
-                {
-                    return PartialView("LoanHistoryPartial", loanHistory);
-                }
-
-                return PartialView("EmptyHistoryPartial");
+                return PartialView("LoanHistoryPartial", loanHistory);
             }
 
-            return View("_Error");            
+            return PartialView("EmptyHistoryPartial");          
         }
 
         [HttpGet]
         [ChildActionOnly]
-        public ActionResult DisplayActiveLoan(int? userId)
+        public ActionResult DisplayActiveLoan(int userId)
         {
-            if (userId.HasValue)
+            Loan activeLoan = loanRepository.ReturnActiveLoan(userId);
+
+            if (activeLoan != null)
             {
-                Loan activeLoan = loanRepository.ReturnActiveLoan(userId.Value);
-
-                if (activeLoan != null)
-                {
-                    return PartialView("ActiveLoanPartial", activeLoan);
-                }
-
-                return PartialView("EmptyLoanPartial");
+                return PartialView("ActiveLoanPartial", activeLoan);
             }
 
-            return View("_Error");
+            return PartialView("EmptyLoanPartial");
         }
         
         [HttpPost]
-        public ActionResult CreateLoan(int? bookId, int? userId)
+        public ActionResult CreateLoan(int bookId, int userId)
         {
-            if(bookId.HasValue && userId.HasValue)
-            {
-                loanRepository.CreateLoan(bookId.Value, userId.Value);
-                loanRepository.SaveAndDispose();
+            loanRepository.CreateLoan(bookId, userId);
+            loanRepository.SaveAndDispose();
 
-                return RedirectToAction("DisplayLoans");
-            }
-            return View("_Error");
+            return RedirectToAction("DisplayLoans");            
         }
 
         [HttpPost]
-        public ActionResult CancelLoan(int? bookId, int? userId)
+        public ActionResult CancelLoan(int bookId, int userId)
         {
-            if (bookId.HasValue && userId.HasValue)
-            {
-                loanRepository.CancelLoan(bookId.Value, userId.Value);
-                loanRepository.SaveAndDispose();
+            loanRepository.CancelLoan(bookId, userId);
+            loanRepository.SaveAndDispose();
 
-                return RedirectToAction("DisplayLoans");
-            }
-            return View("_Error");
+            return RedirectToAction("DisplayLoans");
         }
 
         protected override void Dispose(bool disposing)
