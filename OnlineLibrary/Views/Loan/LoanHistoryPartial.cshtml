@@ -1,0 +1,26 @@
+﻿@using OnlineLibrary.Models
+@model ICollection<Loan>
+
+<div class="container">
+    <h2>Loaned books</h2>
+    <br />
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Book Title</th>
+                <th>Status</th>
+                <th>Due Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var loan in Model)
+            {
+                <tr>
+                    <th>@loan.Book.Name</th>
+                    <th>@loan.Status.ToString()</th>
+                    <th>@loan.DueDate</th>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
