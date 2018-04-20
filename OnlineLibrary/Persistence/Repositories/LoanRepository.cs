@@ -45,5 +45,10 @@ namespace OnlineLibrary.Persistence.Repositories
         {
             return context.Loans.Where(x => x.UserID == userID && x.Status != Status.NowRenting);
         }
+
+        public Loan ReturnActiveLoan(int userID)
+        {
+            return context.Loans.Where(x => x.Status == Status.NowRenting).SingleOrDefault();
+        }
     }
 }
