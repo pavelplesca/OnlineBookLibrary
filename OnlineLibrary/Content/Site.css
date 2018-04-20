@@ -26,3 +26,10 @@ img.card-img-top {
     -webkit-object-fit: contain;
     object-fit: contain;
 }
+
+
+.bot-buffer {
+    margin-bottom: 15px;
+}
+
+

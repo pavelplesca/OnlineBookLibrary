@@ -14,10 +14,10 @@ namespace OnlineLibrary.Controllers
             return View();
         }
 
-        [Route("User/Authentication")]
-        public ActionResult Authentication()
+        [Route("User/Login")]
+        public ActionResult Login()
         {
-            return View();
+            return View("Authentication");
         }
     }
 }

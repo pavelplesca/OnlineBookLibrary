@@ -18,5 +18,52 @@
 
 
 @section Body {
-  body  
+  <div class=" container">
+      <div class="row">
+          <div class="col-md-6" style="border: solid 1px black;">
+              <div class="row text-center">
+                  <div class="col-md-12">
+                      <h4 class="display-4 ">Log in</h4>
+                  </div>
+              </div>
+
+            
+              <form method="post" action="">
+                  <div class="row bot-buffer">
+                      <label for="username" class="col-sm-4">Username</label>
+                      <input type="text" class="col-sm-6" name="username" required />
+                  </div>
+                  <div class="row bot-buffer">
+                      <label for="password" class="col-sm-4">Password</label>
+                      <input type="password" class="col-sm-6" name="password" required />
+                  </div>
+                  <div class="row bot-buffer text-center">
+                      <div class="col-md-12 ">
+                          
+                              <input type="submit" class="btn btn-dark " value="Log in" />
+                         
+                      </div>
+                  </div>
+                  <div class="row bot-buffer ">
+                      <div class="col-md-12 text-center">
+                          <h5>OR</h5>
+                      </div>
+                  </div>
+
+                  <div class="col-md-12 text-center bot-buffer">
+                      <input type="button" class="btn btn-danger" value="Google" />
+                      <input type="button" class="btn btn-success" value="Facebook" />
+                  </div>
+              </form>
+            
+          </div>
+          <div class="col-md-6">
+              <div class="row text-center">
+                  <div class="col-md-12">
+                      <h4 class="display-4 ">Register user</h4>
+                  </div>
+              </div>
+          </div>
+    </div>
+ </div>
 }
