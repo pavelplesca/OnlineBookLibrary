@@ -52,10 +52,10 @@
         <br />
         <div class="row">
             <div class="col-md-4">
-                @Html.ActionLink("Rent book", "CreateLoan", "Loan", Model, new { @class = "btn btn-dark mx-auto" })
+                @Html.ActionLink("Rent book", "CreateLoan", "Loan", new { bookID = Model.Id, userID = 1 }, new { @class = "btn btn-dark mx-auto" })
             </div>
             <div class="col-md-4">
-                @Html.ActionLink("Return book", "CancelLoan", "Loan", Model, new { @class = "btn btn-dark mx-auto" })
+                @Html.ActionLink("Return book", "CancelLoan", "Loan", new { bookID = Model.Id, userID = 1 }, new { @class = "btn btn-dark mx-auto" })
             </div>
         </div>
     </div>
