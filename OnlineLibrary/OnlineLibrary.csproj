@@ -119,6 +119,7 @@
     <Content Include="Content\Images\Books\HarryPotter1.jpg" />
     <Content Include="Content\Images\Books\java.jpg" />
     <Content Include="Content\Images\Books\ReadyPlayerOne.jpg" />
+    <Content Include="Content\Images\Capture.PNG" />
     <Content Include="Content\sticky-footer.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.bundle.js" />
