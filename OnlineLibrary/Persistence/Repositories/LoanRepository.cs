@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 
 namespace OnlineLibrary.Persistence.Repositories
 {
@@ -43,12 +44,12 @@ namespace OnlineLibrary.Persistence.Repositories
 
         public IQueryable<Loan> ReturnLoanHistory(int userID)
         {
-            return context.Loans.Where(x => x.UserID == userID && x.Status != Status.NowRenting);
+            return context.Loans.Where(x => x.UserID == userID && x.Status != Status.NowRenting).Include(z => z.Book);
         }
 
         public Loan ReturnActiveLoan(int userID)
         {
-            return context.Loans.Where(x => x.Status == Status.NowRenting).SingleOrDefault();
+            return context.Loans.Where(x => x.Status == Status.NowRenting).Include(z => z.Book).SingleOrDefault();
         }
     }
 }
