@@ -18,22 +18,25 @@ namespace OnlineLibrary.Controllers
             loanRepository = new LoanRepository();
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult DisplayLoans(int? userID)
+        [HttpGet]
+        public ActionResult DisplayLoans()
         {       
             return View();
         }
 
+        [HttpGet]
         [ChildActionOnly]
-        public ActionResult DisplayHistory(int? userID)
+        public ActionResult DisplayHistory(int? userId)
         {
-            if (userID.HasValue)
+            if (userId.HasValue)
             {
-                ICollection<Loan> loanHistory = loanRepository.ReturnLoanHistory(userID.Value).ToList();
+                ICollection<Loan> loanHistory = loanRepository.ReturnLoanHistory(userId.Value).ToList();
 
                 if(loanHistory.Count != 0)
                 {
@@ -46,12 +49,13 @@ namespace OnlineLibrary.Controllers
             return View("_Error");            
         }
 
+        [HttpGet]
         [ChildActionOnly]
-        public ActionResult DisplayActiveLoan(int? userID)
+        public ActionResult DisplayActiveLoan(int? userId)
         {
-            if (userID.HasValue)
+            if (userId.HasValue)
             {
-                Loan activeLoan = loanRepository.ReturnActiveLoan(userID.Value);
+                Loan activeLoan = loanRepository.ReturnActiveLoan(userId.Value);
 
                 if (activeLoan != null)
                 {
@@ -63,12 +67,13 @@ namespace OnlineLibrary.Controllers
 
             return View("_Error");
         }
-
-        public ActionResult CreateLoan(int? bookID, int? userID)
+        
+        [HttpPost]
+        public ActionResult CreateLoan(int? bookId, int? userId)
         {
-            if(bookID.HasValue && userID.HasValue)
+            if(bookId.HasValue && userId.HasValue)
             {
-                loanRepository.CreateLoan(bookID.Value, userID.Value);
+                loanRepository.CreateLoan(bookId.Value, userId.Value);
                 loanRepository.SaveAndDispose();
 
                 return RedirectToAction("DisplayLoans");
@@ -76,11 +81,12 @@ namespace OnlineLibrary.Controllers
             return View("_Error");
         }
 
-        public ActionResult CancelLoan(int? bookID, int? userID)
+        [HttpPost]
+        public ActionResult CancelLoan(int? bookId, int? userId)
         {
-            if (bookID.HasValue && userID.HasValue)
+            if (bookId.HasValue && userId.HasValue)
             {
-                loanRepository.CancelLoan(bookID.Value, userID.Value);
+                loanRepository.CancelLoan(bookId.Value, userId.Value);
                 loanRepository.SaveAndDispose();
 
                 return RedirectToAction("DisplayLoans");
