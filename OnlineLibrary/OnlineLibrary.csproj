@@ -177,6 +177,10 @@
     <Content Include="Views\Book\_RowOfBooks.cshtml" />
     <Content Include="Views\Loan\DisplayLoans.cshtml" />
     <Content Include="Views\Shared\_Error.cshtml" />
+    <Content Include="Views\Loan\LoanHistoryPartial.cshtml" />
+    <Content Include="Views\Loan\EmptyHistoryPartial.cshtml" />
+    <Content Include="Views\Loan\ActiveLoanPartial.cshtml" />
+    <Content Include="Views\Loan\EmptyLoanPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

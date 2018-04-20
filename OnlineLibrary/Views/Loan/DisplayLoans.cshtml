@@ -1,77 +1,29 @@
-﻿@model IEnumerable<OnlineLibrary.Models.Loan>
+﻿@{
+    ViewBag.Title = "Details";
+}
 
-    @{
-        ViewBag.Title = "Details";
-    }
-
-    @section Header
+@section Header
 {
-        <nav class="navbar navbar-expand-sm" style="background-color:black;">
-            <ul class="navbar-nav">
-                <li class="nav-item ">
-                    <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new { style = @"text-decoration:none;", @class = "text-white" })</h4>
-                </li>
-            </ul>
-        </nav>
-        <br>
-        <div class="container" name="onlineLibraryLogo">
-            <div class="row text-center">
-                <div class="col-md-12 col-sm-12 ">
-                    <h1 class="display-4">Online Library</h1>
-                </div>
+    <nav class="navbar navbar-expand-sm" style="background-color:black;">
+        <ul class="navbar-nav">
+            <li class="nav-item ">
+                <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new { style = @"text-decoration:none;", @class = "text-white" })</h4>
+            </li>
+        </ul>
+    </nav>
+    <br>
+    <div class="container" name="onlineLibraryLogo">
+        <div class="row text-center">
+            <div class="col-md-12 col-sm-12 ">
+                <h1 class="display-4">Online Library</h1>
             </div>
         </div>
-    }
+    </div>
+}
 
 
-    @section Body
+@section Body
 {
-
-        <div class="container">
-            <h2>Loaned books</h2>
-            <p>blank</p>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Book Title</th>
-                        <th>Status</th>
-                        <th>Due Date</th>
-                        <th>Tipa Button</th>
-                    </tr>
-                    @foreach(var loan in Model)
-                    {
-                        <tr>
-                            <th>@loan.Book.Name</th>
-                            <th>@loan.Status.ToString()</th>
-                            <th>@loan.DueDate</th>
-                            <th>Tipa Button</th>
-                    </tr>
-
-                    }
-
-
-
-                </thead>
-                <tbody>
-                    @*<tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                    </tr>*@
-                </tbody>
-            </table>
-        </div>
-
-
-
-    }
+    @Html.Action("ReturnActiveLoan", "Loan")
+    @Html.Action("ReturnLoanHistory", "Loan")
+}
