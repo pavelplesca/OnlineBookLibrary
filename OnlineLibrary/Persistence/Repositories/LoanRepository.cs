@@ -41,9 +41,9 @@ namespace OnlineLibrary.Persistence.Repositories
             context.Loans.Remove(canceledLoan);
         }
 
-        public ICollection<Loan> ReturnLoans(int userID)
+        public IQueryable<Loan> ReturnLoanHistory(int userID)
         {
-            return context.Loans.Where(x => x.UserID == userID).ToList();
+            return context.Loans.Where(x => x.UserID == userID && x.Status != Status.NowRenting);
         }
     }
 }
