@@ -24,6 +24,6 @@
 
 @section Body
 {
-    @Html.Action("ReturnActiveLoan", "Loan")
-    @Html.Action("ReturnLoanHistory", "Loan")
+    @Html.Action("DisplayActiveLoan", "Loan", new { userID = 1 })
+    @Html.Action("DisplayHistory", "Loan", new { userID = 1 })
 }
