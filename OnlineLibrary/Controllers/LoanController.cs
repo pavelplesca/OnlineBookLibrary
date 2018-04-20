@@ -64,7 +64,6 @@ namespace OnlineLibrary.Controllers
             return View("_Error");
         }
 
-        [ChildActionOnly]
         public ActionResult CreateLoan(int? bookID, int? userID)
         {
             if(bookID.HasValue && userID.HasValue)
@@ -77,7 +76,6 @@ namespace OnlineLibrary.Controllers
             return View("_Error");
         }
 
-        [ChildActionOnly]
         public ActionResult CancelLoan(int? bookID, int? userID)
         {
             if (bookID.HasValue && userID.HasValue)
