@@ -47,6 +47,24 @@ namespace OnlineLibrary.Controllers
         }
 
         [ChildActionOnly]
+        public ActionResult DisplayActiveLoan(int? userID)
+        {
+            if (userID.HasValue)
+            {
+                Loan activeLoan = loanRepository.ReturnActiveLoan(userID.Value);
+
+                if (activeLoan != null)
+                {
+                    return PartialView("ActiveLoanPartial", activeLoan);
+                }
+
+                return PartialView("EmptyLoanPartial");
+            }
+
+            return View("_Error");
+        }
+
+        [ChildActionOnly]
         public ActionResult CreateLoan(int? bookID, int? userID)
         {
             if(bookID.HasValue && userID.HasValue)
