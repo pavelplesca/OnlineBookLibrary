@@ -1,0 +1,38 @@
+﻿@model OnlineLibrary.Models.Loan
+@using OnlineLibrary.Helpers
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <h1>@Model.Book.Name</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            @Html.Image($"/Content/Images/Books/{Model.Book.Image}", "312", "475", "", "img-fluid")
+            @*<img class="card-img" style="width: 312px; height:475px" src="http://via.placeholder.com/300x300">*@
+        </div>
+        <div class="col-md-3">
+            <p>Author: @Model.Book.Author</p>
+            <p>Year: @Model.Book.Year</p>
+            <p>Description: @Model.Book.Description</p>
+            <p>Category: <strong>@string.Join(" | ", Model.Book.Tags)</strong></p>
+        </div>
+        <div class="col-md-5">
+
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("Return book", "CancelLoan", "Loan", new { bookID = Model.BookID, userID = Model.UserID }, new { @class = "btn btn-dark mx-auto" })
+        </div>
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+</div>
