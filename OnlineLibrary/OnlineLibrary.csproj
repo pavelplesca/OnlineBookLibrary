@@ -176,6 +176,7 @@
     <Content Include="Views\Book\_TagDropdown.cshtml" />
     <Content Include="Views\Book\_RowOfBooks.cshtml" />
     <Content Include="Views\Loan\DisplayLoans.cshtml" />
+    <Content Include="Views\Shared\_Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -28,14 +28,28 @@ namespace OnlineLibrary.Controllers
             return View();
         }
 
-        public ActionResult CreateLoan(Book book)
+        public ActionResult CreateLoan(int? bookID, int? userID)
         {
-            return RedirectToAction("DisplayLoans");
+            if(bookID != null && userID != null)
+            {
+                loanRepository.CreateLoan(bookID.Value, userID.Value);
+                loanRepository.SaveAndDispose();
+
+                return RedirectToAction("DisplayLoans");
+            }
+            return View("_Error");
         }
 
-        public ActionResult CancelLoan(Book book)
+        public ActionResult CancelLoan(int? bookID, int? userID)
         {
-            return RedirectToAction("DisplayLoans"); ;
+            if (bookID != null && userID != null)
+            {
+                loanRepository.CancelLoan(bookID.Value, userID.Value);
+                loanRepository.SaveAndDispose();
+
+                return RedirectToAction("DisplayLoans");
+            }
+            return View("_Error");
         }
 
         protected override void Dispose(bool disposing)
