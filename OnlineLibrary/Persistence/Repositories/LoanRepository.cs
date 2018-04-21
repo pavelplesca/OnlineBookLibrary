@@ -39,10 +39,10 @@ namespace OnlineLibrary.Persistence.Repositories
         public void CancelLoan(int bookId, int userId)
         {
             Loan canceledLoan = context.Loans
-                .Where(x => x.BookID == bookId && x.UserID == userId)
+                .Where(x => x.BookID == bookId && x.UserID == userId && x.Status == Status.NowRenting)
                 .SingleOrDefault();
 
-            context.Loans.Remove(canceledLoan);
+            canceledLoan.Status = Status.Rented;
         }
 
         public IList<Loan> ReturnLoanHistory(int userId)
