@@ -43,6 +43,7 @@ namespace OnlineLibrary.Persistence.Repositories
                 .SingleOrDefault();
 
             canceledLoan.Status = Status.Rented;
+            canceledLoan.ReturnedDate = DateTime.Now;
         }
 
         public IList<Loan> ReturnLoanHistory(int userId)
