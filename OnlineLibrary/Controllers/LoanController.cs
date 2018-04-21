@@ -58,7 +58,7 @@ namespace OnlineLibrary.Controllers
             return PartialView("EmptyLoanPartial");
         }
         
-        [HttpPost]
+        [HttpGet]
         public ActionResult CreateLoan(int bookId, int userId)
         {
             loanRepository.CreateLoan(bookId, userId);
@@ -67,7 +67,7 @@ namespace OnlineLibrary.Controllers
             return RedirectToAction("DisplayLoans");            
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult CancelLoan(int bookId, int userId)
         {
             loanRepository.CancelLoan(bookId, userId);
