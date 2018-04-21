@@ -10,7 +10,9 @@
             <tr>
                 <th>Book Title</th>
                 <th>Status</th>
+                <th>Borrow Date</th>
                 <th>Due Date</th>
+                <th>Date Returned</th>
             </tr>
         </thead>
         <tbody>
@@ -19,7 +21,9 @@
                 <tr>
                     <th>@loan.Book.Name</th>
                     <th>@loan.Status.ToString()</th>
+                    <th>@loan.BorrowDate</th>
                     <th>@loan.DueDate</th>
+                    <th>@loan.ReturnedDate</th>
                 </tr>
             }
         </tbody>
