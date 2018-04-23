@@ -1,87 +1,86 @@
-﻿
+﻿@model OnlineLibrary.Models.UserAuthModel
 @{
     ViewBag.Title = "Authentication";
 }
 
 
 @section Header {
-<div class="container" name="onlineLibraryLogo">
-    <div class="row text-center">
-        <div class="col-md-12 col-sm-12 ">
-            <h1 class="display-1">Online Library</h1>
+    <div class="container" name="onlineLibraryLogo">
+        <div class="row text-center">
+            <div class="col-md-12 col-sm-12 ">
+                <h1 class="display-1">Online Library</h1>
+            </div>
         </div>
     </div>
-</div>
 
 }
 
 
 
 @section Body {
-  <div class=" container">
-      <div class="row">
-          <div class="col-md-6 md-norder-right">
-              <div class="row text-center bot-buffer">
-                  <div class="col-md-12">
-                      <h4 class="display-4 ">Log in</h4>
-                  </div>
-              </div>
+ 
+    <div class=" container">
+        <div class="row">
+
+            <div class="col-md-6 md-norder-right">
+                <div class="row text-center bot-buffer">
+                    <div class="col-md-12">
+                        <h4 class="display-4 ">Log in</h4>
+                    </div>
+                </div>
+                @Html.ValidationSummary(false)
+                @using (Html.BeginForm("Login", "User", FormMethod.Post))
+    {
+
+            @*@Html.AntiForgeryToken()*@
+
+            <div class="row bot-buffer">
+                @Html.LabelFor(a => a.Email, new { @class = "col-sm-4 " })
+                @Html.TextBoxFor(a => a.Email, new { @class = "col-sm-6 " })
+
+            </div>
+            <div class="row bot-buffer">
+                @Html.LabelFor(a => a.Password, new { @class = "col-sm-4 " })
+                @Html.TextBoxFor(a => a.Password, new { @class = "col-sm-6" })
+
+            </div>
+            <div class="row bot-buffer text-center">
+                <div class="col-md-12 ">
+                    <input type="submit" class="btn btn-dark " value="Log in" />
+                </div>
+            </div>
+}
+            </div>
 
 
-              <form method="post" action="">
-                  <div class="row bot-buffer">
-                      <label for="username" class="col-sm-4">Username</label>
-                      <input type="text" class="col-sm-6" name="username" required />
-                  </div>
-                  <div class="row bot-buffer">
-                      <label for="password" class="col-sm-4">Password</label>
-                      <input type="password" class="col-sm-6" name="password" required />
-                  </div>
-                  <div class="row bot-buffer text-center">
-                      <div class="col-md-12 ">
-                          <input type="submit" class="btn btn-dark " value="Log in" />
-                      </div>
-                  </div>
-                  <div class="row bot-buffer ">
-                      <div class="col-md-12 text-center">
-                          <h5>OR</h5>
-                      </div>
-                  </div>
-                  <div class="col-md-12 text-center bot-buffer">
-                      <input type="button" class="btn btn-danger" value="Google" />
-                      <input type="button" class="btn btn-info" value="Facebook" />
-                  </div>
-              </form>
+            <div class="col-md-6">
+                <div class="row text-center bot-buffer">
+                    <div class="col-md-12">
+                        <h4 class="display-4 ">Register user</h4>
+                    </div>
+                </div>
+                <form method="post" action="">
 
-          </div>
-          <div class="col-md-6">
-              <div class="row text-center bot-buffer">
-                  <div class="col-md-12">
-                      <h4 class="display-4 ">Register user</h4>
-                  </div>
-              </div>
-              <form method="post" action="">
+                    <div class="row bot-buffer">
+                        <label for="username" class="col-sm-4">Username</label>
+                        <input type="text" class="col-sm-6" name="username" required />
+                    </div>
+                    <div class="row bot-buffer">
+                        <label for="password" class="col-sm-4">Password</label>
+                        <input type="password" class="col-sm-6" name="password" required />
+                    </div>
+                    <div class="row bot-buffer">
+                        <label for="confirmPass" class="col-sm-4">Confirm Password</label>
+                        <input type="password" class="col-sm-6" name="confirmPass" required />
+                    </div>
+                    <div class="row bot-buffer text-center">
+                        <div class="col-md-12 ">
+                            <input type="submit" class="btn btn-dark " value="Register" />
+                        </div>
+                    </div>
 
-                  <div class="row bot-buffer">
-                      <label for="username" class="col-sm-4">Username</label>
-                      <input type="text" class="col-sm-6" name="username" required />
-                  </div>
-                  <div class="row bot-buffer">
-                      <label for="password" class="col-sm-4">Password</label>
-                      <input type="password" class="col-sm-6" name="password" required />
-                  </div>
-                  <div class="row bot-buffer">
-                      <label for="confirmPass" class="col-sm-4">Confirm Password</label>
-                      <input type="password" class="col-sm-6" name="confirmPass" required />
-                  </div>
-                  <div class="row bot-buffer text-center">
-                      <div class="col-md-12 ">
-                          <input type="submit" class="btn btn-dark " value="Register" />
-                      </div>
-                  </div>
-
-              </form>
-          </div>
-      </div>
- </div>
+                </form>
+            </div>
+        </div>
+    </div>
 }
