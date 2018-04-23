@@ -6,13 +6,15 @@
 
 @section Header
 {
-    <nav class="navbar navbar-expand-sm" style="background-color:black;">
-        <ul class="navbar-nav">
-            <li class="nav-item ">
-                <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new { style = @"text-decoration:none;", @class = "text-white" })</h4>
-            </li>
-        </ul>
-    </nav>
+<nav class="navbar navbar-expand-sm" style="background-color:black;">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item ">
+            <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new { style = @"text-decoration:none;", @class = "text-white" })</h4>
+        </li>
+    </ul>
+    @Html.Partial("~/Views/Shared/_UserState.cshtml")
+
+</nav>
     <br>
     <div class="container" name="onlineLibraryLogo">
         <div class="row text-center">
