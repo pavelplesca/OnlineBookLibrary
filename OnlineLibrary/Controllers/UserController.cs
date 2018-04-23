@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using OnlineLibrary.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 
 namespace OnlineLibrary.Controllers
 {
@@ -20,15 +21,31 @@ namespace OnlineLibrary.Controllers
             }
         }
 
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
+
         public ActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
         [Route("User/Login")]
         public ActionResult Login()
         {
             return View("Authentication");
+        }
+
+        [HttpPost]
+        [Route("User/Login")]
+        public ActionResult Login(UserAuthModel model)
+        {
+            return View("Authentication", model);
         }
 
         [HttpGet]
@@ -56,7 +73,7 @@ namespace OnlineLibrary.Controllers
                     }
                 }
             }
-            return RedirectToAction("Index", "User");
+            return View("Authentication", model);
         }
     }
 }
