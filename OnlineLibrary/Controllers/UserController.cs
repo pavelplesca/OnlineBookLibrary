@@ -46,6 +46,7 @@ namespace OnlineLibrary.Controllers
 
         [HttpPost]
         [Route("User/Login")]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(UserAuthModel model, string returnUrl)
         {
             if (ModelState.IsValid)
@@ -102,6 +103,8 @@ namespace OnlineLibrary.Controllers
         //    ViewBag.returnUrl = returnUrl;
         //    return View(model);
         //}
+
+        [ValidateAntiForgeryToken]
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
@@ -115,6 +118,7 @@ namespace OnlineLibrary.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Register(UserAuthModel model)
         {
             if (ModelState.IsValid)
