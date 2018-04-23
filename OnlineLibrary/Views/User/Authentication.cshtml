@@ -59,27 +59,28 @@
                         <h4 class="display-4 ">Register user</h4>
                     </div>
                 </div>
-                <form method="post" action="">
+               @using (Html.BeginForm("Register", "User", FormMethod.Post))
+               {
 
-                    <div class="row bot-buffer">
-                        <label for="username" class="col-sm-4">Username</label>
-                        <input type="text" class="col-sm-6" name="username" required />
-                    </div>
-                    <div class="row bot-buffer">
-                        <label for="password" class="col-sm-4">Password</label>
-                        <input type="password" class="col-sm-6" name="password" required />
-                    </div>
-                    <div class="row bot-buffer">
-                        <label for="confirmPass" class="col-sm-4">Confirm Password</label>
-                        <input type="password" class="col-sm-6" name="confirmPass" required />
-                    </div>
+                <div class="row bot-buffer">
+                    @Html.LabelFor(a => a.Email, new { @class = "col-sm-4 " })
+                    @Html.TextBoxFor(a => a.Email, new { @class = "col-sm-6 " })
+                </div>
+                <div class="row bot-buffer">
+                    @Html.LabelFor(a => a.Password, new { @class = "col-sm-4 " })
+                    @Html.TextBoxFor(a => a.Password, new { @class = "col-sm-6" })
+                </div>
+                <div class="row bot-buffer">
+                    @Html.LabelFor(a => a.PasswordConfirm, new { @class = "col-sm-4" })
+                    @Html.TextBoxFor(a => a.PasswordConfirm, new { @class = "col-sm-6" })
+                </div>
                     <div class="row bot-buffer text-center">
                         <div class="col-md-12 ">
                             <input type="submit" class="btn btn-dark " value="Register" />
                         </div>
                     </div>
 
-                </form>
+               }
             </div>
         </div>
     </div>
