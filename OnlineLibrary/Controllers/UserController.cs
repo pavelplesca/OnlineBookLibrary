@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using System.Threading.Tasks;
@@ -31,22 +32,80 @@ namespace OnlineLibrary.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return Content("Placeholder");
         }
 
         [HttpGet]
         [Route("User/Login")]
         public ActionResult Login()
         {
+            //ViewBag.returnUrl = returnUrl;
             return View("Authentication");
         }
 
         [HttpPost]
         [Route("User/Login")]
-        public ActionResult Login(UserAuthModel model)
+        public ActionResult Login(UserAuthModel model, string returnUrl)
         {
-            return View("Authentication", model);
+            if (ModelState.IsValid)
+            {
+                User user = UserManager.Find(model.Email, model.Password);
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "Wrong email or password.");
+                }
+                else
+                {
+                    ClaimsIdentity claim =  UserManager.CreateIdentity(user,
+                        DefaultAuthenticationTypes.ApplicationCookie);
+                    AuthenticationManager.SignOut();
+                    AuthenticationManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    }, claim);
+                    if (String.IsNullOrEmpty(returnUrl))
+                        return RedirectToAction("Index", "Home");
+                    return Redirect(returnUrl);
+                }
+            }
+            
+            return View("Authentication",model);
         }
+
+
+        //public async Task<ActionResult> Login(UserAuthModel model, string returnUrl)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        User user =  UserManager.Find(model.Email, model.Password);
+        //        if (user == null)
+        //        {
+        //            ModelState.AddModelError("", "Wrong email or password.");
+        //        }
+        //        else
+        //        {
+        //            ClaimsIdentity claim = await UserManager.CreateIdentityAsync(user,
+        //                DefaultAuthenticationTypes.ApplicationCookie);
+        //            AuthenticationManager.SignOut();
+        //            AuthenticationManager.SignIn(new AuthenticationProperties
+        //            {
+        //                IsPersistent = true
+        //            }, claim);
+        //            if (String.IsNullOrEmpty(returnUrl))
+        //                return RedirectToAction("Index", "Home");
+        //            return Redirect(returnUrl);
+        //        }
+        //    }
+        //    ViewBag.returnUrl = returnUrl;
+        //    return View(model);
+        //}
+        public ActionResult Logout()
+        {
+            AuthenticationManager.SignOut();
+            return RedirectToAction("Login");
+        }
+
+
 
         [HttpGet]
         public ActionResult Register()
