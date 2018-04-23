@@ -1,4 +1,5 @@
 ﻿
+@model UserAuthModel;
 @{
     ViewBag.Title = "Authentication";
 }
@@ -28,30 +29,39 @@
               </div>
 
 
-              <form method="post" action="">
-                  <div class="row bot-buffer">
-                      <label for="username" class="col-sm-4">Username</label>
-                      <input type="text" class="col-sm-6" name="username" required />
-                  </div>
-                  <div class="row bot-buffer">
-                      <label for="password" class="col-sm-4">Password</label>
-                      <input type="password" class="col-sm-6" name="password" required />
-                  </div>
-                  <div class="row bot-buffer text-center">
-                      <div class="col-md-12 ">
-                          <input type="submit" class="btn btn-dark " value="Log in" />
-                      </div>
-                  </div>
-                  <div class="row bot-buffer ">
-                      <div class="col-md-12 text-center">
-                          <h5>OR</h5>
-                      </div>
-                  </div>
-                  <div class="col-md-12 text-center bot-buffer">
-                      <input type="button" class="btn btn-danger" value="Google" />
-                      <input type="button" class="btn btn-info" value="Facebook" />
-                  </div>
-              </form>
+        @using (Html.BeginForm("Login", "User", FormMethod.Post))
+        {
+
+          @Html.AntiForgeryToken()
+
+          <div class="row bot-buffer">
+              @Html.LabelFor(a => a.Email, new { @class="col-sm-4 control-label"})
+              @Html.TextBoxFor(a=> a.Email, new { @class = "col-sm-6 form-control" })
+              <label for="username" class="col-sm-4">Username</label>
+              <input type="text" class="col-sm-6" name="username" required />
+          </div>
+          <div class="row bot-buffer">
+              @Html.LabelFor(a => a.Password, new { @class="col-sm-4 "})
+              @Html.TextBoxFor(a => a.Password, new { @class="col-sm-6"})
+              <label for="password" class="col-sm-4">Password</label>
+              <input type="password" class="col-sm-6" name="password" required />
+          </div>
+          <div class="row bot-buffer text-center">
+              <div class="col-md-12 ">
+                  <input type="submit" class="btn btn-dark " value="Log in" />
+              </div>
+          </div>
+          }
+          <div class="row bot-buffer ">
+              <div class="col-md-12 text-center">
+                  <h5>OR</h5>
+              </div>
+          </div>
+          <div class="col-md-12 text-center bot-buffer">
+              <input type="button" class="btn btn-danger" value="Google" />
+              <input type="button" class="btn btn-info" value="Facebook" />
+          </div>
+        
 
           </div>
           <div class="col-md-6">
