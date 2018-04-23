@@ -49,7 +49,7 @@ namespace OnlineLibrary.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = UserManager.Find(model.Email, model.Password);
+                User user = UserManager.Find(model.UserLoginModel.Email, model.UserLoginModel.Password);
                 if (user == null)
                 {
                     ModelState.AddModelError("", "Wrong email or password.");
@@ -68,8 +68,10 @@ namespace OnlineLibrary.Controllers
                     return Redirect(returnUrl);
                 }
             }
-            
-            return View("Authentication",model);
+
+            //var authmodel = new UserAuthModel() { UserLoginModel = model };
+
+            return View("Authentication", model);
         }
 
 
@@ -105,8 +107,6 @@ namespace OnlineLibrary.Controllers
             return RedirectToAction("Login");
         }
 
-
-
         [HttpGet]
         public ActionResult Register()
         {
@@ -118,11 +118,13 @@ namespace OnlineLibrary.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { UserName = model.Email, Email = model.Email};
-                IdentityResult result =  UserManager.Create(user, model.Password);
+                User user = new User { UserName = model.UserRegisterModel.Email, Email = model.UserRegisterModel.Email };
+                IdentityResult result =  UserManager.Create(user, model.UserRegisterModel.Password);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Login", "User");
+                    model.UserLoginModel.Email = model.UserRegisterModel.Email;
+                    model.UserLoginModel.Password = model.UserRegisterModel.Password;
+                    return RedirectToAction("Login", "User", model);
                 }
                 else
                 {
@@ -132,6 +134,8 @@ namespace OnlineLibrary.Controllers
                     }
                 }
             }
+
+            //var authmodel= new UserAuthModel(){UserRegisterModel = model};
             return View("Authentication", model);
         }
     }
