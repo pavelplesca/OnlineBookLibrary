@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Threading.Tasks;
@@ -122,9 +123,16 @@ namespace OnlineLibrary.Controllers
                 IdentityResult result =  UserManager.Create(user, model.UserRegisterModel.Password);
                 if (result.Succeeded)
                 {
-                    model.UserLoginModel.Email = model.UserRegisterModel.Email;
-                    model.UserLoginModel.Password = model.UserRegisterModel.Password;
-                    return RedirectToAction("Login", "User", model);
+                    model.UserLoginModel = new UserLoginModel(){Email = model.UserRegisterModel.Email, Password = model.UserRegisterModel.Password };
+
+                    ClaimsIdentity claim = UserManager.CreateIdentity(user,
+                        DefaultAuthenticationTypes.ApplicationCookie);
+                    AuthenticationManager.SignOut();
+                    AuthenticationManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    }, claim);
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
