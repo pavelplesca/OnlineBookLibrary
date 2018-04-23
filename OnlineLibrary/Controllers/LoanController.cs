@@ -38,10 +38,10 @@ namespace OnlineLibrary.Controllers
 
             if(loanHistory.Count != 0)
             {
-                return PartialView("LoanHistoryPartial", loanHistory);
+                return PartialView("_LoanHistoryInformation", loanHistory);
             }
 
-            return PartialView("EmptyHistoryPartial");          
+            return PartialView("_LoanHistoryInfoEmpty");          
         }
 
         [HttpGet]
@@ -52,10 +52,10 @@ namespace OnlineLibrary.Controllers
 
             if (activeLoan != null)
             {
-                return PartialView("ActiveLoanPartial", activeLoan);
+                return PartialView("_ActiveLoanBookDetails", activeLoan);
             }
 
-            return PartialView("EmptyLoanPartial");
+            return PartialView("_ActiveLoanNoBook");
         }
         
         [HttpGet]
