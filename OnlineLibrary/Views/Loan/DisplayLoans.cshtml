@@ -24,6 +24,6 @@
 
 @section Body
 {
-    @Html.Action("DisplayActiveLoan", "Loan", new { userID = 1 })
-    @Html.Action("DisplayHistory", "Loan", new { userID = 1 })
+    @Html.Partial("_ActiveLoanPartial")
+    @Html.Partial("_LoanHistoryPartial")
 }

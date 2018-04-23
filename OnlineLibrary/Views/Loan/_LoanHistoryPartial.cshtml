@@ -1,7 +1,4 @@
-﻿@using OnlineLibrary.Models
-@model ICollection<Loan>
-
-<div class="container">
+﻿<div class="container">
     <br />
     <h2>Loaned books</h2>
     <br />
@@ -16,16 +13,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var loan in Model)
-            {
-                <tr>
-                    <th>@loan.Book.Name</th>
-                    <th>@loan.Status.ToString()</th>
-                    <th>@loan.BorrowDate</th>
-                    <th>@loan.DueDate</th>
-                    <th>@loan.ReturnedDate</th>
-                </tr>
-            }
+            @Html.Action("DisplayHistory", "Loan", new { userID = 1 })
         </tbody>
     </table>
 </div>
