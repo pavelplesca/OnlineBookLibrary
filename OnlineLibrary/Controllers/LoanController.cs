@@ -21,7 +21,7 @@ namespace OnlineLibrary.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("DisplayLoans");
         }
 
         [HttpGet]

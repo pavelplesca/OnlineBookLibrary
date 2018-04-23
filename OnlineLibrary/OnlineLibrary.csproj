@@ -181,6 +181,10 @@
     <Content Include="Views\Loan\_EmptyHistoryPartial.cshtml" />
     <Content Include="Views\Loan\_ActiveLoanPartial.cshtml" />
     <Content Include="Views\Loan\_EmptyLoanPartial.cshtml" />
+    <Content Include="Views\Loan\_ActiveLoanBookDetails.cshtml" />
+    <Content Include="Views\Loan\_ActiveLoanNoBook.cshtml" />
+    <Content Include="Views\Loan\_LoanHistoryInfoEmpty.cshtml" />
+    <Content Include="Views\Loan\_LoanHistoryInformation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
