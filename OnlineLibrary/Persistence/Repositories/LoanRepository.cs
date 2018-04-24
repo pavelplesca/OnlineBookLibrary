@@ -22,46 +22,46 @@ namespace OnlineLibrary.Persistence.Repositories
             context.Dispose();
         }
 
-        //public void CreateLoan(int bookId, int userId)
-        //{
-        //    context.Loans.Add(
-        //        new Loan
-        //        {
-        //            BorrowDate = DateTime.Now,
-        //            DueDate = DateTime.Now.AddDays(7),
-        //            ReturnedDate = null,
-        //            Status = Status.NowRenting,
-        //            BookID = bookId,
-        //            UserID = userId
-        //        });
-        //}
+        public void CreateLoan(int bookId, string userId)
+        {
+            context.Loans.Add(
+                new Loan
+                {
+                    BorrowDate = DateTime.Now,
+                    DueDate = DateTime.Now.AddDays(7),
+                    ReturnedDate = null,
+                    Status = Status.NowRenting,
+                    BookID = bookId,
+                    UserID = userId
+                });
+        }
 
-        //public void CancelLoan(int bookId, int userId)
-        //{
-        //    Loan canceledLoan = context.Loans
-        //        .Where(x => x.BookID == bookId && x.UserID == userId && x.Status == Status.NowRenting)
-        //        .SingleOrDefault();
+        public void CancelLoan(int bookId, string userId)
+        {
+            Loan canceledLoan = context.Loans
+                .Where(x => x.BookID == bookId && x.UserID == userId && x.Status == Status.NowRenting)
+                .SingleOrDefault();
 
-        //    canceledLoan.Status = Status.Rented;
-        //    canceledLoan.ReturnedDate = DateTime.Now;
-        //}
+            canceledLoan.Status = Status.Rented;
+            canceledLoan.ReturnedDate = DateTime.Now;
+        }
 
-        //public IList<Loan> ReturnLoanHistory(int userId)
-        //{
-        //    return context.Loans
-        //        .Where(x => x.UserID == userId && x.Status != Status.NowRenting)
-        //        .Include(z => z.Book)
-        //        .Include(y => y.Book.Tags)
-        //        .ToList();
-        //}
+        public IList<Loan> ReturnLoanHistory(string userId)
+        {
+            return context.Loans
+                .Where(x => x.UserID == userId && x.Status != Status.NowRenting)
+                .Include(z => z.Book)
+                .Include(y => y.Book.Tags)
+                .ToList();
+        }
 
-        //public Loan ReturnActiveLoan(int userId)
-        //{
-        //    return context.Loans
-        //        .Where(x => x.UserID == userId && x.Status == Status.NowRenting)
-        //        .Include(z => z.Book)
-        //        .Include(y => y.Book.Tags)
-        //        .SingleOrDefault();
-        //}
+        public Loan ReturnActiveLoan(string userId)
+        {
+            return context.Loans
+                .Where(x => x.UserID == userId && x.Status == Status.NowRenting)
+                .Include(z => z.Book)
+                .Include(y => y.Book.Tags)
+                .SingleOrDefault();
+        }
     }
 }
