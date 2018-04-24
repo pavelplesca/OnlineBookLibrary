@@ -280,6 +280,10 @@
     <Compile Include="Migrations\201804241237380_RemovedTestUser.Designer.cs">
       <DependentUpon>201804241237380_RemovedTestUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804241249093_AddedUserToLoan.cs" />
+    <Compile Include="Migrations\201804241249093_AddedUserToLoan.Designer.cs">
+      <DependentUpon>201804241249093_AddedUserToLoan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUserManager.cs" />
     <Compile Include="Models\Book.cs" />
@@ -325,6 +329,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804241237380_RemovedTestUser.resx">
       <DependentUpon>201804241237380_RemovedTestUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804241249093_AddedUserToLoan.resx">
+      <DependentUpon>201804241249093_AddedUserToLoan.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
