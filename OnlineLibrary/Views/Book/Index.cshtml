@@ -45,7 +45,9 @@
             var maxPage = $("#maxpage").text();
 
             $('#maxPageSpan').text(maxPage);
-            
+
+            let pagenum = parseInt($("#currentPage").text());
+            if (pagenum <= 1) $("#prev-button").attr("disabled", "disabled");
 
             $("select").change(
                 function () {
@@ -57,7 +59,11 @@
                         function() {
                             maxPage = $("#maxpage").text();
                             $('#maxPageSpan').text(maxPage);
-                            
+                            let pagenum = parseInt($("#currentPage").text());
+                            if (pagenum <= 1) $("#prev-button").attr("disabled", "disabled");
+                            if (pagenum < maxPage) $("#next-button").removeAttr("disabled");
+                            if (pagenum >= maxPage) $("#next-button").attr("disabled", "disabled");
+                            if (pagenum > 1) $("#prev-button").removeAttr("disabled");
                         }
                     );
                     
@@ -73,7 +79,11 @@
                         $("#books-container").load("@Url.Action("TaggedBookPage", "Book")/" +
                             pagenum +
                             "/" +
-                            $("select").val()
+                            $("select").val(),
+                            function () {
+                                if (pagenum <= 1) $("#prev-button").attr("disabled", "disabled");
+                                if (pagenum < maxPage) $("#next-button").removeAttr("disabled");
+                            }
                         );
                     }
                 });
@@ -89,8 +99,15 @@
                         $("#books-container").load("@Url.Action("TaggedBookPage", "Book")/" +
                             pagenum +
                             "/" +
-                            $("select").val()
+                            $("select").val(),
+                            function ()
+                                     {
+                                        if (pagenum >= maxPage) $("#next-button").attr("disabled", "disabled");
+                                        if (pagenum > 1) $("#prev-button").removeAttr("disabled");
+                                     }
                         );
+                       
+                        
                     }
                 });
         })

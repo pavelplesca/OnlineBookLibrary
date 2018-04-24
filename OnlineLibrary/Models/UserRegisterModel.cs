@@ -16,7 +16,7 @@ namespace OnlineLibrary.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password confirm field is required")]
         [Compare("Password", ErrorMessage = "Passwords do not match ")]
         [DataType(DataType.Password)]
         public string PasswordConfirm { get; set; }
