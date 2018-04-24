@@ -33,10 +33,6 @@ namespace OnlineLibrary.Models
         public int BookID { get; set; }     
         public Book Book { get; set; }
 
-        [Required]
-        public int UserID { get; set; }
-        public TestUser User { get; set; }
-
         #region Constructors
         public Loan() { }
         #endregion

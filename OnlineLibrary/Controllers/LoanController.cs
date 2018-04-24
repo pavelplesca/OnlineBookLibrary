@@ -30,51 +30,51 @@ namespace OnlineLibrary.Controllers
             return View();
         }
 
-        [HttpGet]
-        [ChildActionOnly]
-        public ActionResult DisplayHistory(int userId)
-        {
-            ICollection<Loan> loanHistory = loanRepository.ReturnLoanHistory(userId).ToList();
+        //[HttpGet]
+        //[ChildActionOnly]
+        //public ActionResult DisplayHistory(int userId)
+        //{
+        //    ICollection<Loan> loanHistory = loanRepository.ReturnLoanHistory(userId).ToList();
 
-            if(loanHistory.Count != 0)
-            {
-                return PartialView("_LoanHistoryInformation", loanHistory);
-            }
+        //    if(loanHistory.Count != 0)
+        //    {
+        //        return PartialView("_LoanHistoryInformation", loanHistory);
+        //    }
 
-            return PartialView("_LoanHistoryInfoEmpty");          
-        }
+        //    return PartialView("_LoanHistoryInfoEmpty");          
+        //}
 
-        [HttpGet]
-        [ChildActionOnly]
-        public ActionResult DisplayActiveLoan(int userId)
-        {
-            Loan activeLoan = loanRepository.ReturnActiveLoan(userId);
+        //[HttpGet]
+        //[ChildActionOnly]
+        //public ActionResult DisplayActiveLoan(int userId)
+        //{
+        //    Loan activeLoan = loanRepository.ReturnActiveLoan(userId);
 
-            if (activeLoan != null)
-            {
-                return PartialView("_ActiveLoanBookDetails", activeLoan);
-            }
+        //    if (activeLoan != null)
+        //    {
+        //        return PartialView("_ActiveLoanBookDetails", activeLoan);
+        //    }
 
-            return PartialView("_ActiveLoanNoBook");
-        }
+        //    return PartialView("_ActiveLoanNoBook");
+        //}
         
-        [HttpGet]
-        public ActionResult CreateLoan(int bookId, int userId)
-        {
-            loanRepository.CreateLoan(bookId, userId);
-            loanRepository.SaveAndDispose();
+        //[HttpGet]
+        //public ActionResult CreateLoan(int bookId, int userId)
+        //{
+        //    loanRepository.CreateLoan(bookId, userId);
+        //    loanRepository.SaveAndDispose();
 
-            return RedirectToAction("DisplayLoans");            
-        }
+        //    return RedirectToAction("DisplayLoans");            
+        //}
 
-        [HttpGet]
-        public ActionResult CancelLoan(int bookId, int userId)
-        {
-            loanRepository.CancelLoan(bookId, userId);
-            loanRepository.SaveAndDispose();
+        //[HttpGet]
+        //public ActionResult CancelLoan(int bookId, int userId)
+        //{
+        //    loanRepository.CancelLoan(bookId, userId);
+        //    loanRepository.SaveAndDispose();
 
-            return RedirectToAction("DisplayLoans");
-        }
+        //    return RedirectToAction("DisplayLoans");
+        //}
 
         protected override void Dispose(bool disposing)
         {

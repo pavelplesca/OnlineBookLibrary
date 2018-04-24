@@ -235,13 +235,16 @@
     <Compile Include="Migrations\201804191417005_BrokeStuff.Designer.cs">
       <DependentUpon>201804191417005_BrokeStuff.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804241237380_RemovedTestUser.cs" />
+    <Compile Include="Migrations\201804241237380_RemovedTestUser.Designer.cs">
+      <DependentUpon>201804241237380_RemovedTestUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\Loan.cs" />
     <Compile Include="Models\OnlineLibraryDb.cs" />
     <Compile Include="Models\Tag.cs" />
-    <Compile Include="Models\TestUser.cs" />
     <Compile Include="Persistence\Repositories\LoanRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -273,6 +276,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804191417005_BrokeStuff.resx">
       <DependentUpon>201804191417005_BrokeStuff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804241237380_RemovedTestUser.resx">
+      <DependentUpon>201804241237380_RemovedTestUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
