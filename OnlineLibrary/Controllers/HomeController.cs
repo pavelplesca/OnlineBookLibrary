@@ -36,7 +36,7 @@ namespace OnlineLibrary.Controllers
 
         public ActionResult FillDb()
         {
-            _db.Books.RemoveRange(_db.Books.ToList());
+            if (_db.Books.Any()) _db.Books.RemoveRange(_db.Books.ToList());
 
             _db.Books.Add(new Book
             {

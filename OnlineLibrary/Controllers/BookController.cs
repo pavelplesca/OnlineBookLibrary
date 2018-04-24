@@ -21,10 +21,9 @@ namespace OnlineLibrary.Controllers
 
         public ActionResult BookDetails(int? id)
         {
-            
-            var Book = _db.Books.ToList().Where(x=> x.Id == id).FirstOrDefault();
-            if (Book == null) return RedirectToAction("Index", "Home");
-            return View(Book);
+            var book = _db.Books.ToList().Where(x=> x.Id == id).FirstOrDefault();
+            if (book == null) return RedirectToAction("Index", "Home");
+            return View(book);
         }
 
         [ChildActionOnly]

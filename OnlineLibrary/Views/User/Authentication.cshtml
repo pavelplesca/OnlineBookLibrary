@@ -1,0 +1,92 @@
+﻿@model OnlineLibrary.Models.UserAuthModel
+@{
+    ViewBag.Title = "Authentication";
+}
+
+
+@section Header {
+    <div class="container" name="onlineLibraryLogo">
+        <div class="row text-center">
+            <div class="col-md-12 col-sm-12 ">
+                <h1 class="display-1">Online Library</h1>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+@section Body {
+ 
+    <div class=" container">
+        <div class="row">
+
+            <div class="col-md-6 md-norder-right">
+                <div class="row text-center bot-buffer">
+                    <div class="col-md-12">
+                        <h4 class="display-4 ">Log in</h4>
+                    </div>
+                </div>
+                @Html.ValidationSummary(true)
+                @using (Html.BeginForm("Login", "User", FormMethod.Post))
+            {
+
+            @Html.AntiForgeryToken()
+
+            <div class="row bot-buffer">
+                @Html.LabelFor(a => a.UserLoginModel.Email, new { @class = "col-sm-4 " })
+                @Html.ValidationMessageFor(a => a.UserLoginModel.Email)
+                @Html.TextBoxFor(a => a.UserLoginModel.Email, new { @class = "col-sm-6 " })
+
+            </div>
+            <div class="row bot-buffer">
+                @Html.LabelFor(a => a.UserLoginModel.Password, new { @class = "col-sm-4 " })
+                @Html.ValidationMessageFor(a => a.UserLoginModel.Password)
+                @Html.TextBoxFor(a => a.UserLoginModel.Password, new { @class = "col-sm-6" })
+
+            </div>
+            <div class="row bot-buffer text-center">
+                <div class="col-md-12 ">
+                    <input type="submit" class="btn btn-dark " value="Log in" />
+                </div>
+            </div>
+            }
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="row text-center bot-buffer">
+                    <div class="col-md-12">
+                        <h4 class="display-4 ">Register user</h4>
+                    </div>
+                </div>
+                @using (Html.BeginForm("Register", "User", FormMethod.Post))
+    {
+            @Html.AntiForgeryToken()
+            <div class="row bot-buffer">
+                @Html.LabelFor(a => a.UserRegisterModel.Email, new { @class = "col-sm-4 " })
+                @Html.ValidationMessageFor(a => a.UserRegisterModel.Email)
+                @Html.TextBoxFor(a => a.UserRegisterModel.Email, new { @class = "col-sm-6 " })
+            </div>
+            <div class="row bot-buffer">
+                @Html.LabelFor(a => a.UserRegisterModel.Password, new { @class = "col-sm-4 " })
+                @Html.ValidationMessageFor(a => a.UserRegisterModel.Password)
+                @Html.TextBoxFor(a => a.UserRegisterModel.Password, new { @class = "col-sm-6" })
+            </div>
+            <div class="row bot-buffer">
+                @Html.LabelFor(a => a.UserRegisterModel.PasswordConfirm, new { @class = "col-sm-4" })
+                @Html.ValidationMessageFor(a => a.UserRegisterModel.PasswordConfirm)
+                @Html.TextBoxFor(a => a.UserRegisterModel.PasswordConfirm, new { @class = "col-sm-6" })
+            </div>
+            <div class="row bot-buffer text-center">
+                <div class="col-md-12 ">
+                    <input type="submit" class="btn btn-dark " value="Register" />
+                </div>
+            </div>
+
+}
+            </div>
+        </div>
+    </div>
+}
