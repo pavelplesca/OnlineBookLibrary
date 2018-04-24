@@ -276,6 +276,10 @@
     <Compile Include="Migrations\201804241249093_AddedUserToLoan.Designer.cs">
       <DependentUpon>201804241249093_AddedUserToLoan.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804241418355_AddedFildsForBookUser.cs" />
+    <Compile Include="Migrations\201804241418355_AddedFildsForBookUser.Designer.cs">
+      <DependentUpon>201804241418355_AddedFildsForBookUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUserManager.cs" />
     <Compile Include="Models\Book.cs" />
@@ -324,6 +328,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804241249093_AddedUserToLoan.resx">
       <DependentUpon>201804241249093_AddedUserToLoan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804241418355_AddedFildsForBookUser.resx">
+      <DependentUpon>201804241418355_AddedFildsForBookUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

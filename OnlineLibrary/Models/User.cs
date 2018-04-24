@@ -9,6 +9,7 @@ namespace OnlineLibrary.Models
     public class User: IdentityUser
     {
         public DateTime? BannedUntil { get; set; }
+        public bool IsBanned { get; set; }
 
         public User()
         {

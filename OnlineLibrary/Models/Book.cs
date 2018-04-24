@@ -13,6 +13,7 @@ namespace OnlineLibrary.Models
         public string Description { get; set; }
         public string Image { get; set; }
         public int Year { get; set; }
+        public bool IsCurrentlyRented { get; set; }
 
         public ICollection<Tag> Tags { get; set; }
         public Book()
