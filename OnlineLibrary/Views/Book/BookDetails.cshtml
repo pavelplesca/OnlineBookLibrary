@@ -1,4 +1,5 @@
 ﻿@using OnlineLibrary.Helpers
+@using Microsoft.AspNet.Identity
 @model OnlineLibrary.Models.Book
 
 @{
@@ -8,22 +9,22 @@
 @section Header
 {
     <nav class="navbar navbar-expand-sm" style="background-color:black;">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
                 <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new { style = @"text-decoration:none;", @class = "text-white" })</h4>
             </li>
         </ul>
+        @Html.Partial("~/Views/Shared/_UserState.cshtml")
     </nav>
     <br>
     <div class="container" name="onlineLibraryLogo">
         <div class="row text-center">
             <div class="col-md-12 col-sm-12 ">
-                <h1 class="display-4">Online Library</h1>
+                <h3 class="display-1">Your loans</h3>
             </div>
         </div>
     </div>
 }
-
 
 @section Body
 {
@@ -43,21 +44,21 @@
                 <p>Author: @Model.Author</p>
                 <p>Year: @Model.Year</p>
                 <p>Description: @Model.Description</p>
-                <p>Category: <strong>Placeholder</strong></p>              
+                <p>Category: <strong>Placeholder</strong></p>
             </div>
             <div class="col-md-5">
 
             </div>
         </div>
         <br />
-        <div class="row">
-            <div class="col-md-4">
-                @Html.ActionLink("Rent book", "CreateLoan", "Loan", new { bookID = Model.Id, userID = 1 }, new { @class = "btn btn-dark mx-auto" })
+        @if (Request.IsAuthenticated)
+        {
+            <div class="row">
+                <div class="col-md-4">
+                    @Html.ActionLink("Rent book", "CreateLoan", "Loan", new { bookID = Model.Id, userID = User.Identity.GetUserId() }, new { @class = "btn btn-dark mx-auto" })
+                </div>
             </div>
-            <div class="col-md-4">
-                @Html.ActionLink("Return book", "CancelLoan", "Loan", new { bookID = Model.Id, userID = 1 }, new { @class = "btn btn-dark mx-auto" })
-            </div>
-        </div>
+        }
     </div>
 }
 

@@ -1,5 +1,6 @@
 ﻿@model OnlineLibrary.Models.Loan
 @using OnlineLibrary.Helpers
+@using Microsoft.AspNet.Identity
 
 <div class="container">
     <br />
@@ -7,7 +8,7 @@
     <br />
     <div class="card">
         <div class="card-body">
-            @Html.Action("DisplayActiveLoan", "Loan", new { userID = 1 })
+            @Html.Action("DisplayActiveLoan", "Loan", new { userID = User.Identity.GetUserId() })
         </div>
     </div>
 </div>
