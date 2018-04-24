@@ -184,14 +184,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Book\BookDetails.cshtml" />
-    <Content Include="Views\Book\_TopLoans.cshtml" />
-    <Content Include="Views\Book\_BookPage.cshtml" />
-    <Content Include="Views\Book\Index.cshtml" />
-    <Content Include="Views\Book\_BookPartial.cshtml" />
-    <Content Include="Views\Book\_BooksContainer.cshtml" />
-    <Content Include="Views\Book\_TagDropdown.cshtml" />
-    <Content Include="Views\Book\_RowOfBooks.cshtml" />
     <Content Include="Views\User\Authentication.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Shared\_UserState.cshtml" />
@@ -207,14 +199,6 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Book\BookDetails.cshtml" />
-    <Content Include="Views\Book\_TopLoans.cshtml" />
-    <Content Include="Views\Book\_BookPage.cshtml" />
-    <Content Include="Views\Book\Index.cshtml" />
-    <Content Include="Views\Book\_BookPartial.cshtml" />
-    <Content Include="Views\Book\_BooksContainer.cshtml" />
-    <Content Include="Views\Book\_TagDropdown.cshtml" />
-    <Content Include="Views\Book\_RowOfBooks.cshtml" />
     <Content Include="Views\Loan\DisplayLoans.cshtml" />
     <Content Include="Views\Shared\_Error.cshtml" />
     <Content Include="Views\Loan\_LoanHistoryPartial.cshtml" />
@@ -225,6 +209,14 @@
     <Content Include="Views\Loan\_ActiveLoanNoBook.cshtml" />
     <Content Include="Views\Loan\_LoanHistoryInfoEmpty.cshtml" />
     <Content Include="Views\Loan\_LoanHistoryInformation.cshtml" />
+    <Content Include="Views\Book\BookDetails.cshtml" />
+    <Content Include="Views\Book\Index.cshtml" />
+    <Content Include="Views\Book\_BookPage.cshtml" />
+    <Content Include="Views\Book\_BookPartial.cshtml" />
+    <Content Include="Views\Book\_BooksContainer.cshtml" />
+    <Content Include="Views\Book\_RowOfBooks.cshtml" />
+    <Content Include="Views\Book\_TagDropdown.cshtml" />
+    <Content Include="Views\Book\_TopLoans.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

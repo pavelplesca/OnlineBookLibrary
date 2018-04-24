@@ -1,21 +1,24 @@
-﻿@{
-    ViewBag.Title = "Details";
+﻿@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = User.Identity.Name + " - Loan details";
 }
 
 @section Header
 {
     <nav class="navbar navbar-expand-sm" style="background-color:black;">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
                 <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new { style = @"text-decoration:none;", @class = "text-white" })</h4>
             </li>
         </ul>
+        @Html.Partial("~/Views/Shared/_UserState.cshtml")
     </nav>
     <br>
     <div class="container" name="onlineLibraryLogo">
         <div class="row text-center">
             <div class="col-md-12 col-sm-12 ">
-                <h1 class="display-4">Online Library</h1>
+                <h3 class="display-1">Your loans</h3>
             </div>
         </div>
     </div>

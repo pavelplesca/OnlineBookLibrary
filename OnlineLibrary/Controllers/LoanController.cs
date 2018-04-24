@@ -18,19 +18,16 @@ namespace OnlineLibrary.Controllers
             loanRepository = new LoanRepository();
         }
 
-        [HttpGet]
         public ActionResult Index()
         {
             return RedirectToAction("DisplayLoans");
         }
 
-        [HttpGet]
-        public ActionResult DisplayLoans()
+        public ActionResult DisplayLoans(string userId)
         {       
             return View();
         }
 
-        [HttpGet]
         [ChildActionOnly]
         public ActionResult DisplayHistory(string userId)
         {
@@ -44,7 +41,6 @@ namespace OnlineLibrary.Controllers
             return PartialView("_LoanHistoryInfoEmpty");
         }
 
-        [HttpGet]
         [ChildActionOnly]
         public ActionResult DisplayActiveLoan(string userId)
         {
@@ -58,7 +54,6 @@ namespace OnlineLibrary.Controllers
             return PartialView("_ActiveLoanNoBook");
         }
 
-        [HttpGet]
         public ActionResult CreateLoan(int bookId, string userId)
         {
             loanRepository.CreateLoan(bookId, userId);
@@ -67,7 +62,6 @@ namespace OnlineLibrary.Controllers
             return RedirectToAction("DisplayLoans");
         }
 
-        [HttpGet]
         public ActionResult CancelLoan(int bookId, string userId)
         {
             loanRepository.CancelLoan(bookId, userId);
