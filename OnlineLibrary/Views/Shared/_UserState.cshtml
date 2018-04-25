@@ -8,11 +8,11 @@
         {
             @Html.AntiForgeryToken()
 
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="navbar-nav navbar-right">
             <li class="nav-item ">
-                <span class="navbar-brand text-light">@Html.Raw("Hello, " + User.Identity.GetUserName() + "!")</span>
+                <span class="navbar-brand text-light" style="margin-right: 5px;">@Html.Raw("Hello, " + User.Identity.GetUserName() + "!")</span>
             </li>
-            <li class="nav-item"><a class="btn btn-secondary" href="" style="margin: 0 5px;">My loans</a></li> 
+            <li class="nav-item"><a class="btn btn-secondary" href="" style="margin-right: 5px;">My loans</a></li> 
             <li class="nav-item"><a class="btn btn-secondary" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
     }
