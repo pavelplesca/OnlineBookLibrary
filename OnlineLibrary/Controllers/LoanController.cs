@@ -9,6 +9,7 @@ using OnlineLibrary.Persistence.Repositories;
 
 namespace OnlineLibrary.Controllers
 {
+    [Authorize]
     public class LoanController : Controller
     {
         private LoanRepository loanRepository;
@@ -72,13 +73,17 @@ namespace OnlineLibrary.Controllers
 
         public ActionResult CheckIfUserRentsBook(string userId, Book book)
         {
-            bool isRenting = loanRepository.CheckIfUserRentsBook(userId, book.Id);
+            bool bookIsRentedByUser = loanRepository.CheckIfUserRentsBook(userId, book.Id);
 
-            if (!isRenting)
+            if (!bookIsRentedByUser)
             {
-                return PartialView("_UserIsNotRentingButtons", book);
+                if(!loanRepository.UserHasActiveRent(userId))
+                {
+                    return PartialView("_UserIsNotRentingButtons", book);
+                }
+                return PartialView("_UserHasActiveLoanPartial");
             }
-            else
+            else 
             {
                 return PartialView("_UserIsRentingButtons", book);
             }
