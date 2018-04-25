@@ -3,7 +3,7 @@
 <div class="card-deck">
     @foreach (var book in Model)
     {
-        <div class="card text-black" style="background-color:white;">
+        <div class="card text-black col-lg-4" style="background-color:white;">
             @Html.Partial("_BookPartial", book)
         </div>
     }
