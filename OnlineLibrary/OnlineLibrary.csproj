@@ -201,14 +201,12 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Loan\DisplayLoans.cshtml" />
     <Content Include="Views\Shared\_Error.cshtml" />
-    <Content Include="Views\Loan\_LoanHistoryPartial.cshtml" />
-    <Content Include="Views\Loan\_EmptyHistoryPartial.cshtml" />
-    <Content Include="Views\Loan\_ActiveLoanPartial.cshtml" />
-    <Content Include="Views\Loan\_EmptyLoanPartial.cshtml" />
-    <Content Include="Views\Loan\_ActiveLoanBookDetails.cshtml" />
-    <Content Include="Views\Loan\_ActiveLoanNoBook.cshtml" />
-    <Content Include="Views\Loan\_LoanHistoryInfoEmpty.cshtml" />
-    <Content Include="Views\Loan\_LoanHistoryInformation.cshtml" />
+    <Content Include="Views\Loan\LoanHistoryPartials\_LoanHistoryPartial.cshtml" />
+    <Content Include="Views\Loan\ActiveLoanPartials\_ActiveLoanPartial.cshtml" />
+    <Content Include="Views\Loan\ActiveLoanPartials\_ActiveLoanBookDetails.cshtml" />
+    <Content Include="Views\Loan\ActiveLoanPartials\_ActiveLoanNoBook.cshtml" />
+    <Content Include="Views\Loan\LoanHistoryPartials\_LoanHistoryInfoEmpty.cshtml" />
+    <Content Include="Views\Loan\LoanHistoryPartials\_LoanHistoryInformation.cshtml" />
     <Content Include="Views\Book\BookDetails.cshtml" />
     <Content Include="Views\Book\Index.cshtml" />
     <Content Include="Views\Book\_BookPage.cshtml" />
@@ -219,8 +217,8 @@
     <Content Include="Views\Book\_TopLoans.cshtml" />
     <Content Include="Views\Book\_UserNotBannedPartial.cshtml" />
     <Content Include="Views\Book\_UserBannedPartial.cshtml" />
-    <Content Include="Views\Loan\_UserIsNotRentingButtons.cshtml" />
-    <Content Include="Views\Loan\_UserIsRentingButtons.cshtml" />
+    <Content Include="Views\Loan\ButtonDisplayPartials\_UserIsNotRentingButtons.cshtml" />
+    <Content Include="Views\Loan\ButtonDisplayPartials\_UserIsRentingButtons.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

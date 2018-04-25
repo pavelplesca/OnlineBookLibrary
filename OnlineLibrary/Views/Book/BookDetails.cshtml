@@ -46,7 +46,7 @@
         <br />
         @if (Request.IsAuthenticated)
         {
-            @Html.Action("DisplayButtons", "Book", new { userId = User.Identity.GetUserId(), bookStatus = Model.Status })
+            @Html.Action("DisplayButtons", "Book", new { userId = User.Identity.GetUserId(), book = Model})
         }
     </div>
 }

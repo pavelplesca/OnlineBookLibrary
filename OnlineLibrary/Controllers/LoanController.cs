@@ -36,10 +36,10 @@ namespace OnlineLibrary.Controllers
 
             if (loanHistory.Count != 0)
             {
-                return PartialView("_LoanHistoryInformation", loanHistory);
+                return PartialView("~/Views/Loan/LoanHistoryPartials/_LoanHistoryInformation.cshtml", loanHistory);
             }
 
-            return PartialView("_LoanHistoryInfoEmpty");
+            return PartialView("~/Views/Loan/LoanHistoryPartials/_LoanHistoryInfoEmpty.cshtml");
         }
 
         [ChildActionOnly]
@@ -49,10 +49,10 @@ namespace OnlineLibrary.Controllers
 
             if (activeLoan != null)
             {
-                return PartialView("_ActiveLoanBookDetails", activeLoan);
+                return PartialView("~/Views/Loan/ActiveLoanPartials/_ActiveLoanBookDetails.cshtml", activeLoan);
             }
 
-            return PartialView("_ActiveLoanNoBook");
+            return PartialView("~/Views/Loan/ActiveLoanPartials/_ActiveLoanNoBook.cshtml");
         }
 
         public ActionResult CreateLoan(int bookId, string userId)
@@ -73,19 +73,22 @@ namespace OnlineLibrary.Controllers
 
         public ActionResult CheckIfUserRentsBook(string userId, Book book)
         {
-            bool bookIsRentedByUser = loanRepository.CheckIfUserRentsBook(userId, book.Id);
+            bool isReceivedBookRentedByUser = loanRepository.CheckIfUserRentsBook(userId, book.Id);
 
-            if (!bookIsRentedByUser)
+            if (!isReceivedBookRentedByUser)
             {
-                if(!loanRepository.UserHasActiveRent(userId) && book.Status != BookStatus.Available)
+                if(!loanRepository.UserHasActiveRent(userId))
                 {
-                    return PartialView("_UserIsNotRentingButtons", book);
+                    if(book.Status == BookStatus.Available)
+                    {
+                        return PartialView("~/Views/Loan/ButtonDisplayPartials/_UserIsNotRentingButtons.cshtml", book);
+                    }
                 }
                 return new EmptyResult();
             }
             else 
             {
-                return PartialView("_UserIsRentingButtons", book);
+                return PartialView("~/Views/Loan/ButtonDisplayPartials/_UserIsRentingButtons.cshtml", book);
             }
         }
 
