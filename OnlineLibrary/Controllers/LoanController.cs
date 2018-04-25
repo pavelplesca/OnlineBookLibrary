@@ -13,6 +13,7 @@ namespace OnlineLibrary.Controllers
     public class LoanController : Controller
     {
         private LoanRepository loanRepository;
+        private const int maxViolations = 5;
 
         public LoanController()
         {
@@ -90,6 +91,18 @@ namespace OnlineLibrary.Controllers
             {
                 return PartialView("~/Views/Loan/ButtonDisplayPartials/_UserIsRentingButtons.cshtml", book);
             }
+        }
+
+        public ActionResult CheckUserViolationsNr(string userId)
+        {
+            int violationsNr = loanRepository.GetUserViolationNr(userId);
+
+            if(violationsNr == maxViolations)
+            {
+                loanRepository.BanUser(userId);
+            }
+
+            return new EmptyResult();
         }
 
         protected override void Dispose(bool disposing)
