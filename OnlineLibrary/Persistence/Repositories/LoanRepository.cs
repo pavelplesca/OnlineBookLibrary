@@ -63,5 +63,10 @@ namespace OnlineLibrary.Persistence.Repositories
                 .Include(y => y.Book.Tags)
                 .SingleOrDefault();
         }
+
+        public bool CheckIfUserRentsBook(string userId, int bookId)
+        {
+            return context.Loans.Any(x => x.UserID == userId && x.BookID == bookId);
+        }
     }
 }
