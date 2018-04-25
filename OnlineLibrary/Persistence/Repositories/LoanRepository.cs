@@ -79,5 +79,10 @@ namespace OnlineLibrary.Persistence.Repositories
         {
             return context.Loans.Any(x => x.UserID == userId && x.Status == Status.NowRenting);
         }
+
+        public int GetUserViolationNr(string userId)
+        {
+            return context.Users.Where(x => x.Id == userId).SingleOrDefault().ViolationsNr;
+        }
     }
 }
