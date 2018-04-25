@@ -10,6 +10,7 @@ namespace OnlineLibrary.Models
     {
         public DateTime? BannedUntil { get; set; }
         public bool IsBanned { get; set; }
+        public int ViolationsNr { get; set; }
 
         public User()
         {
