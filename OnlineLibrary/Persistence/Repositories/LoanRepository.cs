@@ -34,6 +34,9 @@ namespace OnlineLibrary.Persistence.Repositories
                     BookID = bookId,
                     UserID = userId
                 });
+
+            Book book = context.Books.Where(x => x.Id == bookId).SingleOrDefault();
+            book.Status = BookStatus.Rented;
         }
 
         public void CancelLoan(int bookId, string userId)
@@ -67,6 +70,11 @@ namespace OnlineLibrary.Persistence.Repositories
         public bool CheckIfUserRentsBook(string userId, int bookId)
         {
             return context.Loans.Any(x => x.UserID == userId && x.BookID == bookId && x.Status == Status.NowRenting);
+        }
+
+        public bool UserHasActiveRent(string userId)
+        {
+            return context.Loans.Any(x => x.UserID == userId && x.Status == Status.NowRenting);
         }
     }
 }
