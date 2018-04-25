@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace OnlineLibrary.Controllers
 {
@@ -21,7 +22,7 @@ namespace OnlineLibrary.Controllers
 
         public ActionResult BookDetails(int? id)
         {
-            var book = _db.Books.ToList().Where(x=> x.Id == id).FirstOrDefault();
+            var book = _db.Books.Include(x => x.Tags).ToList().Where(x=> x.Id == id).FirstOrDefault();
             if (book == null) return RedirectToAction("Index", "Home");
             return View(book);
         }
