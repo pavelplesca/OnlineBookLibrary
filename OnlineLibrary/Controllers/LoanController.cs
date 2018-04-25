@@ -70,6 +70,20 @@ namespace OnlineLibrary.Controllers
             return RedirectToAction("DisplayLoans");
         }
 
+        public ActionResult CheckIfUserRentsBook(string userId, Book book)
+        {
+            bool isRenting = loanRepository.CheckIfUserRentsBook(userId, book.Id);
+
+            if (!isRenting)
+            {
+                return PartialView("_UserIsNotRentingButtons", book);
+            }
+            else
+            {
+                return PartialView("_UserIsRentingButtons", book);
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
