@@ -59,7 +59,6 @@ namespace OnlineLibrary.Controllers
         public ActionResult CreateLoan(int bookId, string userId)
         {
             loanRepository.CreateLoan(bookId, userId);
-            loanRepository.SaveAndDispose();
 
             return RedirectToAction("DisplayLoans");
         }
@@ -67,7 +66,6 @@ namespace OnlineLibrary.Controllers
         public ActionResult CancelLoan(int bookId, string userId)
         {
             loanRepository.CancelLoan(bookId, userId);
-            loanRepository.SaveAndDispose();
 
             return RedirectToAction("DisplayLoans");
         }
@@ -108,6 +106,7 @@ namespace OnlineLibrary.Controllers
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
+            loanRepository.SaveAndDispose();
         }
     }
 }
