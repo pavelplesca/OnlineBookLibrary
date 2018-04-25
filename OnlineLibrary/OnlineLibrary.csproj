@@ -286,6 +286,10 @@
     <Compile Include="Migrations\201804250452257_BookStatusAdded.Designer.cs">
       <DependentUpon>201804250452257_BookStatusAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804251116281_UserViolationsNrAdded.cs" />
+    <Compile Include="Migrations\201804251116281_UserViolationsNrAdded.Designer.cs">
+      <DependentUpon>201804251116281_UserViolationsNrAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUserManager.cs" />
     <Compile Include="Models\Book.cs" />
@@ -340,6 +344,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804250452257_BookStatusAdded.resx">
       <DependentUpon>201804250452257_BookStatusAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804251116281_UserViolationsNrAdded.resx">
+      <DependentUpon>201804251116281_UserViolationsNrAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
