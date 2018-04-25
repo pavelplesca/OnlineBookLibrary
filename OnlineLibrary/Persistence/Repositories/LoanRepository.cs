@@ -82,7 +82,18 @@ namespace OnlineLibrary.Persistence.Repositories
 
         public int GetUserViolationNr(string userId)
         {
-            return context.Users.Where(x => x.Id == userId).SingleOrDefault().ViolationsNr;
+            return context.Users.Where(x => x.Id == userId)
+                .SingleOrDefault()
+                .ViolationsNr;
+        }
+
+        public void BanUser(string userId)
+        {
+            User user = context.Users
+                .Where(x => x.Id == userId)
+                .SingleOrDefault();
+
+            user.IsBanned = true;
         }
     }
 }
