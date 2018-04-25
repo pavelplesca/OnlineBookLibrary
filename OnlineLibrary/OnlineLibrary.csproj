@@ -217,6 +217,10 @@
     <Content Include="Views\Book\_RowOfBooks.cshtml" />
     <Content Include="Views\Book\_TagDropdown.cshtml" />
     <Content Include="Views\Book\_TopLoans.cshtml" />
+    <Content Include="Views\Book\_UserNotBannedPartial.cshtml" />
+    <Content Include="Views\Book\_UserBannedPartial.cshtml" />
+    <Content Include="Views\Loan\_UserIsNotRentingButtons.cshtml" />
+    <Content Include="Views\Loan\_UserIsRentingButtons.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -280,6 +284,10 @@
     <Compile Include="Migrations\201804241418355_AddedFildsForBookUser.Designer.cs">
       <DependentUpon>201804241418355_AddedFildsForBookUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804250452257_BookStatusAdded.cs" />
+    <Compile Include="Migrations\201804250452257_BookStatusAdded.Designer.cs">
+      <DependentUpon>201804250452257_BookStatusAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUserManager.cs" />
     <Compile Include="Models\Book.cs" />
@@ -331,6 +339,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804241418355_AddedFildsForBookUser.resx">
       <DependentUpon>201804241418355_AddedFildsForBookUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804250452257_BookStatusAdded.resx">
+      <DependentUpon>201804250452257_BookStatusAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

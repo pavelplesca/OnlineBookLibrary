@@ -77,11 +77,11 @@ namespace OnlineLibrary.Controllers
 
             if (!bookIsRentedByUser)
             {
-                if(!loanRepository.UserHasActiveRent(userId))
+                if(!loanRepository.UserHasActiveRent(userId) && book.Status != BookStatus.Available)
                 {
                     return PartialView("_UserIsNotRentingButtons", book);
                 }
-                return PartialView("_UserHasActiveLoanPartial");
+                return new EmptyResult();
             }
             else 
             {

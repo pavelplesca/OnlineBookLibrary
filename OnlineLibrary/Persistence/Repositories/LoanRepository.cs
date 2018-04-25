@@ -47,7 +47,9 @@ namespace OnlineLibrary.Persistence.Repositories
 
             canceledLoan.Status = Status.Rented;
             canceledLoan.ReturnedDate = DateTime.Now;
-            canceledLoan.Book.Status = BookStatus.Available;
+
+            Book book = context.Books.Where(x => x.Id == bookId).SingleOrDefault();
+            book.Status = BookStatus.Available;
         }
 
         public IList<Loan> ReturnLoanHistory(string userId)
