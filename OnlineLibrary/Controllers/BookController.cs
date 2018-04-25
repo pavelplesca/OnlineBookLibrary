@@ -63,6 +63,21 @@ namespace OnlineLibrary.Controllers
             tags.AddRange(_db.Tags.ToList()); 
             return PartialView("_TagDropdown", tags);
         }
+        
+        [ChildActionOnly]
+        public ActionResult DisplayButtons(string userId, Book book)
+        {
+            User user = _db.Users.Where(x => x.Id == userId).SingleOrDefault();
+
+            if(!user.IsBanned)
+            {
+                return PartialView("_UserNotBannedPartial", book);
+            }
+            else
+            {
+                return PartialView("_UserBannedPartial");
+            }
+        }
     }
 }
 /*
