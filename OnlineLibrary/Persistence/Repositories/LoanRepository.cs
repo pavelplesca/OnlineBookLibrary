@@ -66,7 +66,7 @@ namespace OnlineLibrary.Persistence.Repositories
 
         public bool CheckIfUserRentsBook(string userId, int bookId)
         {
-            return context.Loans.Any(x => x.UserID == userId && x.BookID == bookId);
+            return context.Loans.Any(x => x.UserID == userId && x.BookID == bookId && x.Status == Status.NowRenting);
         }
     }
 }
