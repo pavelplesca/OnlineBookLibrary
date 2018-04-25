@@ -17,13 +17,6 @@
         @Html.Partial("~/Views/Shared/_UserState.cshtml")
     </nav>
     <br>
-    <div class="container" name="onlineLibraryLogo">
-        <div class="row text-center">
-            <div class="col-md-12 col-sm-12 ">
-                <h3 class="display-1">Your loans</h3>
-            </div>
-        </div>
-    </div>
 }
 
 @section Body
@@ -38,13 +31,13 @@
         <div class="row">
             <div class="col-md-4">
                 @Html.Image($"/Content/Images/Books/{Model.Image}", "312", "475", "", "img-fluid")
-                @*<img class="card-img" style="width: 312px; height:475px" src="http://via.placeholder.com/300x300">*@
             </div>
             <div class="col-md-3">
                 <p>Author: @Model.Author</p>
                 <p>Year: @Model.Year</p>
                 <p>Description: @Model.Description</p>
-                <p>Category: <strong>Placeholder</strong></p>
+                <p>Category: <strong>@string.Join(" | ", Model.Tags)</strong></p>
+                <p>Status: @Model.Status.ToString()</p>
             </div>
             <div class="col-md-5">
 
@@ -53,11 +46,7 @@
         <br />
         @if (Request.IsAuthenticated)
         {
-            <div class="row">
-                <div class="col-md-4">
-                    @Html.ActionLink("Rent book", "CreateLoan", "Loan", new { bookID = Model.Id, userID = User.Identity.GetUserId() }, new { @class = "btn btn-dark mx-auto" })
-                </div>
-            </div>
+            @Html.Action("DisplayButtons", "Book", new { userId = User.Identity.GetUserId(), bookStatus = Model.Status })
         }
     </div>
 }
