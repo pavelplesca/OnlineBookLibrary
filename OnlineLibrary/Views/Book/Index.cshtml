@@ -28,7 +28,6 @@
     @if (Request.IsAuthenticated)
     {
         @Html.Action("CheckUserBanStatus", "Loan", new { userId = User.Identity.GetUserId() })
-        @Html.Action("CheckUserViolationsNr", "Loan", new { userId = User.Identity.GetUserId() })
     }
 }
 

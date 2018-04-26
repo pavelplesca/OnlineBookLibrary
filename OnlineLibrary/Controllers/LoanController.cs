@@ -67,6 +67,13 @@ namespace OnlineLibrary.Controllers
         {
             loanRepository.CancelLoan(bookId, userId);
 
+            int violationsNr = loanRepository.GetUserViolationNr(userId);
+
+            if (violationsNr == maxViolations)
+            {
+                loanRepository.BanUser(userId);
+            }
+
             return RedirectToAction("DisplayLoans");
         }
 
@@ -89,18 +96,6 @@ namespace OnlineLibrary.Controllers
             {
                 return PartialView("~/Views/Loan/ButtonDisplayPartials/_UserIsRentingButtons.cshtml", book);
             }
-        }
-
-        public ActionResult CheckUserViolationsNr(string userId)
-        {
-            int violationsNr = loanRepository.GetUserViolationNr(userId);
-
-            if(violationsNr == maxViolations)
-            {
-                loanRepository.BanUser(userId);
-            }
-
-            return new EmptyResult();
         }
 
         public ActionResult CheckCurrentLoan(string userId)
