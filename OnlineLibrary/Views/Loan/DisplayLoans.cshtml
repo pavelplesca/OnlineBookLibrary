@@ -22,6 +22,10 @@
             </div>
         </div>
     </div>
+    @if(Request.IsAuthenticated)
+    {
+        @Html.Action("CheckCurrentLoan", "Loan", User.Identity.GetUserId())
+    }
 }
 
 
