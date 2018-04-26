@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Google;
 using OnlineLibrary.Models;
 using Owin;
 
@@ -23,6 +25,25 @@ namespace OnlineLibrary
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/User/Login")
             });
+
+            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+            app.UseGoogleAuthentication(
+                new GoogleOAuth2AuthenticationOptions
+                {
+                    
+                    AuthenticationType = "Google",
+                    ClientId = "107315705740-2fm0vk47q13o96k58ub4rfrd9mkl6cq0.apps.googleusercontent.com",
+                    ClientSecret = "QuY47VxJEgGjaw05Ef6-CDJH",
+                    Caption = "Авторизация через Google+",
+                    CallbackPath = new PathString("/User/GoogleLoginCallback"),
+                    AuthenticationMode = AuthenticationMode.Passive,
+                    SignInAsAuthenticationType = app.GetDefaultSignInAsAuthenticationType(),
+                    BackchannelTimeout = TimeSpan.FromSeconds(60),
+                    BackchannelHttpHandler = new System.Net.Http.WebRequestHandler(),
+                    BackchannelCertificateValidator = null,
+                    Provider = new GoogleOAuth2AuthenticationProvider()
+                }
+            );
         }
     }
 }

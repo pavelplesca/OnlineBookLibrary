@@ -44,6 +44,73 @@ namespace OnlineLibrary.Controllers
             return View("Authentication");
         }
 
+        [HttpGet]
+        [Route("User/Authentication")]
+        public ActionResult Authentication()
+        {
+            //ViewBag.returnUrl = returnUrl;
+            return Login();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult GoogleLogin(string returnUrl)
+        {
+            var properties = new AuthenticationProperties
+            {
+                RedirectUri = Url.Action("GoogleLoginCallback","User",
+                    new { returnUrl = returnUrl })
+            };
+
+            HttpContext.GetOwinContext().Authentication.Challenge(properties, "Google");
+            return new HttpUnauthorizedResult();
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> GoogleLoginCallback(string returnUrl)
+        {
+            ExternalLoginInfo loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+            User user = await UserManager.FindAsync(loginInfo.Login);
+
+            if (user == null)
+            {
+                user = new User
+                {
+                    Email = loginInfo.Email,
+                    UserName = loginInfo.DefaultUserName
+                };
+
+                IdentityResult result = await UserManager.CreateAsync(user);
+                if (!result.Succeeded)
+                {
+                    return Content("Error: failed to create an user"); // View("Error", result.Errors);
+                }
+                else
+                {
+                    result = await UserManager.AddLoginAsync(user.Id, loginInfo.Login);
+                    if (!result.Succeeded)
+                    {
+                        return Content("Error: failed to login");//View("Error", result.Errors);
+                    }
+                }
+            }
+
+            ClaimsIdentity ident = await UserManager.CreateIdentityAsync(user,
+                DefaultAuthenticationTypes.ApplicationCookie);
+
+            ident.AddClaims(loginInfo.ExternalIdentity.Claims);
+
+            AuthenticationManager.SignIn(new AuthenticationProperties
+            {
+                IsPersistent = false
+            }, ident);
+
+            return Redirect(returnUrl ?? "/");
+        }
+
+
+
+
         [HttpPost]
         [Route("User/Login")]
         [ValidateAntiForgeryToken]
@@ -75,34 +142,6 @@ namespace OnlineLibrary.Controllers
 
             return View("Authentication", model);
         }
-
-
-        //public async Task<ActionResult> Login(UserAuthModel model, string returnUrl)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        User user =  UserManager.Find(model.Email, model.Password);
-        //        if (user == null)
-        //        {
-        //            ModelState.AddModelError("", "Wrong email or password.");
-        //        }
-        //        else
-        //        {
-        //            ClaimsIdentity claim = await UserManager.CreateIdentityAsync(user,
-        //                DefaultAuthenticationTypes.ApplicationCookie);
-        //            AuthenticationManager.SignOut();
-        //            AuthenticationManager.SignIn(new AuthenticationProperties
-        //            {
-        //                IsPersistent = true
-        //            }, claim);
-        //            if (String.IsNullOrEmpty(returnUrl))
-        //                return RedirectToAction("Index", "Home");
-        //            return Redirect(returnUrl);
-        //        }
-        //    }
-        //    ViewBag.returnUrl = returnUrl;
-        //    return View(model);
-        //}
 
         [ValidateAntiForgeryToken]
         public ActionResult Logout()
