@@ -125,12 +125,9 @@ namespace OnlineLibrary.Persistence.Repositories
                 .Where(x => x.Id == userId)
                 .SingleOrDefault();
 
-            if(user.IsBanned)
+            if(user.IsBanned && DateTime.Now > user.BannedUntil.Value.Date)
             {
-                if(DateTime.Now > user.BannedUntil.Value.Date)
-                {
-                    UnbanUser(user);
-                }
+                UnbanUser(user);
             }          
         }
 
