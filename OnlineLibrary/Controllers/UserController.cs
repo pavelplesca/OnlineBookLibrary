@@ -76,6 +76,8 @@ namespace OnlineLibrary.Controllers
             return View("Authentication", model);
         }
 
+        // un action sa redirect la un view
+
 
         //public async Task<ActionResult> Login(UserAuthModel model, string returnUrl)
         //{

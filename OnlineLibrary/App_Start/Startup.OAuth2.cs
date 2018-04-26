@@ -1,18 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Google;
+using System.Security.Claims;
+using Google.Apis.Auth.OAuth2.Responses;
+using Google.Apis.Util.Store;
+using Google.Apis.Auth.OAuth2;
 
 namespace OnlineLibrary.App_Start
 {
-	public class Startup
+    public class Startup
 	{
+        private IDataStore dataStore = new FileDataStore(GoogleWebAuthorizationBroker.Folder);
+
         public void ConfigurationAuth(IAppBuilder app)
         {
             app.SetDefaultSignInAsAuthenticationType(DefaultAuthenticationTypes.ApplicationCookie);
@@ -26,15 +29,38 @@ namespace OnlineLibrary.App_Start
                 LoginPath = new PathString("/User/Login")
             });
 
-            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions
+            var google = new GoogleOAuth2AuthenticationOptions()
             {
                 AuthenticationType = "Google",
                 AccessType = "Offline",
-                ClientId = "43668616772-l20nog942hvh70tnntro59ujecm9odg9.apps.googleusercontent.com",
-                ClientSecret = "mvg3LxDcRCo9s3iJcuonTGUv",
+                ClientId = MyClientSecrets.ClientID,
+                ClientSecret = MyClientSecrets.ClientSecret,
                 Provider = new GoogleOAuth2AuthenticationProvider()
-            });
-            
+                {
+					OnAuthenticated = async context =>
+                    {
+                        var userID = context.Id;
+                        context.Identity.AddClaim(new Claim(MyClaimsTypes.GoogleUserID, userID));
+
+                        var tokenResponse = new TokenResponse()
+                        {
+                            AccessToken = context.AccessToken,
+                            RefreshToken = context.RefreshToken,
+                            ExpiresInSeconds = (long)context.ExpiresIn.Value.TotalSeconds,
+                            Issued = DateTime.Now
+                        };
+
+                        await dataStore.StoreAsync(userID, tokenResponse);
+                    },
+                },
+            };
+
+            foreach (var scope in MyRequestedScopes.Scopes)
+            {
+                google.Scope.Add(scope);
+            }
+
+            app.UseGoogleAuthentication(google);
         }
 	}
 }

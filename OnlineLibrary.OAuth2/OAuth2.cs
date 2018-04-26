@@ -11,7 +11,7 @@ namespace OnlineLibrary.OAuth2
     {
         public void Configuration(IAppBuilder app)
         {
-               app.Use
+           
         }
     }
 }
