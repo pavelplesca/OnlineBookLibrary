@@ -10,12 +10,13 @@ namespace OnlineLibrary.Persistence.Repositories
     public class LoanRepository
     {
         private const int banDays = 7;
+        private const int additionalBanDays = 7;
         private readonly OnlineLibraryDb context;
 
         public LoanRepository()
         {
             context = new OnlineLibraryDb();
-        }      
+        }
 
         public void SaveAndDispose()
         {
@@ -43,7 +44,7 @@ namespace OnlineLibrary.Persistence.Repositories
         public void CancelLoan(int bookId, string userId)
         {
             Loan canceledLoan = context.Loans
-                .Where(x => x.BookID == bookId && x.UserID == userId && x.Status == Status.NowRenting)
+                .Where(x => x.BookID == bookId && x.UserID == userId && x.Status == Status.NowRenting || x.Status == Status.Violated)
                 .SingleOrDefault();
 
             canceledLoan.Status = Status.Rented;
@@ -56,7 +57,7 @@ namespace OnlineLibrary.Persistence.Repositories
         public IList<Loan> ReturnLoanHistory(string userId)
         {
             return context.Loans
-                .Where(x => x.UserID == userId && x.Status != Status.NowRenting)
+                .Where(x => x.UserID == userId && x.Status != Status.NowRenting && x.Status != Status.Violated)
                 .Include(z => z.Book)
                 .Include(y => y.Book.Tags)
                 .ToList();
@@ -65,7 +66,7 @@ namespace OnlineLibrary.Persistence.Repositories
         public Loan ReturnActiveLoan(string userId)
         {
             return context.Loans
-                .Where(x => x.UserID == userId && x.Status == Status.NowRenting)
+                .Where(x => x.UserID == userId && (x.Status == Status.NowRenting || x.Status == Status.Violated))
                 .Include(z => z.Book)
                 .Include(y => y.Book.Tags)
                 .SingleOrDefault();
@@ -78,7 +79,7 @@ namespace OnlineLibrary.Persistence.Repositories
 
         public bool UserHasActiveRent(string userId)
         {
-            return context.Loans.Any(x => x.UserID == userId && x.Status == Status.NowRenting);
+            return context.Loans.Any(x => x.UserID == userId && x.Status == Status.NowRenting || x.Status == Status.Violated);
         }
 
         public int GetUserViolationNr(string userId)
@@ -101,12 +102,13 @@ namespace OnlineLibrary.Persistence.Repositories
 
             user.IsBanned = true;
             user.BannedUntil = violatedLoan.DueDate.AddDays(banDays);
+            violatedLoan.Status = Status.Violated;
         }
 
         public bool IsCurrentLoanViolated(string userId)
         {
             Loan loan = context.Loans
-                .Where(x => x.UserID == userId && x.Status == Status.NowRenting)
+                .Where(x => x.UserID == userId && x.Status == Status.Violated)
                 .Include(z => z.User)
                 .SingleOrDefault();
 
@@ -125,10 +127,19 @@ namespace OnlineLibrary.Persistence.Repositories
                 .Where(x => x.Id == userId)
                 .SingleOrDefault();
 
+            Loan violatedLoan = context.Loans
+                .Where(x => x.UserID == userId && x.Status == Status.Violated)
+                .SingleOrDefault();
+
+            if(user.IsBanned && violatedLoan != null)
+            {
+                user.BannedUntil.Value.AddDays(additionalBanDays);
+            }
+
             if(user.IsBanned && DateTime.Now > user.BannedUntil.Value.Date)
             {
                 UnbanUser(user);
-            }          
+            }        
         }
 
         private void UnbanUser(User user)
