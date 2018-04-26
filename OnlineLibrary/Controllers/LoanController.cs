@@ -126,6 +126,13 @@ namespace OnlineLibrary.Controllers
             return new EmptyResult();
         }
 
+        public ActionResult CheckUserBanStatus(string userId)
+        {
+            loanRepository.CheckUserBanStatus(userId);
+
+            return new EmptyResult();
+        }
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
