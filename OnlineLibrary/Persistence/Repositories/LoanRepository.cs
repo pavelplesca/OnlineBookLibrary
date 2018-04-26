@@ -9,6 +9,7 @@ namespace OnlineLibrary.Persistence.Repositories
 {
     public class LoanRepository
     {
+        private const int banDays = 7;
         private readonly OnlineLibraryDb context;
 
         public LoanRepository()
@@ -99,8 +100,22 @@ namespace OnlineLibrary.Persistence.Repositories
                 .FirstOrDefault();
 
             user.IsBanned = true;
-            user.BannedUntil = violatedLoan.DueDate.AddDays(7);
-            violatedLoan.Status = Status.Violated;
+            user.BannedUntil = violatedLoan.DueDate.AddDays(banDays);
+        }
+
+        public bool IsCurrentLoanViolated(string userId)
+        {
+            Loan loan = context.Loans
+                .Where(x => x.UserID == userId && x.Status == Status.NowRenting)
+                .SingleOrDefault();
+
+            if(loan.DueDate > DateTime.Now)
+            {
+                loan.Status = Status.Violated;
+                return true;
+            }
+
+            return false;
         }
     }
 }
