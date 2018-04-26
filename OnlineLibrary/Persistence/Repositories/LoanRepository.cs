@@ -95,7 +95,7 @@ namespace OnlineLibrary.Persistence.Repositories
                 .SingleOrDefault();
 
             Loan violatedLoan = context.Loans
-                .Where(x => x.UserID == userId)
+                .Where(x => x.UserID == userId && x.Status == Status.Violated)
                 .OrderByDescending(y => y.DueDate)
                 .FirstOrDefault();
 
@@ -107,11 +107,12 @@ namespace OnlineLibrary.Persistence.Repositories
         {
             Loan loan = context.Loans
                 .Where(x => x.UserID == userId && x.Status == Status.NowRenting)
+                .Include(z => z.User)
                 .SingleOrDefault();
 
-            if(loan.DueDate > DateTime.Now)
+            if(loan.DueDate < DateTime.Now)
             {
-                loan.Status = Status.Violated;
+                loan.User.ViolationsNr++;
                 return true;
             }
 
