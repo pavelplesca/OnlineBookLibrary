@@ -10,19 +10,14 @@ using Owin;
 
 namespace OnlineLibrary
 {
-    public class Startup
+    public partial class Startup
     {
-        public partial void Configuration(IAppBuilder app)
+        public void Configuration(IAppBuilder app)
         {
             // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
 
-            app.CreatePerOwinContext<OnlineLibraryDb>(OnlineLibraryDb.Create);
+            app.CreatePerOwinContext(OnlineLibraryDb.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/User/Login")
-            });
         }
     }
 }

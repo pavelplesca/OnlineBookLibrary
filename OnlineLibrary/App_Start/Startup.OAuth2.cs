@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Google;
 
 namespace OnlineLibrary.App_Start
 {
@@ -25,13 +26,15 @@ namespace OnlineLibrary.App_Start
                 LoginPath = new PathString("/User/Login")
             });
 
-
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions
             {
-				AuthenticationType = "Google",
-				
+                AuthenticationType = "Google",
+                AccessType = "Offline",
+                ClientId = "43668616772-l20nog942hvh70tnntro59ujecm9odg9.apps.googleusercontent.com",
+                ClientSecret = "mvg3LxDcRCo9s3iJcuonTGUv",
+                Provider = new GoogleOAuth2AuthenticationProvider()
             });
-
+            
         }
 	}
 }
