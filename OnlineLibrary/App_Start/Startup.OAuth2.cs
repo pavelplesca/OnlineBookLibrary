@@ -14,6 +14,8 @@ namespace OnlineLibrary.App_Start
 	{
         public void ConfigurationAuth(IAppBuilder app)
         {
+            app.SetDefaultSignInAsAuthenticationType(DefaultAuthenticationTypes.ApplicationCookie);
+
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
@@ -23,15 +25,6 @@ namespace OnlineLibrary.App_Start
                 LoginPath = new PathString("/User/Login")
             });
 
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-				AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-				AuthenticationMode = AuthenticationMode.Active,
-                CookieName = CookieAuthenticationDefaults.CookiePrefix,
-                ExpireTimeSpan = TimeSpan.FromMinutes(5),
-                LoginPath = new PathString("/User/Login")
-
-            });
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
