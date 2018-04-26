@@ -114,6 +114,18 @@ namespace OnlineLibrary.Controllers
             return new EmptyResult();
         }
 
+        public ActionResult CheckIfBannedRentsBook(string userId, Book book)
+        {
+            bool isReceivedBookRentedByUser = loanRepository.CheckIfUserRentsBook(userId, book.Id);
+
+            if (isReceivedBookRentedByUser)
+            {
+                return PartialView("~/Views/Loan/ButtonDisplayPartials/_UserIsRentingButtons.cshtml", book);
+            }
+
+            return new EmptyResult();
+        }
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
