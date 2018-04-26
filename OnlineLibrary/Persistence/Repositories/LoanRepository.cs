@@ -95,8 +95,8 @@ namespace OnlineLibrary.Persistence.Repositories
                 .SingleOrDefault();
 
             Loan violatedLoan = context.Loans
-                .Where(x => x.UserID == userId && x.Status == Status.Violated)
-                .OrderByDescending(y => y.DueDate)
+                .Where(x => x.UserID == userId)
+                .OrderByDescending(y => y.BorrowDate)
                 .FirstOrDefault();
 
             user.IsBanned = true;

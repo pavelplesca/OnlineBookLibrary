@@ -76,7 +76,7 @@ namespace OnlineLibrary.Controllers
             }
             else
             {
-                return PartialView("_UserBannedPartial");
+                return PartialView("_UserBannedPartial", book);
             }
         }
     }
