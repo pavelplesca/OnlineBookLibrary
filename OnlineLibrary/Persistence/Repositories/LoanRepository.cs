@@ -103,17 +103,6 @@ namespace OnlineLibrary.Persistence.Repositories
             user.BannedUntil = violatedLoan.DueDate.AddDays(banDays);
         }
 
-        public void UnbanUser(string userId)
-        {
-            User user = context.Users
-                .Where(x => x.Id == userId)
-                .SingleOrDefault();
-
-            user.IsBanned = false;
-            user.BannedUntil = null;
-            user.ViolationsNr = 0;
-        }
-
         public bool IsCurrentLoanViolated(string userId)
         {
             Loan loan = context.Loans
@@ -128,6 +117,28 @@ namespace OnlineLibrary.Persistence.Repositories
             }
 
             return false;
+        }
+
+        public void CheckUserBanStatus(string userId)
+        {
+            User user = context.Users
+                .Where(x => x.Id == userId)
+                .SingleOrDefault();
+
+            if(user.IsBanned)
+            {
+                if(DateTime.Now > user.BannedUntil.Value.Date)
+                {
+                    UnbanUser(user);
+                }
+            }          
+        }
+
+        private void UnbanUser(User user)
+        {
+            user.IsBanned = false;
+            user.BannedUntil = null;
+            user.ViolationsNr = 0;
         }
     }
 }
