@@ -93,7 +93,14 @@ namespace OnlineLibrary.Persistence.Repositories
                 .Where(x => x.Id == userId)
                 .SingleOrDefault();
 
+            Loan violatedLoan = context.Loans
+                .Where(x => x.UserID == userId)
+                .OrderByDescending(y => y.DueDate)
+                .FirstOrDefault();
+
             user.IsBanned = true;
+            user.BannedUntil = violatedLoan.DueDate.AddDays(7);
+            violatedLoan.Status = Status.Violated;
         }
     }
 }
