@@ -10,7 +10,7 @@ using Owin;
 
 namespace OnlineLibrary
 {
-    public class Startup
+    public partial class Startup
     {
         public void Configuration(IAppBuilder app)
         {
@@ -18,11 +18,7 @@ namespace OnlineLibrary
 
             app.CreatePerOwinContext<OnlineLibraryDb>(OnlineLibraryDb.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/User/Login")
-            });
+            
         }
     }
 }
