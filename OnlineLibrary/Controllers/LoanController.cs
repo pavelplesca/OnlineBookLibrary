@@ -103,6 +103,17 @@ namespace OnlineLibrary.Controllers
             return new EmptyResult();
         }
 
+        public ActionResult CheckCurrentLoan(string userId)
+        {
+            if (loanRepository.UserHasActiveRent(userId) && 
+                loanRepository.IsCurrentLoanViolated(userId))
+            { 
+                return PartialView("_ViolationWarning");
+            }
+
+            return new EmptyResult();
+        }
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
