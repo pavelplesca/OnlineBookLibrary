@@ -8,7 +8,7 @@
     <div class="container" name="onlineLibraryLogo">
         <div class="row text-center">
             <div class="col-md-12 col-sm-12 ">
-                <h1 class="display-1">Online Library</h1>
+                <h1 class="display-1" ><a href="/Book" style="text-decoration: none; color: black">Online Library</a></h1>
             </div>
         </div>
     </div>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
 
-                @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @id = "loginForm" }))
+    @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @id = "loginForm" }))
     {
             
 
@@ -46,11 +46,12 @@
                 
 
             </div>
-            <div class="row bot-buffer text-center">
-                <div class="col-md-12 ">
-                    <input type="submit" class="btn btn-dark" name="loginSubmit" value="Log in" />
-                </div>
+        <div class="row bot-buffer text-center">
+            <div class="col-md-12 ">
+                <input type="submit" class="btn btn-dark" name="loginSubmit" value="Log in" />
             </div>
+        </div>
+        
             <div class="row bot-buffer">
                 @if (Request.Form.AllKeys.Contains("loginSubmit"))
                 {
@@ -60,7 +61,20 @@
                 @Html.ValidationMessageFor(a => a.UserLoginModel.Password)
 
             </div>
-}
+    }
+            @*--- External sign-in buttons ---*@
+            <div class="row bot-buffer text-center">
+                <div class="col-md-12 ">
+                    @using (Html.BeginForm("GoogleLogin", "User", FormMethod.Post, new { style = "margin-top:12px" }))
+                    {
+                        <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+                        <button class="btn btn-primary" type="submit">
+                            Google+ Log in
+                        </button>
+                    }
+                </div>
+            </div>
+            @*---------------------------------*@
             </div>
 
 
@@ -71,7 +85,7 @@
                     </div>
                 </div>
                 
-                @using (Html.BeginForm("Register", "User", FormMethod.Post))
+    @using (Html.BeginForm("Register", "User", FormMethod.Post))
     {
             @Html.AntiForgeryToken()
                 <div class="row bot-buffer">
@@ -106,13 +120,9 @@
                 {
                 @Html.ValidationSummary(true)
                 }
-
-                
-                
-
             </div>
 
-}
+    }
             </div>
         </div>
     </div>
