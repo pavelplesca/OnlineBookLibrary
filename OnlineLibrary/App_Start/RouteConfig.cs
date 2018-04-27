@@ -13,6 +13,7 @@ namespace OnlineLibrary.App_Start
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapMvcAttributeRoutes();
             routes.MapRoute(
                 name: "TaggedBookPage",
                 url: "Book/TaggedBookPage/{page}/{tag}",
