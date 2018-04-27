@@ -9,11 +9,13 @@ namespace OnlineLibrary.Models
     public class UserLoginModel
     {
         [Required]
-        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string Password { get; set; }
     }
 }
