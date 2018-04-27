@@ -217,8 +217,8 @@
     <Content Include="Views\Book\_TopLoans.cshtml" />
     <Content Include="Views\Book\_UserNotBannedPartial.cshtml" />
     <Content Include="Views\Book\_UserBannedPartial.cshtml" />
-    <Content Include="Views\Loan\ButtonDisplayPartials\_UserIsNotRentingButtons.cshtml" />
-    <Content Include="Views\Loan\ButtonDisplayPartials\_UserIsRentingButtons.cshtml" />
+    <Content Include="Views\Loan\ButtonDisplayPartials\_RentButton.cshtml" />
+    <Content Include="Views\Loan\ButtonDisplayPartials\_ReturnButton.cshtml" />
     <Content Include="Views\Loan\_ViolationWarning.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

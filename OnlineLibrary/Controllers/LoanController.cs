@@ -13,7 +13,6 @@ namespace OnlineLibrary.Controllers
     public class LoanController : Controller
     {
         private LoanRepository loanRepository;
-        private const int maxViolations = 5;
 
         public LoanController()
         {
@@ -66,13 +65,7 @@ namespace OnlineLibrary.Controllers
         public ActionResult CancelLoan(int bookId, string userId)
         {
             loanRepository.CancelLoan(bookId, userId);
-
-            int violationsNr = loanRepository.GetUserViolationNr(userId);
-
-            if (violationsNr == maxViolations)
-            {
-                loanRepository.BanUser(userId);
-            }
+            loanRepository.CheckIfNeedsBan(userId);
 
             return RedirectToAction("DisplayLoans");
         }
@@ -81,21 +74,17 @@ namespace OnlineLibrary.Controllers
         {
             bool isReceivedBookRentedByUser = loanRepository.CheckIfUserRentsBook(userId, book.Id);
 
-            if (!isReceivedBookRentedByUser)
-            {
+            
                 if(!loanRepository.UserHasActiveRent(userId))
                 {
                     if(book.Status == BookStatus.Available)
                     {
-                        return PartialView("~/Views/Loan/ButtonDisplayPartials/_UserIsNotRentingButtons.cshtml", book);
+                        return PartialView("~/Views/Loan/ButtonDisplayPartials/_RentButton.cshtml", book);
                     }
                 }
                 return new EmptyResult();
-            }
-            else 
-            {
-                return PartialView("~/Views/Loan/ButtonDisplayPartials/_UserIsRentingButtons.cshtml", book);
-            }
+            
+            
         }
 
         public ActionResult CheckCurrentLoan(string userId)

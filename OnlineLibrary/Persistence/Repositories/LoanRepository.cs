@@ -11,6 +11,8 @@ namespace OnlineLibrary.Persistence.Repositories
     {
         private const int banDays = 7;
         private const int daysPerLoan = 7;
+        private const int maxViolations = 5;
+
         private readonly OnlineLibraryDb context;
 
         public LoanRepository()
@@ -114,7 +116,7 @@ namespace OnlineLibrary.Persistence.Repositories
 
             if(loan != null && loan.DueDate < DateTime.Now)
             {
-                if(loan.User.ViolationsNr < 5)
+                if(loan.User.ViolationsNr < maxViolations)
                 {
                     loan.User.ViolationsNr++;
                 }
@@ -141,6 +143,16 @@ namespace OnlineLibrary.Persistence.Repositories
             user.IsBanned = false;
             user.BannedUntil = null;
             user.ViolationsNr = 0;
+        }
+
+        public void CheckIfNeedsBan(string userId)
+        {
+            int violationsNr = GetUserViolationNr(userId);
+
+            if (violationsNr == maxViolations)
+            {
+                BanUser(userId);
+            }
         }
     }
 }
