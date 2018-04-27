@@ -1,4 +1,5 @@
-﻿@model IEnumerable<OnlineLibrary.Models.Book>
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<OnlineLibrary.Models.Book>
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,15 +7,15 @@
 
 @section Header
 {
-<nav class="navbar navbar-expand-sm" style="background-color:black;">
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item ">
-            <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new { style = @"text-decoration:none;", @class = "text-white" })</h4>
-        </li>
-    </ul>
-    @Html.Partial("~/Views/Shared/_UserState.cshtml")
+    <nav class="navbar navbar-expand-sm" style="background-color:black;">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new { style = @"text-decoration:none;", @class = "text-white" })</h4>
+            </li>
+        </ul>
+        @Html.Partial("~/Views/Shared/_UserState.cshtml")
 
-</nav>
+    </nav>
     <br>
     <div class="container" name="onlineLibraryLogo">
         <div class="row text-center">
@@ -23,6 +24,11 @@
             </div>
         </div>
     </div>
+
+    @if (Request.IsAuthenticated)
+    {
+        @Html.Action("CheckUserBanStatus", "Loan", new { userId = User.Identity.GetUserId() })
+    }
 }
 
 @section Body
@@ -35,9 +41,9 @@
         </div>
         @Html.Action("TopLoans")
     </div>
-    <br/>
-    <br/>
-    <br/>
+    <br />
+    <br />
+    <br />
     @Html.Partial("_BooksContainer")
 
     <script>
@@ -66,7 +72,7 @@
                             if (pagenum > 1) $("#prev-button").removeAttr("disabled");
                         }
                     );
-                    
+
                 });
 
 
