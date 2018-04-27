@@ -1,0 +1,4 @@
+﻿@using Microsoft.AspNet.Identity
+@model OnlineLibrary.Models.Book
+
+@Html.Action("CheckIfBannedRentsBook", "Loan", new { userId = User.Identity.GetUserId(), book = Model })
