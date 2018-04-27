@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = User.Identity.Name + " - Loan details";
+}
+
+@section Header
+{
+    <nav class="navbar navbar-expand-sm" style="background-color:black;">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new { style = @"text-decoration:none;", @class = "text-white" })</h4>
+            </li>
+        </ul>
+        @Html.Partial("~/Views/Shared/_UserState.cshtml")
+    </nav>
+    <br>
+    <div class="container" name="onlineLibraryLogo">
+        <div class="row text-center">
+            <div class="col-md-12 col-sm-12 ">
+                <h3 class="display-1">Your loans</h3>
+            </div>
+        </div>
+    </div>
+    @if(Request.IsAuthenticated)
+    {
+        @Html.Action("CheckCurrentLoan", "Loan", User.Identity.GetUserId())
+    }
+}
+
+
+@section Body
+{
+    @Html.Partial("~/Views/Loan/ActiveLoanPartials/_ActiveLoanPartial.cshtml")
+    @Html.Partial("~/Views/Loan/LoanHistoryPartials/_LoanHistoryPartial.cshtml")
+}

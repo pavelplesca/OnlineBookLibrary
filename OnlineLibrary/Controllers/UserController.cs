@@ -148,7 +148,7 @@ namespace OnlineLibrary.Controllers
             return View("Authentication", model);
         }
 
-        //[ValidateAntiForgeryToken]
+       // [ValidateAntiForgeryToken]
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();

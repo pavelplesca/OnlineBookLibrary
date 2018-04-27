@@ -1,0 +1,8 @@
+﻿@using Microsoft.AspNet.Identity
+@model OnlineLibrary.Models.Book
+
+<div class="row">
+    <div class="col-md-4">
+        @Html.ActionLink("Rent book", "CreateLoan", "Loan", new { bookID = Model.Id, userID = User.Identity.GetUserId() }, new { @class = "btn btn-dark mx-auto" })
+    </div>
+</div>
