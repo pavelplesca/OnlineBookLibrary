@@ -31,17 +31,17 @@ namespace OnlineLibrary
                 new GoogleOAuth2AuthenticationOptions
                 {
                     
-                    AuthenticationType = "Google",
+                   // AuthenticationType = "Google",
                     ClientId = "107315705740-2fm0vk47q13o96k58ub4rfrd9mkl6cq0.apps.googleusercontent.com",
                     ClientSecret = "QuY47VxJEgGjaw05Ef6-CDJH",
                     Caption = "Авторизация через Google+",
-                    CallbackPath = new PathString("/User/GoogleLoginCallback"),
+                   /* CallbackPath = new PathString("/User/GoogleLoginCallback"),
                     AuthenticationMode = AuthenticationMode.Passive,
                     SignInAsAuthenticationType = app.GetDefaultSignInAsAuthenticationType(),
                     BackchannelTimeout = TimeSpan.FromSeconds(60),
                     BackchannelHttpHandler = new System.Net.Http.WebRequestHandler(),
                     BackchannelCertificateValidator = null,
-                    Provider = new GoogleOAuth2AuthenticationProvider()
+                    Provider = new GoogleOAuth2AuthenticationProvider()*/
                 }
             );
         }

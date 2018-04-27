@@ -77,20 +77,25 @@ namespace OnlineLibrary.Controllers
                 user = new User
                 {
                     Email = loginInfo.Email,
-                    UserName = loginInfo.DefaultUserName
+                    UserName = loginInfo.Email
                 };
 
                 IdentityResult result = await UserManager.CreateAsync(user);
                 if (!result.Succeeded)
                 {
-                    return Content("Error: failed to create an user"); // View("Error", result.Errors);
+                    
+                    var errors = result.Errors;
+                    var message = string.Join(", ", errors);
+                    return Content(message); // View("Error", result.Errors);
                 }
                 else
                 {
                     result = await UserManager.AddLoginAsync(user.Id, loginInfo.Login);
                     if (!result.Succeeded)
                     {
-                        return Content("Error: failed to login");//View("Error", result.Errors);
+                        var errors = result.Errors;
+                        var message = string.Join(", ", errors);
+                        return Content(message); // View("Error", result.Errors);
                     }
                 }
             }
@@ -143,7 +148,7 @@ namespace OnlineLibrary.Controllers
             return View("Authentication", model);
         }
 
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
@@ -166,8 +171,9 @@ namespace OnlineLibrary.Controllers
                 IdentityResult result =  UserManager.Create(user, model.UserRegisterModel.Password);
                 if (result.Succeeded)
                 {
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    
                     model.UserLoginModel = new UserLoginModel(){Email = model.UserRegisterModel.Email, Password = model.UserRegisterModel.Password };
-
                     ClaimsIdentity claim = UserManager.CreateIdentity(user,
                         DefaultAuthenticationTypes.ApplicationCookie);
                     AuthenticationManager.SignOut();
