@@ -131,6 +131,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\StyleSheet1.css" />
     <Content Include="Content\Images\Books\aspnet.jpg" />
     <Content Include="Content\Images\Books\a_brief_history_of_time.jpg" />
     <Content Include="Content\Images\Books\CSharpInANutshell.jpg" />
@@ -140,6 +141,7 @@
     <Content Include="Content\Images\Books\java.jpg" />
     <Content Include="Content\Images\Books\ReadyPlayerOne.jpg" />
     <Content Include="Content\Images\Capture.PNG" />
+    <Content Include="Scripts\MyScripts\ajax.js" />
     <Content Include="Content\sticky-footer.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -263,6 +265,9 @@
     <EmbeddedResource Include="Migrations\201804101504200_AddTagsMigration.resx">
       <DependentUpon>201804101504200_AddTagsMigration.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\cssIcons\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
