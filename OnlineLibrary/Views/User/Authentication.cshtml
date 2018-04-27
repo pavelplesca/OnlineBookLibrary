@@ -28,30 +28,39 @@
                         <h4 class="display-4 ">Log in</h4>
                     </div>
                 </div>
-                @Html.ValidationSummary(true)
-                @using (Html.BeginForm("Login", "User", FormMethod.Post))
-            {
+
+                @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @id = "loginForm" }))
+    {
+            
 
             @Html.AntiForgeryToken()
 
             <div class="row bot-buffer">
                 @Html.LabelFor(a => a.UserLoginModel.Email, new { @class = "col-sm-4 " })
-                @Html.ValidationMessageFor(a => a.UserLoginModel.Email)
                 @Html.TextBoxFor(a => a.UserLoginModel.Email, new { @class = "col-sm-6 " })
 
             </div>
             <div class="row bot-buffer">
-                @Html.LabelFor(a => a.UserLoginModel.Password, new { @class = "col-sm-4 " })
-                @Html.ValidationMessageFor(a => a.UserLoginModel.Password)
-                @Html.TextBoxFor(a => a.UserLoginModel.Password, new { @class = "col-sm-6" })
+                @Html.LabelFor(a => a.UserLoginModel.Password, new { @class = "col-sm-4 "  })
+                @Html.PasswordFor(a=> a.UserLoginModel.Password, new { @class = "col-sm-6" })
+                
 
             </div>
             <div class="row bot-buffer text-center">
                 <div class="col-md-12 ">
-                    <input type="submit" class="btn btn-dark " value="Log in" />
+                    <input type="submit" class="btn btn-dark" name="loginSubmit" value="Log in" />
                 </div>
             </div>
-            }
+            <div class="row bot-buffer">
+                @if (Request.Form.AllKeys.Contains("loginSubmit"))
+                {
+                @Html.ValidationSummary(true)
+                }
+                @Html.ValidationMessageFor(a => a.UserLoginModel.Email)
+                @Html.ValidationMessageFor(a => a.UserLoginModel.Password)
+
+            </div>
+}
             </div>
 
 
@@ -61,28 +70,46 @@
                         <h4 class="display-4 ">Register user</h4>
                     </div>
                 </div>
+                
                 @using (Html.BeginForm("Register", "User", FormMethod.Post))
     {
             @Html.AntiForgeryToken()
-            <div class="row bot-buffer">
-                @Html.LabelFor(a => a.UserRegisterModel.Email, new { @class = "col-sm-4 " })
-                @Html.ValidationMessageFor(a => a.UserRegisterModel.Email)
-                @Html.TextBoxFor(a => a.UserRegisterModel.Email, new { @class = "col-sm-6 " })
-            </div>
+                <div class="row bot-buffer">
+                    @Html.LabelFor(a => a.UserRegisterModel.Email, new { @class = "col-sm-4 " })
+                    @Html.TextBoxFor(a => a.UserRegisterModel.Email, new { @class = "col-sm-6 " })
+                    <div class="col-sm-6 offset-sm-4">
+                        @Html.ValidationMessageFor(a => a.UserRegisterModel.Email)
+                    </div>
+                </div>
             <div class="row bot-buffer">
                 @Html.LabelFor(a => a.UserRegisterModel.Password, new { @class = "col-sm-4 " })
-                @Html.ValidationMessageFor(a => a.UserRegisterModel.Password)
-                @Html.TextBoxFor(a => a.UserRegisterModel.Password, new { @class = "col-sm-6" })
+                @Html.PasswordFor(a => a.UserRegisterModel.Password, new { @class = "col-sm-6" })
+                <div class="col-sm-6 offset-sm-4">
+                    @Html.ValidationMessageFor(a => a.UserRegisterModel.Password)
+                </div>
             </div>
             <div class="row bot-buffer">
-                @Html.LabelFor(a => a.UserRegisterModel.PasswordConfirm, new { @class = "col-sm-4" })
-                @Html.ValidationMessageFor(a => a.UserRegisterModel.PasswordConfirm)
-                @Html.TextBoxFor(a => a.UserRegisterModel.PasswordConfirm, new { @class = "col-sm-6" })
+                @Html.LabelFor(a => a.UserRegisterModel.PasswordConfirm, "Password Confirm:", new { @class = "col-sm-4" })
+                @Html.PasswordFor(a => a.UserRegisterModel.PasswordConfirm, new { @class = "col-sm-6" })
+                <div class="col-sm-6 offset-sm-4">
+                    @Html.ValidationMessageFor(a => a.UserRegisterModel.PasswordConfirm)
+                    
+                </div>
             </div>
             <div class="row bot-buffer text-center">
                 <div class="col-md-12 ">
-                    <input type="submit" class="btn btn-dark " value="Register" />
+                    <input type="submit" class="btn btn-dark " name="registerSubmit" value="Register" />
                 </div>
+            </div>
+            <div class="row bot-buffer">
+                @if (Request.Form.AllKeys.Contains("registerSubmit"))
+                {
+                @Html.ValidationSummary(true)
+                }
+
+                
+                
+
             </div>
 
 }

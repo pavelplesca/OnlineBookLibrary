@@ -1,27 +1,26 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
-        @Html.AntiForgeryToken()
-
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Home")
-            </li>
-            <li>
-                @Html.ActionLink("My loans", "DisplayLoans", "Loan", new { userId = User.Identity.GetUserId() }, null)
-            </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-        </ul>
-    }
+        using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+            <ul class="navbar-nav navbar-right">
+              <li class="nav-item ">
+                  <span class="navbar-brand text-light" style="margin-right: 5px;">@Html.Raw("Hello, " + User.Identity.GetUserName() + "!")</span>
+              </li>
+              <li class="nav-item">                
+                @Html.ActionLink("My loans", "DisplayLoans", "Loan", new { userId = User.Identity.GetUserId() }, new { @class = "btn btn-secondary", style = "margin-right: 5px;" })
+              </li> 
+              <li class="nav-item"><a class="btn btn-secondary" href="" style="margin-right: 5px;">My loans</a></li> 
+              <li class="nav-item"><a class="btn btn-secondary" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+            </ul>
+        }
 }
 else
 {
 
     <ul class="navbar-nav navbar-right">
         <li class="nav-item">
-            <a class="nav-link" href="@Url.Action("Login","User")"> Login/Register</a>
+            <a class="btn btn-secondary" href="@Url.Action("Login","User")"> LogIn</a>
         </li>
     </ul>
 

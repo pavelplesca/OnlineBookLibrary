@@ -35,25 +35,19 @@ namespace OnlineLibrary.Controllers
             return PartialView("_TopLoans", loans);
         }
 
-//        [ChildActionOnly]
-        public ActionResult BookPage(int page)
-        {
-            int maxPage = _db.Books.Count() / 6 +1;
-            ViewBag.maxpage = maxPage;
-            ViewBag.Page = page;
-            return PartialView("_BookPage", _db.Books.ToList().Skip((page-1)*6).Take(6));
-        }
+
 
         public ActionResult TaggedBookPage(int page, string tag)
         {
             var books =_db.Books.Where(b => b.Tags.Select(t => t.Name).Contains(tag));
-            int maxPage = (books.Count() / 6)+1;
-            ViewBag.maxpage = maxPage;
-
+            
             if (tag is null || tag == "All")
             {
-                return BookPage(page);
+                books = _db.Books; 
             }
+            int maxPage = (books.Count() / 6) + 1;
+            ViewBag.maxpage = maxPage;
+
             return PartialView("_BookPage", books.ToList().Skip((page - 1) * 6).Take(6));
         }
 
