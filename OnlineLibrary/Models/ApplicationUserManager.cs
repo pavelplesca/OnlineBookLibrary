@@ -13,6 +13,7 @@ namespace OnlineLibrary.Models
     {
         public ApplicationUserManager(IUserStore<User> store) : base(store)
         {
+            UserValidator = new UserValidator<User>(this) { AllowOnlyAlphanumericUserNames = false};
         }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options,
@@ -22,5 +23,7 @@ namespace OnlineLibrary.Models
             ApplicationUserManager manager = new ApplicationUserManager(new UserStore<User>(db));
             return manager;
         }
+
+        
     }
 }
