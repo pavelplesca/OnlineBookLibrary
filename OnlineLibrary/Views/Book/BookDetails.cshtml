@@ -1,5 +1,5 @@
 ﻿@using OnlineLibrary.Helpers
-@using Microsoft.AspNet.Identity
+@* @using Microsoft.AspNet.Identity *@
 @model OnlineLibrary.Models.Book
 
 @{
@@ -14,7 +14,7 @@
                 <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new { style = @"text-decoration:none;", @class = "text-white" })</h4>
             </li>
         </ul>
-        @Html.Partial("~/Views/Shared/_UserState.cshtml")
+       @* @Html.Partial("~/Views/Shared/_UserState.cshtml") *@
     </nav>
     <br>
 }
