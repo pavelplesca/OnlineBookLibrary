@@ -32,8 +32,8 @@ namespace OnlineLibrary
                 {
                     
                    // AuthenticationType = "Google",
-                    ClientId = "",
-                    ClientSecret = "",
+                    ClientId = "107315705740-2fm0vk47q13o96k58ub4rfrd9mkl6cq0.apps.googleusercontent.com",
+                    ClientSecret = "QuY47VxJEgGjaw05Ef6-CDJH",
                     Caption = "Google",
                    /* CallbackPath = new PathString("/User/ExternalLoginCallback"),
                     AuthenticationMode = AuthenticationMode.Passive,
@@ -46,8 +46,8 @@ namespace OnlineLibrary
             );
 
             app.UseFacebookAuthentication(
-                appId: "",
-                appSecret: "");
+                appId: "221926618564798",
+                appSecret: "c3adfb92c6feaac2cad7b513d0992143");
         }
     }
 }
