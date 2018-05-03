@@ -32,10 +32,10 @@ namespace OnlineLibrary
                 {
                     
                    // AuthenticationType = "Google",
-                    ClientId = "107315705740-2fm0vk47q13o96k58ub4rfrd9mkl6cq0.apps.googleusercontent.com",
-                    ClientSecret = "QuY47VxJEgGjaw05Ef6-CDJH",
-                    Caption = "Авторизация через Google+",
-                   /* CallbackPath = new PathString("/User/GoogleLoginCallback"),
+                    ClientId = "",
+                    ClientSecret = "",
+                    Caption = "Google",
+                   /* CallbackPath = new PathString("/User/ExternalLoginCallback"),
                     AuthenticationMode = AuthenticationMode.Passive,
                     SignInAsAuthenticationType = app.GetDefaultSignInAsAuthenticationType(),
                     BackchannelTimeout = TimeSpan.FromSeconds(60),
@@ -44,6 +44,10 @@ namespace OnlineLibrary
                     Provider = new GoogleOAuth2AuthenticationProvider()*/
                 }
             );
+
+            app.UseFacebookAuthentication(
+                appId: "",
+                appSecret: "");
         }
     }
 }

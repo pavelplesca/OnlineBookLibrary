@@ -59,19 +59,13 @@
                 }
                 @Html.ValidationMessageFor(a => a.UserLoginModel.Email)
                 @Html.ValidationMessageFor(a => a.UserLoginModel.Password)
-
             </div>
     }
             @*--- External sign-in buttons ---*@
             <div class="row bot-buffer text-center">
+                
                 <div class="col-md-12 ">
-                    @using (Html.BeginForm("GoogleLogin", "User", FormMethod.Post, new { style = "margin-top:12px" }))
-                    {
-                        <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
-                        <button class="btn btn-primary" type="submit">
-                            Google+ Log in
-                        </button>
-                    }
+                    @Html.Partial("_ExternalLoginView", new ExternalLoginListViewModel() { ReturnUrl = ViewBag.returnUrl })
                 </div>
             </div>
             @*---------------------------------*@
