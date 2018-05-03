@@ -4,7 +4,10 @@ script:
   - xbuild /p:Configuration=Release ./OnlineLibrary.sln
 deploy:
   provider: azure_web_apps
+  verbose: true
   on:
     branch: master
+git:
+  depth: 9999999
 notifications:
   email: false

@@ -72,19 +72,14 @@ namespace OnlineLibrary.Controllers
 
         public ActionResult CheckIfUserRentsBook(string userId, Book book)
         {
-            bool isReceivedBookRentedByUser = loanRepository.CheckIfUserRentsBook(userId, book.Id);
-
-            
-                if(!loanRepository.UserHasActiveRent(userId))
+            if(!loanRepository.UserHasActiveRent(userId))
+            {
+                if(book.Status == BookStatus.Available)
                 {
-                    if(book.Status == BookStatus.Available)
-                    {
-                        return PartialView("~/Views/Loan/ButtonDisplayPartials/_RentButton.cshtml", book);
-                    }
+                    return PartialView("~/Views/Loan/ButtonDisplayPartials/_RentButton.cshtml", book);
                 }
-                return new EmptyResult();
-            
-            
+            }
+            return new EmptyResult();            
         }
 
         public ActionResult CheckCurrentLoan(string userId)
@@ -93,18 +88,6 @@ namespace OnlineLibrary.Controllers
                 loanRepository.IsCurrentLoanViolated(userId))
             { 
                 return PartialView("_ViolationWarning");
-            }
-
-            return new EmptyResult();
-        }
-
-        public ActionResult CheckIfBannedRentsBook(string userId, Book book)
-        {
-            bool isReceivedBookRentedByUser = loanRepository.CheckIfUserRentsBook(userId, book.Id);
-
-            if (isReceivedBookRentedByUser)
-            {
-                return PartialView("~/Views/Loan/ButtonDisplayPartials/_UserIsRentingButtons.cshtml", book);
             }
 
             return new EmptyResult();
