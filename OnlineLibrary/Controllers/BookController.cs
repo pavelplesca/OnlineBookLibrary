@@ -70,6 +70,15 @@ namespace OnlineLibrary.Controllers
             }
             return new EmptyResult();
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (_db != null)
+            {
+                _db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
 /*

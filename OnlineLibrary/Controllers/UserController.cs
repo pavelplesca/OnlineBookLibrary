@@ -52,25 +52,41 @@ namespace OnlineLibrary.Controllers
             return Login();
         }
 
-        [HttpPost]
+        /*[HttpPost]
         [AllowAnonymous]
         public ActionResult GoogleLogin(string returnUrl)
         {
             var properties = new AuthenticationProperties
             {
-                RedirectUri = Url.Action("GoogleLoginCallback","User",
+                RedirectUri = Url.Action("ExternalLoginCallback","User",
                     new { returnUrl = returnUrl })
             };
 
             HttpContext.GetOwinContext().Authentication.Challenge(properties, "Google");
             return new HttpUnauthorizedResult();
+        }*/
+
+        // POST: /Account/ExternalLogin
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ExternalLogin(string provider, string returnUrl)
+        {
+            var properties = new AuthenticationProperties
+            {
+                RedirectUri = Url.Action("ExternalLoginCallback", "User",
+                    new { returnUrl = returnUrl })
+            };
+
+            HttpContext.GetOwinContext().Authentication.Challenge(properties, provider);
+            return new HttpUnauthorizedResult();
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> GoogleLoginCallback(string returnUrl)
+        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             ExternalLoginInfo loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
-            User user = await UserManager.FindAsync(loginInfo.Login);
+            User user = await UserManager.FindByEmailAsync(loginInfo.Email);
 
             if (user == null)
             {
@@ -152,6 +168,7 @@ namespace OnlineLibrary.Controllers
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
+            Session.Remove("facebooktoken");
             return RedirectToAction("Login");
         }
 

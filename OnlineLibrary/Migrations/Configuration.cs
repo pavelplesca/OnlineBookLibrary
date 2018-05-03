@@ -10,7 +10,7 @@ namespace OnlineLibrary.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             ContextKey = "OnlineLibrary.Models.OnlineLibraryDb";
         }
 
