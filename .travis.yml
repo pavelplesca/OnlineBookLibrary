@@ -1,7 +1,7 @@
 language: csharp
-solution: "./OnlineLibrary.sln"
+solution: "./OnlineBookLibrary.sln"
 script: 
-  - xbuild /p:Configuration=Release ./OnlineLibrary.sln
+  - xbuild /p:Configuration=Release ./OnlineBookLibrary.sln
 deploy:
   provider: azure_web_apps
   verbose: true

@@ -1,0 +1,52 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<OnlineBookLibrary.Models.Book>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Header
+{
+    <nav class="navbar navbar-expand-sm" style="background-color:black;">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new { style = @"text-decoration:none;", @class = "text-white" })</h4>
+            </li>
+        </ul>
+        @Html.Partial("~/Views/Shared/_UserState.cshtml")
+
+    </nav>
+    <br>
+    <div class="container" name="onlineLibraryLogo">
+        <div class="row text-center">
+            <div class="col-md-12 col-sm-12 ">
+                <h1 class="display-1">Online Library</h1>
+            </div>
+        </div>
+    </div>
+
+    @if (Request.IsAuthenticated)
+    {
+        @Html.Action("CheckUserBanStatus", "Loan", new { userId = User.Identity.GetUserId() })
+    }
+}
+
+@section Body
+{
+    <div class="container" name="loansContainer">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h5>Top 3 Rented Books of the Month</h5>
+            </div>
+        </div>
+        @Html.Action("TopLoans")
+    </div>
+    <br />
+    <br />
+    <br />
+    @Html.Partial("_BooksContainer")
+
+    <script src="~/Scripts/MyScripts/ajax.js">
+
+    </script>
+}
