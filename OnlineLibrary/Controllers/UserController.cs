@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using OnlineLibrary.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 
@@ -15,6 +16,8 @@ namespace OnlineLibrary.Controllers
 {
     public class UserController : Controller
     {
+        private readonly OnlineLibraryDb _db = new OnlineLibraryDb();
+
         private ApplicationUserManager UserManager
         {
             get
@@ -28,6 +31,14 @@ namespace OnlineLibrary.Controllers
             get
             {
                 return HttpContext.GetOwinContext().Authentication;
+            }
+        }
+
+        private RoleManager<IdentityRole> RoleManager
+        {
+            get
+            {
+                return new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(_db));
             }
         }
 
@@ -51,21 +62,7 @@ namespace OnlineLibrary.Controllers
             //ViewBag.returnUrl = returnUrl;
             return Login();
         }
-
-        /*[HttpPost]
-        [AllowAnonymous]
-        public ActionResult GoogleLogin(string returnUrl)
-        {
-            var properties = new AuthenticationProperties
-            {
-                RedirectUri = Url.Action("ExternalLoginCallback","User",
-                    new { returnUrl = returnUrl })
-            };
-
-            HttpContext.GetOwinContext().Authentication.Challenge(properties, "Google");
-            return new HttpUnauthorizedResult();
-        }*/
-
+        
         // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
@@ -74,10 +71,8 @@ namespace OnlineLibrary.Controllers
         {
             var properties = new AuthenticationProperties
             {
-                RedirectUri = Url.Action("ExternalLoginCallback", "User",
-                    new { returnUrl = returnUrl })
+                RedirectUri = Url.Action("ExternalLoginCallback", "User",new { returnUrl = returnUrl })
             };
-
             HttpContext.GetOwinContext().Authentication.Challenge(properties, provider);
             return new HttpUnauthorizedResult();
         }
@@ -90,48 +85,29 @@ namespace OnlineLibrary.Controllers
 
             if (user == null)
             {
-                user = new User
-                {
-                    Email = loginInfo.Email,
-                    UserName = loginInfo.Email
-                };
+                user = new User{Email = loginInfo.Email,UserName = loginInfo.Email};
 
                 IdentityResult result = await UserManager.CreateAsync(user);
                 if (!result.Succeeded)
                 {
-                    
-                    var errors = result.Errors;
-                    var message = string.Join(", ", errors);
-                    return Content(message); // View("Error", result.Errors);
+                    return Content(string.Join(", ", result.Errors)); 
                 }
                 else
                 {
                     result = await UserManager.AddLoginAsync(user.Id, loginInfo.Login);
                     if (!result.Succeeded)
                     {
-                        var errors = result.Errors;
-                        var message = string.Join(", ", errors);
-                        return Content(message); // View("Error", result.Errors);
+                        return Content(string.Join(", ", result.Errors));
                     }
                 }
             }
-
             ClaimsIdentity ident = await UserManager.CreateIdentityAsync(user,
                 DefaultAuthenticationTypes.ApplicationCookie);
-
             ident.AddClaims(loginInfo.ExternalIdentity.Claims);
-
-            AuthenticationManager.SignIn(new AuthenticationProperties
-            {
-                IsPersistent = false
-            }, ident);
-
+            AuthenticationManager.SignIn(new AuthenticationProperties{IsPersistent = false}, ident);
             return Redirect(returnUrl ?? "/");
         }
-
-
-
-
+        
         [HttpPost]
         [Route("User/Login")]
         [ValidateAntiForgeryToken]
@@ -149,18 +125,12 @@ namespace OnlineLibrary.Controllers
                     ClaimsIdentity claim =  UserManager.CreateIdentity(user,
                         DefaultAuthenticationTypes.ApplicationCookie);
                     AuthenticationManager.SignOut();
-                    AuthenticationManager.SignIn(new AuthenticationProperties
-                    {
-                        IsPersistent = true
-                    }, claim);
+                    AuthenticationManager.SignIn(new AuthenticationProperties{IsPersistent = true}, claim);
                     if (String.IsNullOrEmpty(returnUrl))
                         return RedirectToAction("Index", "Home");
                     return Redirect(returnUrl);
                 }
             }
-
-            //var authmodel = new UserAuthModel() { UserLoginModel = model };
-
             return View("Authentication", model);
         }
 
@@ -188,8 +158,6 @@ namespace OnlineLibrary.Controllers
                 IdentityResult result =  UserManager.Create(user, model.UserRegisterModel.Password);
                 if (result.Succeeded)
                 {
-                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    
                     model.UserLoginModel = new UserLoginModel(){Email = model.UserRegisterModel.Email, Password = model.UserRegisterModel.Password };
                     ClaimsIdentity claim = UserManager.CreateIdentity(user,
                         DefaultAuthenticationTypes.ApplicationCookie);
@@ -208,9 +176,14 @@ namespace OnlineLibrary.Controllers
                     }
                 }
             }
-
-            //var authmodel= new UserAuthModel(){UserRegisterModel = model};
             return View("Authentication", model);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (_db != null)
+                _db.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
