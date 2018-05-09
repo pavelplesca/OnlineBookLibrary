@@ -197,6 +197,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Migrations\201805081056581_InitialCreate.cs" />
     <Compile Include="Migrations\201805081056581_InitialCreate.Designer.cs">
       <DependentUpon>201805081056581_InitialCreate.cs</DependentUpon>
@@ -369,7 +370,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51860</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
