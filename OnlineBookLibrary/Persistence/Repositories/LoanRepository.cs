@@ -29,7 +29,12 @@ namespace OnlineBookLibrary.Persistence.Repositories
 
         public void CreateLoan(int bookId, string userId)
         {
-            context.Loans.Add(
+            bool loanAlreadyExists = context.Loans
+                .Any(l => l.Status == Status.NowRenting && l.BookID == bookId && l.UserID == userId);
+
+            if(!loanAlreadyExists)
+            {
+                context.Loans.Add(
                 new Loan
                 {
                     BorrowDate = DateTime.Now,
@@ -40,8 +45,9 @@ namespace OnlineBookLibrary.Persistence.Repositories
                     UserID = userId
                 });
 
-            Book book = context.Books.Where(x => x.Id == bookId).SingleOrDefault();
-            book.Status = BookStatus.Rented;
+                Book book = context.Books.Where(x => x.Id == bookId).SingleOrDefault();
+                book.Status = BookStatus.Rented;
+            }       
         }
 
         public void CancelLoan(int bookId, string userId)
@@ -62,7 +68,6 @@ namespace OnlineBookLibrary.Persistence.Repositories
             return context.Loans
                 .Where(x => x.UserID == userId && x.Status != Status.NowRenting && x.Status != Status.Violated)
                 .Include(z => z.Book)
-                .Include(y => y.Book.Tags)
                 .ToList();
         }
 
@@ -70,7 +75,6 @@ namespace OnlineBookLibrary.Persistence.Repositories
         {
             return context.Loans
                 .Where(x => x.UserID == userId && (x.Status == Status.NowRenting || x.Status == Status.Violated))
-                .Include(z => z.Book)
                 .Include(y => y.Book.Tags)
                 .SingleOrDefault();
         }
