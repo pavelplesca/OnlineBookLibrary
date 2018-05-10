@@ -32,7 +32,7 @@ namespace OnlineBookLibrary.Controllers
         [ChildActionOnly]
         public ActionResult DisplayHistory(string userId)
         {
-            ICollection<Loan> loanHistory = loanRepository.ReturnLoanHistory(userId).ToList();
+            ICollection<Loan> loanHistory = loanRepository.ReturnLoanHistory(userId);
 
             if (loanHistory.Count != 0)
             {
