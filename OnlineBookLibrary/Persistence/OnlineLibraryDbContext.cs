@@ -11,7 +11,7 @@ namespace OnlineBookLibrary.Persistence
     public class OnlineLibraryDbContext : IdentityDbContext<User>
     {
         public OnlineLibraryDbContext()
-            : base("onlinelibrary2018", throwIfV1Schema: false)
+            : base("ZoosDatabase", throwIfV1Schema: false)
         {
         }
 
