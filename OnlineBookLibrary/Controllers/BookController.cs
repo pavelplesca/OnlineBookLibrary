@@ -31,12 +31,22 @@ namespace OnlineBookLibrary.Controllers
         }
 
         private OnlineLibraryDbContext _db = new OnlineLibraryDbContext();
+        private BookRepository bookRepository = new BookRepository();
         
         public ActionResult BookDetails(int? id)
         {
             logger.Log("BookDetails started");
-            var book = _db.Books.Include(x => x.Tags).ToList().Where(x => x.Id == id).FirstOrDefault();
-            if (book == null) return RedirectToAction("Index", "Home");
+            //var book = _db.Books.Include(x => x.Tags).ToList().Where(x => x.Id == id).FirstOrDefault();
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var book = bookRepository.GetBookDetailsById((int)id);
+            if (book == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             logger.Log("BookDetails return View(book)");
             return View(book);
         }
