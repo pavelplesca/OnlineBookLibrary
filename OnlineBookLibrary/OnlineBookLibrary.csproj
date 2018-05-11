@@ -190,6 +190,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\LibrarianController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -207,8 +208,9 @@
     <Compile Include="Models\Loan.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\UserAuthModel.cs" />
+    <Compile Include="Models\ViewModels\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\UserAuthModel.cs" />
+    <Compile Include="Models\ViewModels\UserWithRolesViewModel.cs" />
     <Compile Include="Persistence\OnlineLibraryDbContext.cs" />
     <Compile Include="Persistence\Repositories\BookRepository.cs" />
     <Compile Include="Persistence\Repositories\LoanRepository.cs" />
@@ -334,10 +336,14 @@
     <Content Include="Views\User\Authentication.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\_ExternalLoginView.cshtml" />
+    <Content Include="Views\Librarian\UsersList.cshtml" />
+    <Content Include="Views\Librarian\Index.cshtml" />
+    <Content Include="Views\Librarian\_UserList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\cssIcons\" />
+    <Folder Include="Roles\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

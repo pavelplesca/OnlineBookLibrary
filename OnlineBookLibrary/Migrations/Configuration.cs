@@ -1,3 +1,5 @@
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using OnlineBookLibrary.Models;
 namespace OnlineBookLibrary.Migrations
 {
@@ -16,6 +18,39 @@ namespace OnlineBookLibrary.Migrations
         protected override void Seed(OnlineBookLibrary.Persistence.OnlineLibraryDbContext context)
         {
             //  This method will be called after migrating to the latest version.
+
+            var userManager = new UserManager<User>(new UserStore<User>(context));
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+            string name = "valeriuLibrarian@mail.com";
+
+            string email = "valeriuLibrarian@mail.com";
+
+            string role = "librarian";
+
+            string password = "librarian";
+
+            if (!roleManager.RoleExists(role))
+            {
+                roleManager.Create(new IdentityRole(role));
+            }
+
+            var user = new User();
+
+            
+
+            user.UserName = name;
+            user.Email = email;
+            if (!userManager.Users.Any(u => u.UserName == name))
+            {
+                var adminresult = userManager.Create(user, password);
+
+                if (adminresult.Succeeded)
+                {
+                    var result = userManager.AddToRole(user.Id, role);
+                }
+            }
 
             context.Tags.AddOrUpdate(new Tag() { Id = 1, Name = "Java" });
             context.Tags.AddOrUpdate(new Tag() { Id = 2, Name = "C/C++" });
@@ -176,6 +211,9 @@ namespace OnlineBookLibrary.Migrations
                 if (book.Tags.All(t => t.Name != "ASPNet"))
                     book.Tags.Add(context.Tags.FirstOrDefault(t => t.Name == "ASPNet"));
             }
+
+
+
             context.SaveChanges();
         }
     }

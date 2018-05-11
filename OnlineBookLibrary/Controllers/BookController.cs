@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Diagnostics;
+using System.Web.Security;
 using OnlineBookLibrary.Persistence;
 using OnlineBookLibrary.Persistence.Repositories;
 using OnlineBookLibrary.Helpers;

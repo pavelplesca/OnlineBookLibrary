@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -67,6 +68,8 @@ namespace OnlineBookLibrary
                 ClientId = "107315705740-2fm0vk47q13o96k58ub4rfrd9mkl6cq0.apps.googleusercontent.com",
                 ClientSecret = "QuY47VxJEgGjaw05Ef6-CDJH"
             });
+
+
         }
     }
 }
