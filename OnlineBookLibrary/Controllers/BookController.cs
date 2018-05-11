@@ -30,8 +30,8 @@ namespace OnlineBookLibrary.Controllers
             return View();
         }
 
-        private OnlineLibraryDbContext _db = new OnlineLibraryDbContext();
-        private BookRepository bookRepository = new BookRepository();
+        private readonly OnlineLibraryDbContext _db = new OnlineLibraryDbContext();
+        private readonly BookRepository _bookRepository = new BookRepository();
         
         public ActionResult BookDetails(int? id)
         {
@@ -41,7 +41,7 @@ namespace OnlineBookLibrary.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var book = bookRepository.GetBookDetailsById((int)id);
+            var book = _bookRepository.GetBookDetailsById((int)id);
             if (book == null)
             {
                 return RedirectToAction("Index", "Home");
