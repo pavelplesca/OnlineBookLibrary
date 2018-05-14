@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Web.Security;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using OnlineBookLibrary.Persistence;
 using OnlineBookLibrary.Persistence.Repositories;
 using OnlineBookLibrary.Helpers;
@@ -16,6 +18,7 @@ namespace OnlineBookLibrary.Controllers
     public class BookController : Controller
     {
         Logger logger = new Logger("BookController");
+        private readonly BookRepository _bookRepository = new BookRepository();
 
         public BookController()
         {
@@ -29,14 +32,10 @@ namespace OnlineBookLibrary.Controllers
             ViewBag.Page = 1;
             return View();
         }
-
-        private readonly OnlineLibraryDbContext _db = new OnlineLibraryDbContext();
-        private readonly BookRepository _bookRepository = new BookRepository();
         
         public ActionResult BookDetails(int? id)
         {
             logger.Log("BookDetails started");
-            //var book = _db.Books.Include(x => x.Tags).ToList().Where(x => x.Id == id).FirstOrDefault();
             if (id == null)
             {
                 return RedirectToAction("Index", "Home");
@@ -55,33 +54,30 @@ namespace OnlineBookLibrary.Controllers
         public ActionResult TopLoans()
         {
             logger.Log("TopLoans started");
-            IEnumerable<Book> loans = _db.Books.ToList().Take(3);
+            IEnumerable<Book> books = _bookRepository.GetTopLoanedBooks();
             logger.Log("TopLoans  return PartialView");
-            return PartialView("_TopLoans", loans);
+            return PartialView("_TopLoans", books);
         }
 
         public ActionResult TaggedBookPage(int page, string tag)
         {
             logger.Log("TaggedBookPage started");
-            var books = _db.Books.Where(b => b.Tags.Select(t => t.Name).Contains(tag));
-
-            if (tag is null || tag == "All")
-            {
-                books = _db.Books;
-            }
+            if (tag == null)
+                tag = "All";
+            var books = _bookRepository.GetBooksByTag(tag);
+            books = _bookRepository.GetPageOfBooks(books, page);
             int maxPage = (books.Count() / 6) + 1;
             ViewBag.maxpage = maxPage;
-
             logger.Log("TaggedBookPage return PartialView(_BookPage)");
-            return PartialView("_BookPage", books.ToList().Skip((page - 1) * 6).Take(6));
+
+            return PartialView("_BookPage", books);
         }
 
         [ChildActionOnly]
         public ActionResult ReturnTags()
         {
             logger.Log("ReturnTags started");
-            var tags = new List<Tag>() { new Tag() { Id = 0, Name = "All" } };
-            tags.AddRange(_db.Tags.ToList());
+            var tags = _bookRepository.GetTags();
             logger.Log("ReturnTags PartialView (_TagDropdown)");
             return PartialView("_TagDropdown", tags);
         }
@@ -90,7 +86,9 @@ namespace OnlineBookLibrary.Controllers
         public ActionResult DisplayButtons(string userId, Book book)
         {
             logger.Log("DisplayButtons started");
-            User user = _db.Users.Where(x => x.Id == userId).SingleOrDefault();
+            var um = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            
+            User user = um.FindById(userId); 
 
             if (!user.IsBanned)
             {
@@ -102,11 +100,11 @@ namespace OnlineBookLibrary.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (_db != null)
+            if (_bookRepository != null)
             {
-                _db.Dispose();
+                _bookRepository.Dispose();
             }
-
+        
             base.Dispose(disposing);
 
             if (logger != null)
@@ -117,15 +115,4 @@ namespace OnlineBookLibrary.Controllers
         }
     }
 }
-/*
- * ViewBag.Page = page;
-            int booksOnPage = 6;
-            var books = _db.Books.ToList();
 
-            int maxPage = books.Count/ booksOnPage
-
-            books=(List<Book>)books.Skip((page - 1) * booksOnPage).Take(booksOnPage);
-            if (books.Count > 0) return PartialView("_BookPage", books);
-            else return Content("No any books");
- *
- */

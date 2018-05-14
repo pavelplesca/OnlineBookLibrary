@@ -22,18 +22,36 @@ namespace OnlineBookLibrary.Persistence.Repositories
 
         public IEnumerable<Book> GetTopLoanedBooks(int count = 3)
         {
-            /*var books = from b in context.Books
-                join l in context.Loans
-                    on b.Id equals l.BookID into j
-                group j by b.Id into grouped
-                select  new { bookId = grouped.Key, Count = grouped.Count(x =>x.)}
-            */
-            var LoanedBookGroups = context.Loans.GroupBy(x => x.BookID).OrderBy( x => x.Count()).Take(count);
-            
-            //var books = context.Books.Join()
-
-            return LoanedBookGroups;
+            var mostLoanedBooksIds = context.Loans.GroupBy(x => x.BookID).OrderBy( x => x.Count()).Take(count).Select(x=>x.Key);
+            var books = context.Books.Where(x => mostLoanedBooksIds.Contains(x.Id));
+            return books;
         }
+
+        public  IEnumerable<Book> GetPageOfBooks( IEnumerable<Book> books, int pageNum = 1, int booksOnPage = 6)
+        {
+            pageNum--;
+            if (pageNum < 0) 
+                throw new ArgumentException("Invalid page number, less then 1");
+            if (pageNum > books.Count() / booksOnPage + 1)
+                throw new ArgumentException("Invalid page number, more then max");
+            var result = books.Skip(pageNum * booksOnPage).Take(booksOnPage).ToList();
+            return result;
+        }
+
+        public IEnumerable<Book> GetBooksByTag(string tag = "All")
+        {
+            if (tag == "All") return context.Books;
+
+            return context.Books.Where(b => b.Tags.Select(t => t.Name).Contains(tag));
+        }
+
+        public IEnumerable<Tag> GetTags()
+        {
+            var tags = new List<Tag>() { new Tag() { Id = 0, Name = "All" } };
+            tags.AddRange(context.Tags.ToList());
+            return tags;
+        }
+
 
         public void Dispose()
         {
