@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using OnlineBookLibrary.Models;
@@ -8,22 +9,27 @@ namespace OnlineBookLibrary.Persistence.Repositories
 {
     public class BookRepository : IDisposable
     {
-        private readonly OnlineLibraryDbContext context;
+        private readonly OnlineLibraryDbContext _context;
 
         public BookRepository()
         {
-            context = new OnlineLibraryDbContext();
+            _context = new OnlineLibraryDbContext();
         }
 
         public Book GetBookDetailsById(int id)
         {
-            return context.Books.Include("Tags").FirstOrDefault(b => b.Id == id);
+            return _context.Books.Include("Tags").FirstOrDefault(b => b.Id == id);
         }
 
         public IEnumerable<Book> GetTopLoanedBooks(int count = 3)
         {
-            var mostLoanedBooksIds = context.Loans.GroupBy(x => x.BookID).OrderBy( x => x.Count()).Take(count).Select(x=>x.Key);
-            var books = context.Books.Where(x => mostLoanedBooksIds.Contains(x.Id));
+            var mostLoanedBooksIds = _context.Loans
+                .Where(x => DbFunctions.DiffDays(x.BorrowDate,DateTime.Today ) < 30)
+                .GroupBy(x => x.BookID)
+                .OrderBy( x => x.Count())
+                .Take(count)
+                .Select(x=>x.Key);
+            var books = _context.Books.Where(x => mostLoanedBooksIds.Contains(x.Id));
             return books;
         }
 
@@ -40,22 +46,22 @@ namespace OnlineBookLibrary.Persistence.Repositories
 
         public IEnumerable<Book> GetBooksByTag(string tag = "All")
         {
-            if (tag == "All") return context.Books;
+            if (tag == "All") return _context.Books;
 
-            return context.Books.Where(b => b.Tags.Select(t => t.Name).Contains(tag));
+            return _context.Books.Where(b => b.Tags.Select(t => t.Name).Contains(tag));
         }
 
         public IEnumerable<Tag> GetTags()
         {
             var tags = new List<Tag>() { new Tag() { Id = 0, Name = "All" } };
-            tags.AddRange(context.Tags.ToList());
+            tags.AddRange(_context.Tags.ToList());
             return tags;
         }
 
 
         public void Dispose()
         {
-            if (context != null) context.Dispose();
+            if (_context != null) _context.Dispose();
         }
     }
 }
