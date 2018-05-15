@@ -1,0 +1,58 @@
+﻿@using OnlineBookLibrary.Helpers
+@using Microsoft.AspNet.Identity
+@model OnlineBookLibrary.Models.Book
+
+@{
+                /**/
+
+                ViewBag.Title = Model.Name.ToString() + "- Details";
+}
+
+@section Header
+{
+    <nav class="navbar navbar-expand-sm" style="background-color:black;">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new { style = @"text-decoration:none;", @class = "text-white" })</h4>
+            </li>
+        </ul>
+        @Html.Partial("~/Views/Shared/_UserState.cshtml")
+    </nav>
+    <br>
+}
+
+@section Body
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <h1>@Model.Name</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                @Html.Image($"/Content/Images/Books/{Model.Image}", "312", "475", "", "img-fluid")
+            </div>
+            <div class="col-md-3">
+                <p>Author: @Model.Author</p>
+                <p>Year: @Model.Year</p>
+                <p>Description: @Model.Description</p>
+                <p>Category: <strong>@string.Join(" | ", Model.Tags)</strong></p>
+                <p>Status: @Model.Status.ToString()</p>
+            </div>
+            <div class="col-md-5">
+
+            </div>
+        </div>
+        <br />
+        @if (Request.IsAuthenticated)
+        {
+            @Html.Action("DisplayButtons", "Book", new { userId = User.Identity.GetUserId(), book = Model })
+        }
+    </div>
+}
+
+
+
+
