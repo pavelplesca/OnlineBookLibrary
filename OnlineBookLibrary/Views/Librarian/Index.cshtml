@@ -33,6 +33,85 @@
 
 @section Body
 {
+   
+
+    <div class="container">
+        <div class="border rounded">
+            <div class="tab">
+                <button class="tablinks" onclick="openTab(event, 'Books')">Books</button>
+                <button class="tablinks" onclick="openTab(event, 'Tags')">Tags</button>
+                <button class="tablinks" onclick="openTab(event, 'Librarians')">Librarians</button>
+            </div>
+            <div id="Books" class="tabcontent">
+                @Html.Partial("_BooksTab")
+            </div>
+            <div id="Tags" class="tabcontent">
+                @Html.Partial("_TagsTab")
+            </div>
+            <div id="Librarians" class="tabcontent">
+@*                @Html.Partial("_LibrarianTab")*@
+            </div>
+            
+        </div>
+    </div>
+    
+
+
+
+    <h2>UserList</h2>
+    
+    <!-- Nav tabs -->
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" href="#librarian-tab" role="tab" data-toggle="tab" id="tab-users">Users</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#librarian-tab" role="tab" data-toggle="tab" id="tab-tags">Tags</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#librarian-tab" role="tab" data-toggle="tab" id="tab-books">Books</a>
+        </li>
+    </ul>
+
+    <!-- Tab pane -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="LibrarianTab">...</div>
+        <div id="librarian-tab">
+            
+        </div>
+    </div>
+
+        <script>
+
+            $(function () {
+
+                function myfunc() {
+                    $("#librarian-tab").load("Librarian/Users/");
+                }
+                $("#tab-users").click(
+                    function () {
+                        myfunc();
+                    }
+                )
+
+                $("#tab-tags").click(
+                    function () {
+                        $("#librarian-tab").load("librarian/Tags/");
+                    });
+
+                $("#tab-books").click(
+                    function () {
+                        $("#librarian-tab").load("Librarian/Books/");
+                    });
+                myfunc();
+
+            })
+
+        </script>
+
+}
+
     <style>
         .tab {
             overflow: hidden;
@@ -70,105 +149,3 @@
             border-top: none;
         }
     </style>
-
-    <div class="container">
-        <div class="border rounded">
-            <div class="tab">
-                <button class="tablinks" onclick="openTab(event, 'Books')">Books</button>
-                <button class="tablinks" onclick="openTab(event, 'Tags')">Tags</button>
-                <button class="tablinks" onclick="openTab(event, 'Librarians')">Librarians</button>
-            </div>
-            <div id="Books" class="tabcontent">
-                @Html.Partial("_BooksTab")
-            </div>
-            <div id="Tags" class="tabcontent">
-                @Html.Partial("_TagsTab")
-            </div>
-            <div id="Librarians" class="tabcontent">
-                @Html.Partial("_LibrarianTab")
-            </div>
-            @Html.Partial("_LibrarianTab")
-        </div>
-    </div>
-    
-    <script>
-        $(function() {
-//            function openTag(evt, cityName) {
-//                var i, tablinks;
-//                var tabs = $(".tabcontent");
-//                for (i = 0; i < tabs.length; i++) {
-//
-//                }
-//            }
-
-
-//            function openTag(evt, cityName) {
-//                var i, tabcontent, tablinks;
-//                tabcontent = document.getElementsByClassName("tabcontent");
-//                for (i = 0; i < tabcontent.length; i++) {
-//                    tabcontent[i].style.display = "none";
-//                }
-//                tablinks = document.getElementsByClassName("tablinks");
-//                for (i = 0; i < tablinks.length; i++) {
-//                    tablinks[i].className = tablinks[i].className.replace(" active", "");
-//                }
-//                document.getElementById(cityName).style.display = "block";
-//                evt.currentTarget.className += " active";
-            }
-        })
-    </script>
-
-}
-    <h2>UserList</h2>
-    
-    <!-- Nav tabs -->
-
-    <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" href="#librarian-tab" role="tab" data-toggle="tab" id="tab-users">Users</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#librarian-tab" role="tab" data-toggle="tab" id="tab-tags">Tags</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#librarian-tab" role="tab" data-toggle="tab" id="tab-books">Books</a>
-        </li>
-    </ul>
-
-    <!-- Tab pane -->
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane fade in active" id="LibrarianTab">...</div>
-        <div id="librarian-tab">
-            
-        </div>
-
-        <script>
-
-            $(function () {
-
-                function myfunc() {
-                    $("#librarian-tab").load("Users/");
-                }
-                $("#tab-users").click(
-                    function () {
-                        myfunc();
-                    }
-                )
-
-                $("#tab-tags").click(
-                    function () {
-                        $("#librarian-tab").load("Tags/");
-                    });
-
-                $("#tab-books").click(
-                    function () {
-                        $("#librarian-tab").load("Books/");
-                    });
-                myfunc();
-
-            })
-
-        </script>
-
-}
-
