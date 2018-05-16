@@ -8,13 +8,16 @@
             <li class="nav-item ">
                 <span class="navbar-brand text-light" style="margin-right: 5px;">@Html.Raw("Hello, " + User.Identity.GetUserName() + "!")</span>
             </li>
-            <li class="nav-item">
-                @Html.ActionLink("My loans", "DisplayLoans", "Loan", new {userId = User.Identity.GetUserId()}, new {@class = "btn btn-secondary", style = "margin-right: 5px;"})
-            </li>
-            @if (this.User.IsInRole("librarian"))
+            @if (!User.IsInRole("librarian"))
             {
                 <li class="nav-item">
-                    @Html.ActionLink("User List", "Index", "Librarian", null, new {@class = "btn btn-secondary", style = "margin-right: 5px;"})
+                    @Html.ActionLink("My loans", "DisplayLoans", "Loan", new {userId = User.Identity.GetUserId()}, new {@class = "btn btn-secondary", style = "margin-right: 5px;"})
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    @Html.ActionLink("Librarian Panel", "Index", "Librarian", null, new {@class = "btn btn-secondary", style = "margin-right: 5px;"})
                 </li>
             }
             <li class="nav-item">

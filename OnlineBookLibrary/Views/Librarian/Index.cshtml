@@ -4,12 +4,13 @@
 @{
     ViewBag.Title = "UserList";
 }
+
 @section Header
 {
-    <nav class="navbar navbar-expand-sm" style="background-color:black;">
+    <nav class="navbar navbar-expand-sm" style="background-color: black;">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new { style = @"text-decoration:none;", @class = "text-white" })</h4>
+                <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new {style = @"text-decoration:none;", @class = "text-white"})</h4>
             </li>
         </ul>
         @Html.Partial("~/Views/Shared/_UserState.cshtml")
@@ -19,20 +20,102 @@
     <div class="container" name="onlineLibraryLogo">
         <div class="row text-center">
             <div class="col-md-12 col-sm-12 ">
-                <h1 class="display-1">Online Library</h1>
+                <h1 class="display-1">Librarian Panel</h1>
             </div>
         </div>
     </div>
 
     @if (Request.IsAuthenticated)
     {
-        @Html.Action("CheckUserBanStatus", "Loan", new { userId = User.Identity.GetUserId() })
+        @Html.Action("CheckUserBanStatus", "Loan", new {userId = User.Identity.GetUserId()})
     }
 }
 
 @section Body
 {
-    <h2>UserList</h2>
+    <style>
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
 
-    @Html.Partial("_UserList")
+        /* Style the buttons inside the tab */
+
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+        /* Change background color of buttons on hover */
+
+        .tab button:hover { background-color: #ddd; }
+
+        /* Create an active/current tablink class */
+
+        .tab button.active { background-color: #ccc; }
+
+        /* Style the tab content */
+
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+    </style>
+
+    <div class="container">
+        <div class="border rounded">
+            <div class="tab">
+                <button class="tablinks" onclick="openTab(event, 'Books')">Books</button>
+                <button class="tablinks" onclick="openTab(event, 'Tags')">Tags</button>
+                <button class="tablinks" onclick="openTab(event, 'Librarians')">Librarians</button>
+            </div>
+            <div id="Books" class="tabcontent">
+                @Html.Partial("_BooksTab")
+            </div>
+            <div id="Tags" class="tabcontent">
+                @Html.Partial("_TagsTab")
+            </div>
+            <div id="Librarians" class="tabcontent">
+                @Html.Partial("_LibrarianTab")
+            </div>
+            @Html.Partial("_LibrarianTab")
+        </div>
+    </div>
+    
+    <script>
+        $(function() {
+//            function openTag(evt, cityName) {
+//                var i, tablinks;
+//                var tabs = $(".tabcontent");
+//                for (i = 0; i < tabs.length; i++) {
+//
+//                }
+//            }
+
+
+//            function openTag(evt, cityName) {
+//                var i, tabcontent, tablinks;
+//                tabcontent = document.getElementsByClassName("tabcontent");
+//                for (i = 0; i < tabcontent.length; i++) {
+//                    tabcontent[i].style.display = "none";
+//                }
+//                tablinks = document.getElementsByClassName("tablinks");
+//                for (i = 0; i < tablinks.length; i++) {
+//                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+//                }
+//                document.getElementById(cityName).style.display = "block";
+//                evt.currentTarget.className += " active";
+            }
+        })
+    </script>
+
 }

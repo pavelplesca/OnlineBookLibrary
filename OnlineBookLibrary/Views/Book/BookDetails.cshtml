@@ -44,7 +44,7 @@
             </div>
         </div>
         <br />
-        @if (Request.IsAuthenticated)
+        @if ((Request.IsAuthenticated)&&(!User.IsInRole("librarian")))
         {
             @Html.Action("DisplayButtons", "Book", new { userId = User.Identity.GetUserId(), book = Model})
         }
