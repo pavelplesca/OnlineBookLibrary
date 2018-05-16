@@ -1,0 +1,10 @@
+﻿@model IEnumerable<OnlineBookLibrary.Models.Book>
+
+<div class="card-deck row">
+    @foreach (var book in Model)
+    {
+        <div class="card text-black col-sm-4" style="background-color:white;">
+            @Html.Partial("_BookPartial", book)
+        </div>
+    }
+</div>

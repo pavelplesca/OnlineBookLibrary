@@ -1,0 +1,37 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h5>Available books</h5>
+        </div>
+    </div>
+</div>
+<div class="container" name="categoriesContainer">
+    <div class="card" style="background-color:black;">
+        <div class="card-header  text-white">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <h5>Select a category</h5>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    @Html.Action("ReturnTags", "Book")
+                </div>
+            </div>
+        </div>
+        <div id="books-container" class="card-body">
+            @Html.Action("TaggedBookPage", new { page = 1 })
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <button id="prev-button" type="button" class="btn btn-light">Prev</button>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h5 class="text-white">Current page <span id="currentPage">@ViewBag.Page</span>/<span id ="maxPageSpan"></span></h5>
+                </div>
+                <div class="col-md-4 text-center">
+                    <button id="next-button" type="button" class="btn btn-light">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
