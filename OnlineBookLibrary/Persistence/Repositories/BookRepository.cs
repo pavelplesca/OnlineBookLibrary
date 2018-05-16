@@ -26,7 +26,7 @@ namespace OnlineBookLibrary.Persistence.Repositories
             var mostLoanedBooksIds = _context.Loans
                 .Where(x => DbFunctions.DiffDays(x.BorrowDate,DateTime.Today ) < 30)
                 .GroupBy(x => x.BookID)
-                .OrderBy( x => x.Count())
+                .OrderByDescending( x => x.Count())
                 .Take(count)
                 .Select(x=>x.Key);
             var books = _context.Books.Where(x => mostLoanedBooksIds.Contains(x.Id));
