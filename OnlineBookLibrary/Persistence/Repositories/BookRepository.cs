@@ -7,7 +7,16 @@ using OnlineBookLibrary.Models;
 
 namespace OnlineBookLibrary.Persistence.Repositories
 {
-    public class BookRepository : IDisposable
+    public interface IBookRepository
+    {
+        Book GetBookDetailsById(int id);
+        IEnumerable<Book> GetTopLoanedBooks(int count = 3);
+        IEnumerable<Book> GetPageOfBooks(IEnumerable<Book> books, int pageNum = 1, int booksOnPage = 6);
+        IEnumerable<Book> GetBooksByTag(string tag = "All");
+        IEnumerable<Tag> GetTags();
+    }
+
+    public class BookRepository : IDisposable, IBookRepository
     {
         private readonly OnlineLibraryDbContext _context;
 
@@ -64,4 +73,6 @@ namespace OnlineBookLibrary.Persistence.Repositories
             if (_context != null) _context.Dispose();
         }
     }
+
+    
 }

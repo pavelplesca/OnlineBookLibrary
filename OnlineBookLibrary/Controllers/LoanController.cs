@@ -12,11 +12,11 @@ namespace OnlineBookLibrary.Controllers
     [Authorize]
     public class LoanController : Controller
     {
-        private LoanRepository loanRepository;
+        private ILoanRepository loanRepository;
 
-        public LoanController()
+        public LoanController(ILoanRepository r)
         {
-            loanRepository = new LoanRepository();
+            loanRepository = r;
         }
 
         public ActionResult Index()
@@ -102,8 +102,11 @@ namespace OnlineBookLibrary.Controllers
 
         protected override void Dispose(bool disposing)
         {
+            if (loanRepository != null)
+            {
+                ((IDisposable)loanRepository).Dispose();
+            }
             base.Dispose(disposing);
-            loanRepository.SaveAndDispose();
         }
     }
 }
