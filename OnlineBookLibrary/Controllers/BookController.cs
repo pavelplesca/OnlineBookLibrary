@@ -17,10 +17,11 @@ namespace OnlineBookLibrary.Controllers
 {
     public class BookController : Controller
     {
-        private readonly BookRepository _bookRepository = new BookRepository();
+        private IBookRepository _bookRepository;
 
-        public BookController()
+        public BookController(IBookRepository r)
         {
+            _bookRepository = r;
         }
         
         // GET: Book
@@ -88,7 +89,7 @@ namespace OnlineBookLibrary.Controllers
         {
             if (_bookRepository != null)
             {
-                _bookRepository.Dispose();
+                ((IDisposable)_bookRepository).Dispose();
             }
             base.Dispose(disposing);
         }

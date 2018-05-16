@@ -8,7 +8,19 @@ using System.Data.Entity;
 
 namespace OnlineBookLibrary.Persistence.Repositories
 {
-    public class LoanRepository
+    public interface ILoanRepository
+    {
+        void CheckIfNeedsBan(string userId);
+        void CreateLoan(int bookId, string userId);
+        void CancelLoan(int bookId, string userId);
+        IList<Loan> ReturnLoanHistory(string userId);
+        Loan ReturnActiveLoan(string userId);
+        bool UserHasActiveRent(string userId);
+        bool IsCurrentLoanViolated(string userId);
+        void CheckUserBanStatus(string userId);
+    }
+
+    public class LoanRepository: IDisposable, ILoanRepository
     {
         private const int banDays = 7;
         private const int daysPerLoan = 7;
@@ -24,7 +36,6 @@ namespace OnlineBookLibrary.Persistence.Repositories
         public void SaveAndDispose()
         {
             context.SaveChanges();
-            context.Dispose();
         }
 
         public void CreateLoan(int bookId, string userId)
@@ -47,7 +58,8 @@ namespace OnlineBookLibrary.Persistence.Repositories
 
                 Book book = context.Books.Where(x => x.Id == bookId).SingleOrDefault();
                 book.Status = BookStatus.Rented;
-            }       
+            }
+            context.SaveChanges();
         }
 
         public void CancelLoan(int bookId, string userId)
@@ -61,6 +73,7 @@ namespace OnlineBookLibrary.Persistence.Repositories
 
             Book book = context.Books.Where(x => x.Id == bookId).SingleOrDefault();
             book.Status = BookStatus.Available;
+            context.SaveChanges();
         }
 
         public IList<Loan> ReturnLoanHistory(string userId)
@@ -157,6 +170,14 @@ namespace OnlineBookLibrary.Persistence.Repositories
             if (violationsNr == maxViolations)
             {
                 BanUser(userId);
+            }
+        }
+
+        public void Dispose()
+        {
+            if (context != null)
+            {
+                context.Dispose();
             }
         }
     }
