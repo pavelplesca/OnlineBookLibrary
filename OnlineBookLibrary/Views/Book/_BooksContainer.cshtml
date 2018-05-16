@@ -18,7 +18,7 @@
             </div>
         </div>
         <div id="books-container" class="card-body">
-            @Html.Action("TaggedBookPage", new { page = 0 })
+            @Html.Action("TaggedBookPage", new { page = 1 })
         </div>
         <div class="card-footer">
             <div class="row">
@@ -26,7 +26,7 @@
                     <button id="prev-button" type="button" class="btn btn-light">Prev</button>
                 </div>
                 <div class="col-md-4 text-center">
-                    <h5 class="text-white">Current page <span id="currentPage">@ViewBag.Page</span>/<span id="maxPageSpan"></span></h5>
+                    <h5 class="text-white">Current page <span id="currentPage">@ViewBag.Page</span>/<span id ="maxPageSpan"></span></h5>
                 </div>
                 <div class="col-md-4 text-center">
                     <button id="next-button" type="button" class="btn btn-light">Next</button>

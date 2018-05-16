@@ -33,7 +33,7 @@
             if (pagenum > 1) {
                 pagenum--;
                 $("#currentPage").text(pagenum);
-                $("#books-container").load("Book/TaggedBookPage/" +
+                $("#books-container").load("Book/TaggedBookPage/"+
                     pagenum +
                     "/" +
                     $("select").val(),

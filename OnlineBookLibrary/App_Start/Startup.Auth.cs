@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -6,6 +7,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using OnlineBookLibrary.Models;
+using OnlineBookLibrary.Persistence;
 
 namespace OnlineBookLibrary
 {
@@ -15,7 +17,7 @@ namespace OnlineBookLibrary
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext(OnlineLibraryDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
@@ -30,7 +32,7 @@ namespace OnlineBookLibrary
                 {
                     // Enables the application to validate the security stamp when the user logs in.
                     // This is a security feature which is used when you change a password or add an external login to your account.  
-                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, User>(
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
@@ -45,7 +47,7 @@ namespace OnlineBookLibrary
             // This is similar to the RememberMe option when you log in.
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
-            // Uncomment the following lines to enable logging in with third party login providers
+            //Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",
             //    clientSecret: "");
@@ -54,15 +56,20 @@ namespace OnlineBookLibrary
             //   consumerKey: "",
             //   consumerSecret: "");
 
+            app.UseFacebookAuthentication(
+               appId: "221926618564798",
+               appSecret: "c3adfb92c6feaac2cad7b513d0992143");
             //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            //    appId: "1969369693134853",
+            //    appSecret: "9f66413c0385cc0a9b61f39804c80f29");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "107315705740-2fm0vk47q13o96k58ub4rfrd9mkl6cq0.apps.googleusercontent.com",
+                ClientSecret = "QuY47VxJEgGjaw05Ef6-CDJH"
+            });
+
+
         }
     }
 }

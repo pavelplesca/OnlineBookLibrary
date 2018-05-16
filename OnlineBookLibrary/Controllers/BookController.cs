@@ -5,63 +5,78 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Diagnostics;
+using System.Web.Security;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using OnlineBookLibrary.Persistence;
+using OnlineBookLibrary.Persistence.Repositories;
+using OnlineBookLibrary.Helpers;
 
 namespace OnlineBookLibrary.Controllers
 {
     public class BookController : Controller
     {
+        private IBookRepository _bookRepository;
+
+        public BookController(IBookRepository r)
+        {
+            _bookRepository = r;
+        }
         
+        // GET: Book
         public ActionResult Index()
         {
-            ViewBag.Page = 1;   
+            ViewBag.Page = 1;
             return View();
         }
-
-        private ApplicationDbContext _db = new ApplicationDbContext();
-
+        
         public ActionResult BookDetails(int? id)
         {
-            var book = _db.Books.Include(x => x.Tags).ToList().Where(x => x.Id == id).FirstOrDefault();
-            if (book == null) return RedirectToAction("Index", "Home");
-
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var book = _bookRepository.GetBookDetailsById((int)id);
+            if (book == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View(book);
         }
 
         [ChildActionOnly]
         public ActionResult TopLoans()
         {
-            IEnumerable<Book> loans = _db.Books.ToList().Take(3);
-
-            return PartialView("_TopLoans", loans);
+            IEnumerable<Book> books = _bookRepository.GetTopLoanedBooks();
+            return PartialView("_TopLoans", books);
         }
 
         public ActionResult TaggedBookPage(int page, string tag)
         {
-            var books = _db.Books.Where(b => b.Tags.Select(t => t.Name).Contains(tag));
-
-            if (tag is null || tag == "All")
-            {
-                books = _db.Books;
-            }
+            if (tag == null)
+                tag = "All";
+            var books = _bookRepository.GetBooksByTag(tag);
+            books = _bookRepository.GetPageOfBooks(books, page);
             int maxPage = (books.Count() / 6) + 1;
             ViewBag.maxpage = maxPage;
-
-            return PartialView("_BookPage", books.ToList().Skip((page - 1) * 6).Take(6));
+            
+            return PartialView("_BookPage", books);
         }
 
         [ChildActionOnly]
         public ActionResult ReturnTags()
         {
-            var tags = new List<Tag>() { new Tag() { Id = 0, Name = "All" } };
-            tags.AddRange(_db.Tags.ToList());
-
+            var tags = _bookRepository.GetTags();
             return PartialView("_TagDropdown", tags);
         }
 
         [ChildActionOnly]
         public ActionResult DisplayButtons(string userId, Book book)
         {
-            ApplicationUser user = _db.Users.Where(x => x.Id == userId).SingleOrDefault();
+            var um = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            
+            User user = um.FindById(userId); 
 
             if (!user.IsBanned)
             {
@@ -72,12 +87,12 @@ namespace OnlineBookLibrary.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (_db != null)
+            if (_bookRepository != null)
             {
-                _db.Dispose();
+                ((IDisposable)_bookRepository).Dispose();
             }
-
             base.Dispose(disposing);
         }
     }
 }
+

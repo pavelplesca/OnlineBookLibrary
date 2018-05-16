@@ -35,7 +35,7 @@ namespace OnlineBookLibrary.Models
 
         [Required]
         public string UserID { get; set; }
-        public ApplicationUser User { get; set; }
+        public User User { get; set; }
 
         #region Constructors
         public Loan() { }

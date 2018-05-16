@@ -1,26 +1,25 @@
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using OnlineBookLibrary.Models;
 namespace OnlineBookLibrary.Migrations
 {
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
-    using OnlineBookLibrary.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<OnlineBookLibrary.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<OnlineBookLibrary.Persistence.OnlineLibraryDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "OnlineBookLibrary.Models.ApplicationDbContext";
         }
 
-        protected override void Seed(OnlineBookLibrary.Models.ApplicationDbContext context)
+        protected override void Seed(OnlineBookLibrary.Persistence.OnlineLibraryDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            var userManager = new UserManager<User>(new UserStore<User>(context));
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
@@ -37,9 +36,9 @@ namespace OnlineBookLibrary.Migrations
                 roleManager.Create(new IdentityRole(role));
             }
 
-            var user = new ApplicationUser();
+            var user = new User();
 
-
+            
 
             user.UserName = name;
             user.Email = email;

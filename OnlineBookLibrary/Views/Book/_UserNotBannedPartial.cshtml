@@ -1,4 +1,4 @@
 ﻿@using Microsoft.AspNet.Identity
 @model OnlineBookLibrary.Models.Book
 
-@Html.Action("CheckIfUserRentsBook", "Loan", new { userId = User.Identity.GetUserId(), book = Model })
+@Html.Action("CheckIfUserRentsBook", "Loan", new { userId = User.Identity.GetUserId(), book = Model } )

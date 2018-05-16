@@ -3,9 +3,7 @@
 @model OnlineBookLibrary.Models.Book
 
 @{
-                /**/
-
-                ViewBag.Title = Model.Name.ToString() + "- Details";
+    ViewBag.Title = Model.Name.ToString() + "- Details";
 }
 
 @section Header
@@ -48,7 +46,7 @@
         <br />
         @if (Request.IsAuthenticated)
         {
-            @Html.Action("DisplayButtons", "Book", new { userId = User.Identity.GetUserId(), book = Model })
+            @Html.Action("DisplayButtons", "Book", new { userId = User.Identity.GetUserId(), book = Model})
         }
     </div>
 }

@@ -20,6 +20,7 @@ namespace OnlineBookLibrary
                 url: "Book/TaggedBookPage/{page}/{tag}",
                 defaults: new { controller = "Book", action = "TaggedBookPage", page = 0, tag = UrlParameter.Optional }
             );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

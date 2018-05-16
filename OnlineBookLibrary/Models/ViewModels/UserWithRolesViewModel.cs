@@ -8,7 +8,7 @@ namespace OnlineBookLibrary.Models
 {
     public class UserWithRolesViewModel
     {
-        public ApplicationUser User { get; set; }
+        public User User { get; set; }
         public IEnumerable<string> Roles { get; set; }
     }
 }
