@@ -17,10 +17,33 @@ namespace OnlineBookLibrary.Controllers
         
         public ActionResult Index()
         {
+            
+            return View();
+        }
+
+        public ActionResult Tags()
+        {
+            var _db = new OnlineLibraryDbContext();
+            var tags = _db.Tags;
+
+            return PartialView("_TagList",tags);
+        }
+
+
+        public ActionResult Users()
+        {
             var _db = new OnlineLibraryDbContext();
             var users = _db.Users.ToList();
 
-            return View(users);
+            return PartialView("_UserList", users);
+        }
+
+        public ActionResult Books()
+        {
+            var _db = new OnlineLibraryDbContext();
+            var books = _db.Books;
+
+            return PartialView("_BookList", books);
         }
     }
 }
