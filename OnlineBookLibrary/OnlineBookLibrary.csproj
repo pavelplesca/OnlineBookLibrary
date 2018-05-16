@@ -21,9 +21,9 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44376</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -241,7 +241,8 @@
     <Content Include="Content\Images\Books\ReadyPlayerOne.jpg" />
     <Content Include="Content\Images\Capture.PNG" />
     <Content Include="Content\sticky-footer.css" />
-    <Content Include="Content\StyleSheet1.css" />
+    <Content Include="Content\LoginButtonIcon.css" />
+    <Content Include="Content\LibrarianTabMenu.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -345,9 +346,9 @@
     <Content Include="Views\User\_ExternalLoginView.cshtml" />
     <Content Include="Views\Librarian\UsersList.cshtml" />
     <Content Include="Views\Librarian\Index.cshtml" />
-    <Content Include="Views\Librarian\_UserList.cshtml" />
-    <Content Include="Views\Librarian\_TagList.cshtml" />
-    <Content Include="Views\Librarian\_BookList.cshtml" />
+    <Content Include="Views\Librarian\_LibrarianTab.cshtml" />
+    <Content Include="Views\Librarian\_BooksTab.cshtml" />
+    <Content Include="Views\Librarian\_TagsTab.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
