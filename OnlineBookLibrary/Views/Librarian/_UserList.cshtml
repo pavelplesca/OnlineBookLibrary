@@ -20,34 +20,36 @@
             </tr>
         }
     }
-    
+
     <tr>
         <td>
             <button class="active" onclick="AddLibrarian()">+</button>
         </td>
-        <tr>
-            <td id="addLibrarianForm">
-                @using(Html.BeginForm("AddLibrarian", "Librarian", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken()
-                    <label for="librarianEmail">Email : </label>
-                    <input class="form-control" type="email" name="librarianEmail" id="librarianEmail"/>
-                    <label for="librarianPassword">Password : </label>
-                    <input class="form-control"type="password" name="librarianPassword" id="librarianPassword"/>
-                    <br/>
-                    <button type="submit" class="form-control col-3">Submit</button>
-                }
-            </td>
-        </tr>
+    <tr>
+        <td id="addLibrarianForm">
+            @using (Html.BeginForm("AddLibrarian", "Librarian", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <label for="librarianEmail">Email : </label>
+                <input class="form-control" type="email" name="librarianEmail" id="librarianEmail" />
+
+                <label for="librarianPassword">Password : </label>
+                <input class="form-control" type="password" name="librarianPassword" id="librarianPassword" />
+                <br />
+                <button type="submit" class="form-control col-3">Submit</button>
+            }
+        </td>
+    </tr>
     </tr>
 </table>
 
 <script>
-    $(function() {
+    $(function () {
         $("#addLibrarianForm").hide();
+
     });
     function AddLibrarian() {
-        
+
         if (!$("#addLibrarianForm").is(":visible")) {
             $("#addLibrarianForm").show(500);
         } else {

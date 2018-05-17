@@ -36,6 +36,7 @@
     <!-- Nav tabs -->
     <div class="container">
         <h2>UserList</h2>
+        <b>@Html.ValidationMessage("Email")</b>
         <div class="border rounded">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
@@ -62,26 +63,26 @@
 
         $(function() {
 
-            function myfunc() {
-                $("#librarian-tab").load("Librarian/Users/");
+            function loadUsers() {
+                $("#librarian-tab").load("@Url.Action("Users")");
             }
 
             $("#tab-users").click(
                 function() {
-                    myfunc();
+                    loadUsers();
                 }
             )
 
             $("#tab-tags").click(
                 function() {
-                    $("#librarian-tab").load("librarian/Tags/");
+                    $("#librarian-tab").load("@Url.Action("Tags")");
                 });
 
             $("#tab-books").click(
                 function() {
-                    $("#librarian-tab").load("Librarian/Books/");
+                    $("#librarian-tab").load("@Url.Action("Books")");
                 });
-            myfunc();
+            loadUsers();
 
         })
 

@@ -46,7 +46,7 @@ namespace OnlineBookLibrary.Controllers
             return PartialView("_BookList", books);
         }
 
-        
+        [HttpPost]
         public ActionResult AddLibrarian()
         {
             var context = new OnlineLibraryDbContext();
@@ -69,6 +69,10 @@ namespace OnlineBookLibrary.Controllers
                 {
                     var result = userManager.AddToRole(user.Id, role);
                 }
+            }
+            else
+            {
+                ModelState.AddModelError("Email", @"Email already exists!");
             }
 
             return View("Index");
