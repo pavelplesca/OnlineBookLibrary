@@ -1,15 +1,16 @@
 ﻿@using Microsoft.AspNet.Identity
-@model IEnumerable<OnlineBookLibrary.Models.User>
+
 
 @{
     ViewBag.Title = "UserList";
 }
+
 @section Header
 {
-    <nav class="navbar navbar-expand-sm" style="background-color:black;">
+    <nav class="navbar navbar-expand-sm" style="background-color: black;">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ">
-                <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new { style = @"text-decoration:none;", @class = "text-white" })</h4>
+                <h4 class="text-white">@Html.ActionLink("Home", "Index", "Home", null, new {style = @"text-decoration:none;", @class = "text-white"})</h4>
             </li>
         </ul>
         @Html.Partial("~/Views/Shared/_UserState.cshtml")
@@ -19,20 +20,70 @@
     <div class="container" name="onlineLibraryLogo">
         <div class="row text-center">
             <div class="col-md-12 col-sm-12 ">
-                <h1 class="display-1">Online Library</h1>
+                <h1 class="display-1">Librarian Panel</h1>
             </div>
         </div>
     </div>
 
     @if (Request.IsAuthenticated)
     {
-        @Html.Action("CheckUserBanStatus", "Loan", new { userId = User.Identity.GetUserId() })
+        @Html.Action("CheckUserBanStatus", "Loan", new {userId = User.Identity.GetUserId()})
     }
 }
 
 @section Body
 {
-    <h2>UserList</h2>
+    <!-- Nav tabs -->
+    <div class="container">
+        <h2>UserList</h2>
+        <div class="border rounded">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#librarian-tab" role="tab" data-toggle="tab" id="tab-users">Librarians</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#librarian-tab" role="tab" data-toggle="tab" id="tab-tags">Tags</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#librarian-tab" role="tab" data-toggle="tab" id="tab-books">Books</a>
+                </li>
+            </ul>
 
-    @Html.Partial("_UserList")
+            <!-- Tab pane -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="LibrarianTab">...</div>
+                <div id="librarian-tab">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        $(function() {
+
+            function myfunc() {
+                $("#librarian-tab").load("Librarian/Users/");
+            }
+
+            $("#tab-users").click(
+                function() {
+                    myfunc();
+                }
+            )
+
+            $("#tab-tags").click(
+                function() {
+                    $("#librarian-tab").load("librarian/Tags/");
+                });
+
+            $("#tab-books").click(
+                function() {
+                    $("#librarian-tab").load("Librarian/Books/");
+                });
+            myfunc();
+
+        })
+
+    </script>
 }

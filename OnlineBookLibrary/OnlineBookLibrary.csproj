@@ -241,7 +241,8 @@
     <Content Include="Content\Images\Books\ReadyPlayerOne.jpg" />
     <Content Include="Content\Images\Capture.PNG" />
     <Content Include="Content\sticky-footer.css" />
-    <Content Include="Content\StyleSheet1.css" />
+    <Content Include="Content\LoginButtonIcon.css" />
+    <Content Include="Content\LibrarianTabMenu.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -346,6 +347,8 @@
     <Content Include="Views\Librarian\UsersList.cshtml" />
     <Content Include="Views\Librarian\Index.cshtml" />
     <Content Include="Views\Librarian\_UserList.cshtml" />
+    <Content Include="Views\Librarian\_BookList.cshtml" />
+    <Content Include="Views\Librarian\_TagList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
