@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -17,7 +18,6 @@ namespace OnlineBookLibrary.Controllers
         
         public ActionResult Index()
         {
-            
             return View();
         }
 
@@ -44,6 +44,34 @@ namespace OnlineBookLibrary.Controllers
             var books = _db.Books;
 
             return PartialView("_BookList", books);
+        }
+
+        
+        public ActionResult AddLibrarian()
+        {
+            var context = new OnlineLibraryDbContext();
+            var userManager = new UserManager<User>(new UserStore<User>(context));
+
+            string name = Request.Form["librarianEmail"];
+            string email = Request.Form["librarianEmail"];
+            string role = "librarian";
+            string password = Request.Form["librarianPassword"];
+
+            var user = new User();
+
+            user.UserName = name;
+            user.Email = email;
+            if (!userManager.Users.Any(u => u.UserName == name))
+            {
+                var adminresult = userManager.Create(user, password);
+
+                if (adminresult.Succeeded)
+                {
+                    var result = userManager.AddToRole(user.Id, role);
+                }
+            }
+
+            return View("Index");
         }
     }
 }

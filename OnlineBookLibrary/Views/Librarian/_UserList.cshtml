@@ -3,50 +3,55 @@
 
 <table class="table">
     <tr>
-
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BannedUntil)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsBanned)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ViolationsNr)
-        </th>
-        <td></td>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-                
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
+        if (item.Roles.Any())
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.BannedUntil)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsBanned)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ViolationsNr)
-            </td>
-            <td>
-                @Html.ActionLink("Make Librarian", "Edit", new {id = item.Id}) 
+            </tr>
+        }
+    }
+    
+    <tr>
+        <td>
+            <button class="active" onclick="AddLibrarian()">+</button>
+        </td>
+        <tr>
+            <td id="addLibrarianForm">
+                @using(Html.BeginForm("AddLibrarian", "Librarian", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <label for="librarianEmail">Email : </label>
+                    <input class="form-control" type="email" name="librarianEmail" id="librarianEmail"/>
+                    <label for="librarianPassword">Password : </label>
+                    <input class="form-control"type="password" name="librarianPassword" id="librarianPassword"/>
+                    <br/>
+                    <button type="submit" class="form-control col-3">Submit</button>
+                }
             </td>
         </tr>
-    }
-
+    </tr>
 </table>
+
+<script>
+    $(function() {
+        $("#addLibrarianForm").hide();
+    });
+    function AddLibrarian() {
+        
+        if (!$("#addLibrarianForm").is(":visible")) {
+            $("#addLibrarianForm").show(500);
+        } else {
+            $("#addLibrarianForm").hide();
+        }
+    }
+</script>
