@@ -198,6 +198,7 @@
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\LibrarianController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
+    <Compile Include="Controllers\LibrarianController.Partial.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -236,10 +237,12 @@
     <Content Include="Content\Images\Books\CSharpInANutshell.jpg" />
     <Content Include="Content\Images\Books\DarkTower1.JPG" />
     <Content Include="Content\Images\Books\GameOfThrones.jpg" />
-    <Content Include="Content\Images\Books\HarryPotter1.jpg" />
     <Content Include="Content\Images\Books\java.jpg" />
+    <Content Include="Content\Images\Books\no_cover.jpg" />
     <Content Include="Content\Images\Books\ReadyPlayerOne.jpg" />
     <Content Include="Content\Images\Capture.PNG" />
+    <Content Include="Content\Images\placeholder2.png" />
+    <Content Include="Content\Images\placeholder.png" />
     <Content Include="Content\sticky-footer.css" />
     <Content Include="Content\LoginButtonIcon.css" />
     <Content Include="Content\LibrarianTabMenu.css" />
@@ -349,6 +352,7 @@
     <Content Include="Views\Librarian\_UserList.cshtml" />
     <Content Include="Views\Librarian\_BookList.cshtml" />
     <Content Include="Views\Librarian\_TagList.cshtml" />
+    <Content Include="Views\Librarian\AddBook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

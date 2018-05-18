@@ -38,11 +38,14 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id })
             </td>
+            <td>
+                @Html.ActionLink("Delete","DeleteBook", "Librarian", new { id = item.Id }, null)
+            </td>
         </tr>
     }
     <tr>
         <td colspan="4">
-            <button class="active" onclick="AddLibrarian()">+</button>
+            <a href="@Url.Action("AddBook", "Librarian")"><button class="active">+</button></a>
         </td>
     </tr>
 </table>

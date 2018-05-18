@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using System.Web.Hosting;
 using OnlineBookLibrary.Models;
 
 namespace OnlineBookLibrary.Persistence.Repositories
@@ -23,6 +26,31 @@ namespace OnlineBookLibrary.Persistence.Repositories
         public BookRepository()
         {
             _context = new OnlineLibraryDbContext();
+        }
+        
+        public void AddBook(Book book)
+        {
+            _context.Books.Add(book);
+
+            _context.SaveChanges();
+        }
+
+        public void DeleteBook(int id)
+        {
+            Book book = _context.Books.Where(b => b.Id == id).SingleOrDefault();
+
+            if (book != null)
+            {
+                if(book.Image != "no_cover.jpg")
+                {
+                    string imagePath = Path.Combine(HostingEnvironment.MapPath("~/Content/Images/Books"), book.Image);
+                    File.Delete(imagePath);
+                }
+
+                _context.Books.Remove(book);
+
+                _context.SaveChanges();
+            }
         }
 
         public Book GetBookDetailsById(int id)
