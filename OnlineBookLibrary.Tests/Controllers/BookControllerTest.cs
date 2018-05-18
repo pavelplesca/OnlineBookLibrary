@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -13,22 +15,20 @@ namespace OnlineBookLibrary.Tests.Controllers
     public class BookControllerTest
     {
         private BookController controller;
-        //private Mock<IBookRepository> repositoryMock;
-
-        //[TestInitialize]
-        //public void SetupContext()
-        //{
-        //    repositoryMock new Mock<IBookRepository>();
-        //    controller = new BookController();
-        //}
-
+        private Mock<IBookRepository> repoMock;
         
+        [TestInitialize]
+        public void Init()
+        {
+            repoMock = new Mock<IBookRepository>();
+        }
+        
+
         [TestMethod]
-        public void IndexViewResultNotNull()
+        public void Index_ViewResult_Not_Null()
         {
             // Arrange
-            var mock = new Mock<IBookRepository>();
-            controller = new BookController(mock.Object);
+            controller = new BookController(repoMock.Object);
 
             // Act
             ViewResult result = controller.Index() as ViewResult;
@@ -39,11 +39,10 @@ namespace OnlineBookLibrary.Tests.Controllers
 
 
         [TestMethod]
-        public void IndexViewBagPageIs1()
+        public void Index_ViewBagPage_Is_1()
         {
             // Arrange
-            var mock = new Mock<IBookRepository>();
-            controller = new BookController(mock.Object);
+            controller = new BookController(repoMock.Object);
             var expected = 1 ;
 
             // Act
@@ -55,11 +54,10 @@ namespace OnlineBookLibrary.Tests.Controllers
         }
 
         [TestMethod]
-        public void BookDetailsRedirectIfIdIsNull()
+        public void BookDetails_Redirect_If_Id_Is_Null()
         {
             // Arrange
-            var mock = new Mock<IBookRepository>();
-            controller = new BookController(mock.Object);
+            controller = new BookController(repoMock.Object);
 
             // Act
             var result = controller.BookDetails(null);
@@ -69,12 +67,11 @@ namespace OnlineBookLibrary.Tests.Controllers
         }
 
         [TestMethod]
-        public void BookDetailsRedirectIfNoBookFound()
+        public void BookDetails_Redirects_If_No_Book_Found()
         {
             // Arrange
-            var mock = new Mock<IBookRepository>();
-            mock.Setup(a => a.GetBookDetailsById(5)).Returns((Book) null);
-            controller = new BookController(mock.Object);
+            repoMock.Setup(a => a.GetBookDetailsById(5)).Returns((Book) null);
+            controller = new BookController(repoMock.Object);
 
             // Act
             var result = controller.BookDetails(5);
@@ -84,12 +81,11 @@ namespace OnlineBookLibrary.Tests.Controllers
         }
 
         [TestMethod]
-        public void BookDetails()
+        public void BookDetails_Returns_View_For_Book()
         {
             // Arrange
-            var mock = new Mock<IBookRepository>();
-            mock.Setup(a => a.GetBookDetailsById(5)).Returns(new Book());
-            controller = new BookController(mock.Object);
+            repoMock.Setup(a => a.GetBookDetailsById(5)).Returns(new Book());
+            controller = new BookController(repoMock.Object);
 
             // Act
             var result = controller.BookDetails(5);
@@ -100,6 +96,63 @@ namespace OnlineBookLibrary.Tests.Controllers
             Assert.IsInstanceOfType(model, typeof(Book));
         }
 
+        [TestMethod]
+        public void TopLoans_Returns_Empty_If_No_Loans_For_Month()
+        {
+            // Arrange
+            repoMock.Setup(a => a.GetTopLoanedBooks(3)).Returns(new List<Book>());
+            controller = new BookController(repoMock.Object);
 
+            // Act
+            var result = controller.TopLoans();
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(EmptyResult));
+        }
+
+        [TestMethod]
+        public void TopLoans_Returns_Partial_If_Two_Book_Has_Loans()
+        {
+            // Arrange
+            repoMock.Setup(a => a.GetTopLoanedBooks(3)).Returns(new List<Book>(){ new Book(), new Book()});
+            controller = new BookController(repoMock.Object);
+
+            // Act
+            var result = controller.TopLoans();
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(PartialViewResult));
+            var books = (IEnumerable<Book>)(result as PartialViewResult).Model;
+            Assert.AreEqual(2,books.Count());
+        }
+
+        [TestMethod]
+        public void ReturnTags_Returns_EmptyResult_If_No_Tags_In_Repository()
+        {
+            // Arrange
+            repoMock.Setup(a => a.GetTags()).Returns(new List<Tag>());
+            controller = new BookController(repoMock.Object);
+
+            // Act
+            var result = controller.ReturnTags();
+
+            // Assert
+            Assert.IsInstanceOfType(result,typeof(EmptyResult));
+        }
+
+        [TestMethod]
+        public void ReturnTags_Returns_Partial_With_3_Tags_If_3_Tags_In_Repository()
+        {
+            repoMock.Setup(a => a.GetTags()).Returns(new List<Tag>(){ new Tag(), new Tag(), new Tag()});
+            controller = new BookController(repoMock.Object);
+
+            // Act
+            var result = controller.ReturnTags();
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(PartialViewResult));
+            var model = (IEnumerable<Tag>)((result as PartialViewResult).Model);
+            Assert.AreEqual(3,model.Count());
+        }
     }
 }

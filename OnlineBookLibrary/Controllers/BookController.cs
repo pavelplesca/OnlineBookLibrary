@@ -49,6 +49,10 @@ namespace OnlineBookLibrary.Controllers
         public ActionResult TopLoans()
         {
             IEnumerable<Book> books = _bookRepository.GetTopLoanedBooks();
+            if (!books.Any())
+            {
+                return new EmptyResult();
+            }
             return PartialView("_TopLoans", books);
         }
 
@@ -68,6 +72,10 @@ namespace OnlineBookLibrary.Controllers
         public ActionResult ReturnTags()
         {
             var tags = _bookRepository.GetTags();
+            if (!tags.Any())
+            {
+                return new EmptyResult();
+            }
             return PartialView("_TagDropdown", tags);
         }
 
