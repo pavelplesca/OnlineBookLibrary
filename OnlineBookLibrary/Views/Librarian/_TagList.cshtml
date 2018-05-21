@@ -9,6 +9,7 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <td></td>
+        <td></td>
     </tr>
 
     @foreach (var item in Model)
@@ -21,11 +22,70 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id })
             </td>
-        </tr>
-    }
-        <tr>
-            <td colspan="2">
-                <button class="active" onclick="AddLibrarian()">+</button>
+            <td>
+                <div>
+                    <button class=" btn btn-danger" id="@item.Id" onclick="TryDelete(@item.Id)">Delete </button>
+                </div>
+                <div hidden>
+                    <button class='btn btn-danger' id="rem_@item.Id" onclick='RemoveTag(@item.Id)'>Yep</button>
+                    <button class='btn btn-info' id="del_@item.Id" onclick='DontDelete(@item.Id)'> Nope</button>
+                </div>
             </td>
         </tr>
+    }
+    <tr>
+        <td colspan="2">
+            <button class="active" onclick="AddTag()">+</button>
+        </td>
+    </tr>
+
+
+
 </table>
+
+
+<div id="addTagForm">
+
+</div>
+
+
+
+<script>
+
+    function AddTag() {
+        $("#addTagForm").load("@Url.Action("AddTag","Librarian")");
+
+    }
+
+    function TryDelete(itemId) {
+        $("#" + itemId + "").parent().attr("hidden", "");
+        $("#rem_" + itemId + "").parent().removeAttr("hidden");
+        }
+
+    function DontDelete(itemId) {
+        $("#" + itemId + "").parent().removeAttr("hidden");
+        $("#rem_" + itemId + "").parent().attr("hidden", "");
+    }
+
+    function RemoveTag(itemId) {
+
+        $.post("@Url.Action("RemoveTag")",
+            {
+                Id: itemId
+            },
+            function (data) {
+                if (data != "")
+                    $("#rem_" + itemId + "").parent().val("Deletion failed");
+                else
+                     $("#librarian-tab").load("@Url.Action("Tags")");
+
+          });
+    }
+
+
+
+
+</script>
+
+
+
