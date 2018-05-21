@@ -210,6 +210,10 @@
     <Compile Include="Migrations\201805081056581_InitialCreate.Designer.cs">
       <DependentUpon>201805081056581_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805211041496_BookModelChanges.cs" />
+    <Compile Include="Migrations\201805211041496_BookModelChanges.Designer.cs">
+      <DependentUpon>201805211041496_BookModelChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Loan.cs" />
@@ -375,6 +379,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805081056581_InitialCreate.resx">
       <DependentUpon>201805081056581_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805211041496_BookModelChanges.resx">
+      <DependentUpon>201805211041496_BookModelChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

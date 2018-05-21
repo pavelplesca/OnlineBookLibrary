@@ -28,6 +28,7 @@
 
         @using (Html.BeginForm("AddBook", "Librarian", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
+           
             <div class="row">
 
                 <div class="col-5" style="padding-left:0; padding-top:30px">
@@ -48,34 +49,38 @@
                     <div class="form-group">
                         @Html.LabelFor(m => m.Name)
                         @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(m => m.Author)
                         @Html.TextBoxFor(m => m.Author, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Author, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(m => m.Year)
                         @Html.TextBoxFor(m => m.Year, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Year, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(m => m.Description)
                         @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                        <div>@Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })</div>
                     </div>
 
                     <div class="form-group">
-                        @Html.DropDownList("TagId", String.Empty)
-
+                        @Html.DropDownList("TagId", (MultiSelectList)ViewBag.Tags, new { multiple = "multiple" })
+                        <div>@Html.ValidationSummary(true, "", new { @class = "text-danger" })</div>
+                        
                     </div>
 
                     <input type="submit" value="Add Book" class="btn btn-primary" />
-
                 </div>
             </div>
         }
-
+        <br /><br /><br />
         <script>
             var loadFile = function (event) {
                 var output = document.getElementById('image');

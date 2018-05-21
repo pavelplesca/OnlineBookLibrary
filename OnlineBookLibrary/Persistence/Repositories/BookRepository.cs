@@ -28,9 +28,28 @@ namespace OnlineBookLibrary.Persistence.Repositories
             _context = new OnlineLibraryDbContext();
         }
         
-        public void AddBook(Book book)
+        public void AddBook(Book model, int[] tagId)
         {
-            _context.Books.Add(book);
+            ICollection<Tag> bookTags = new List<Tag>();
+            
+            foreach (int id in tagId)
+            {
+                var tag = _context.Tags.Where(t => t.Id == id).SingleOrDefault();
+                if(tag != null)
+                    bookTags.Add(tag);
+            }
+
+            Book newBook = new Book()
+            {
+                 Author = model.Author,
+                 Name = model.Name,
+                 Description = model.Description,
+                 Image = model.Image,
+                 Year = model.Year,
+                 Tags = bookTags
+            };
+
+            _context.Books.Add(newBook);
 
             _context.SaveChanges();
         }
