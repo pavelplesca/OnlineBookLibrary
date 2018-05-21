@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using OnlineBookLibrary.Persistence;
 
 namespace OnlineBookLibrary.Controllers
 {
@@ -13,6 +14,8 @@ namespace OnlineBookLibrary.Controllers
     {
         public ActionResult AddBook()
         {
+            var _db = new OnlineLibraryDbContext();
+            ViewBag.TagId = new SelectList(_db.Tags, "Id", "Name");
             return View();
         }
 
