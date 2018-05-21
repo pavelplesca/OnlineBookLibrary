@@ -47,7 +47,7 @@ namespace OnlineBookLibrary.Tests.Controllers
 
             // Act
             ViewResult result = controller.Index() as ViewResult;
-            var actual =   result.ViewBag.Page;
+            var actual =  result?.ViewBag.Page;
 
             // Assert
             Assert.AreEqual(actual,expected);
@@ -92,7 +92,7 @@ namespace OnlineBookLibrary.Tests.Controllers
             // Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result,typeof(ViewResult));
-            var model = (result as ViewResult).Model;
+            var model = (result as ViewResult)?.Model;
             Assert.IsInstanceOfType(model, typeof(Book));
         }
 
@@ -122,7 +122,7 @@ namespace OnlineBookLibrary.Tests.Controllers
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(PartialViewResult));
-            var books = (IEnumerable<Book>)(result as PartialViewResult).Model;
+            var books = (IEnumerable<Book>)(result as PartialViewResult)?.Model;
             Assert.AreEqual(2,books.Count());
         }
 
