@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity.EntityFramework;
+using OnlineBookLibrary.Helpers;
 using OnlineBookLibrary.Models;
 
 namespace OnlineBookLibrary.Persistence
@@ -13,6 +14,9 @@ namespace OnlineBookLibrary.Persistence
         public OnlineLibraryDbContext()
             : base("onlinelibrary2018", throwIfV1Schema: false)
         {
+            var logger = new Logger("OnlineLibraryDbContext ctor");
+            logger.Log("connection string:"+Database.Connection.ConnectionString);
+            logger.Dispose();
         }
 
         public DbSet<Book> Books { get; set; }
