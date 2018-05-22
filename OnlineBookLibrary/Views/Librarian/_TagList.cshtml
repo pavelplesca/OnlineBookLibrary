@@ -15,14 +15,26 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
+            <td >
+                <div id="form_@item.Id" hidden>
+                    @using (Html.BeginForm())
+                    {
+                        <input id="inputName_@item.Id" name="Name"/>
+                    }
+
+                </div>
+                <div id="name_@item.Id">@item.Name</div>
             </td>
 
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+            <td >
+                <div>
+                    <button class="btn btn-info" id="edit_@item.Id" onclick="TryEdit(@item.Id)">Edit</button>
+                </div>
+                <div hidden>
+                    <button class="btn btn-success" id="save_@item.Id" onclick="EditTag(@item.Id)">Submit</button>
+                </div>
             </td>
-            <td>
+            <td class="float-right">
                 <div>
                     <button class=" btn btn-danger" id="@item.Id" onclick="TryDelete(@item.Id)">Delete </button>
                 </div>
@@ -51,6 +63,30 @@
 
 
 <script>
+
+
+    function TryEdit(itemId) {
+        $("#edit_" + itemId + "").parent().attr("hidden", "");
+        $("#save_" + itemId + "").parent().removeAttr("hidden");
+
+        $("#form_" + itemId + "").removeAttr("hidden");
+        let myForm = $("#form_" + itemId + "").html();
+
+        let myName = $("#name_" + itemId + "").text();
+
+        $("#form_" + itemId + "").parent().html(myForm);
+
+        $("#inputName_" + itemId + "").val(myName);
+
+    }
+    function EditTag(itemId) {
+
+
+
+        $("#edit_" + itemId + "").parent().removeAttr("hidden");
+        $("#save_" + itemId + "").parent().attr("hidden", "");
+    }
+
 
     function AddTag() {
         $("#addTagForm").load("@Url.Action("AddTag","Librarian")");
