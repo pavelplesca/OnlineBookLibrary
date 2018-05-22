@@ -50,7 +50,12 @@ namespace OnlineBookLibrary.Helpers
         
         public void Dispose()
         {
-            Log(id+" "+DateTime.Now.ToLongTimeString()+" Stop logging");
+            string logMessage = id + " " + DateTime.Now + " Stop Logging, total elapsed msec: "+ stopwatch.ElapsedMilliseconds;
+            using (StreamWriter streamWriter = new StreamWriter(FilePath, true))
+            {
+                streamWriter.WriteLine(logMessage);
+                streamWriter.Close();
+            }
             stopwatch.Stop();
         }
     }
