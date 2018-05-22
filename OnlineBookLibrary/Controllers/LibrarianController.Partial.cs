@@ -16,6 +16,7 @@ namespace OnlineBookLibrary.Controllers
 
         public ActionResult AddBook()
         {
+            ViewBag.ViewTitle = "Add New Book";
             // Get all tags
             var tags = SelectAllTags();
 
@@ -40,7 +41,8 @@ namespace OnlineBookLibrary.Controllers
                 {
                     ViewBag.Tags = new MultiSelectList(tags, "Id", "Name", selectedValues: tags);
                 }
-                
+
+                ViewBag.ViewTitle = "Add New Book";
                 return View(model);
             }
 
@@ -80,6 +82,12 @@ namespace OnlineBookLibrary.Controllers
             file.SaveAs(path);
 
             model.Image = pic;
+        }
+
+        public ActionResult EditBook(int id)
+        {
+            ViewBag.ViewTitle = "Edit Book";
+            return RedirectToAction("Index", "Librarian");
         }
 
         public ActionResult DeleteBook(int id)
