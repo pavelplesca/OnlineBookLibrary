@@ -31,10 +31,10 @@
             {
                 @Html.AntiForgeryToken()
                 <label for="librarianEmail">Email : </label>
-                <input class="form-control" type="email" name="librarianEmail" id="librarianEmail" />
+                <input class="form-control" type="email" name="librarianEmail" id="librarianEmail" required/>
 
                 <label for="librarianPassword">Password : </label>
-                <input class="form-control" type="password" name="librarianPassword" id="librarianPassword" />
+                <input class="form-control" type="password" name="librarianPassword" id="librarianPassword" required/>
                 <br />
                 <button type="submit" class="form-control col-3">Submit</button>
             }
