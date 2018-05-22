@@ -12,21 +12,14 @@ namespace OnlineBookLibrary.Controllers
     [Authorize(Roles = "librarian")]
     public partial class LibrarianController: Controller
     {
+        BookRepository bRepo = new BookRepository();
+
         public ActionResult AddBook()
         {
-            BookRepository bRep = new BookRepository();
-
             // Get all tags
-            var tags = bRep.GetTags().Select(t => new
-            {
-                TagId = t.Id,
-                TagName = t.Name
-            }).ToList();
+            var tags = SelectAllTags();
 
-            // Remove tag - "All"
-            tags.RemoveAt(0);
-
-            ViewBag.Tags = new MultiSelectList(tags, "TagId", "TagName");
+            ViewBag.Tags = new MultiSelectList(tags, "Id", "Name");
 
             return View();
         }
@@ -34,22 +27,19 @@ namespace OnlineBookLibrary.Controllers
         [HttpPost]
         public ActionResult AddBook(HttpPostedFileBase file, Book model, int[] tagId)
         {
-            BookRepository bRepo = new BookRepository();
-
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || tagId == null)
             {
-                var tags = bRepo.GetTags().Select(t => new
+                IEnumerable<Tag> tags = SelectAllTags(); ;
+
+                if (tagId == null)
                 {
-                    TagId = t.Id,
-                    TagName = t.Name,
-                }).ToList();
-
-                tags.RemoveAt(0);
-
-                if(tagId == null)
-                    ModelState.AddModelError("","Select at least one tag.");
-
-                ViewBag.Tags = new MultiSelectList(tags, "TagId", "TagName");
+                    ModelState.AddModelError("", "Select at least one tag.");
+                    ViewBag.Tags = new MultiSelectList(tags, "Id", "Name");
+                }
+                else
+                {
+                    ViewBag.Tags = new MultiSelectList(tags, "Id", "Name", selectedValues: tags);
+                }
                 
                 return View(model);
             }
@@ -57,13 +47,7 @@ namespace OnlineBookLibrary.Controllers
             // Save image in folder
             if (file != null)
             {
-                Random rand = new Random();
-                string prefix = rand.Next(int.MaxValue).ToString();
-                string pic = prefix + System.IO.Path.GetFileName(file.FileName);
-                string path = System.IO.Path.Combine(Server.MapPath("~/Content/Images/Books"), pic);
-                file.SaveAs(path);
-
-                model.Image = pic;
+                SaveImage(file, model);
             }
             else
                 model.Image = "no_cover.jpg";
@@ -74,11 +58,33 @@ namespace OnlineBookLibrary.Controllers
             return RedirectToAction("Index", "Librarian");
         }
 
+        private IEnumerable<Tag> SelectAllTags()
+        {
+            var tags = bRepo.GetTags().Select(t => new Tag
+            {
+                Id = t.Id, 
+                Name = t.Name,
+            }).ToList();
+
+            // Remove tag - "All"
+            tags.RemoveAt(0);
+
+            return tags;
+        }
+        private void SaveImage(HttpPostedFileBase file, Book model)
+        {
+            Random rand = new Random();
+            string prefix = rand.Next(int.MaxValue).ToString();
+            string pic = prefix + System.IO.Path.GetFileName(file.FileName);
+            string path = System.IO.Path.Combine(Server.MapPath("~/Content/Images/Books"), pic);
+            file.SaveAs(path);
+
+            model.Image = pic;
+        }
+
         public ActionResult DeleteBook(int id)
         {
-            BookRepository bRep = new BookRepository();
-
-            bRep.DeleteBook(id);
+            bRepo.DeleteBook(id);
 
             return RedirectToAction("Index", "Librarian");
         }

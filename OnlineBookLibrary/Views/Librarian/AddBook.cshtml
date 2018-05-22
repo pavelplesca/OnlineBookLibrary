@@ -71,7 +71,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.DropDownList("TagId", (MultiSelectList)ViewBag.Tags, new { multiple = "multiple" })
+                        @Html.DropDownList("tagId", (MultiSelectList)ViewBag.Tags, new { multiple = "multiple" })
                         <div>@Html.ValidationSummary(true, "", new { @class = "text-danger" })</div>
                         
                     </div>
