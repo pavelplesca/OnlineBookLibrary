@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Hosting;
 using OnlineBookLibrary.Models;
+using OnlineBookLibrary.Models.ViewModels;
 
 namespace OnlineBookLibrary.Persistence.Repositories
 {
@@ -28,30 +29,35 @@ namespace OnlineBookLibrary.Persistence.Repositories
             _context = new OnlineLibraryDbContext();
         }
         
-        public void AddBook(Book model, int[] tagId)
+        public void AddBook(BookTagViewModel model)
         {
             ICollection<Tag> bookTags = new List<Tag>();
-            
-            foreach (int id in tagId)
+
+            var allTags = GetTags();
+
+            foreach (int tagId in model.selectedTags)
             {
-                var tag = _context.Tags.Where(t => t.Id == id).SingleOrDefault();
-                if(tag != null)
-                    bookTags.Add(tag);
+                bookTags.Add(allTags.Where(t => t.Id == tagId).SingleOrDefault());
             }
 
             Book newBook = new Book()
             {
-                 Author = model.Author,
-                 Name = model.Name,
-                 Description = model.Description,
-                 Image = model.Image,
-                 Year = model.Year,
+                 Author = model.Book.Author,
+                 Name = model.Book.Name,
+                 Description = model.Book.Description,
+                 Image = model.Book.Image,
+                 Year = model.Book.Year,
                  Tags = bookTags
             };
 
             _context.Books.Add(newBook);
 
             _context.SaveChanges();
+        }
+
+        public void EditBook(BookTagViewModel model)
+        {
+
         }
 
         public void DeleteBook(int id)

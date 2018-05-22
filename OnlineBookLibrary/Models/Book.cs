@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineBookLibrary.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -29,7 +30,6 @@ namespace OnlineBookLibrary.Models
         public int Year { get; set; }
         public BookStatus Status { get; set; }
 
-        [Required]
         public ICollection<Tag> Tags { get; set; }
 
         public Book()

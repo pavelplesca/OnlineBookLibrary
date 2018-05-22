@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using OnlineBookLibrary.Persistence;
+using OnlineBookLibrary.Models.ViewModels;
 
 namespace OnlineBookLibrary.Controllers
 {
@@ -17,30 +18,20 @@ namespace OnlineBookLibrary.Controllers
         public ActionResult AddBook()
         {
             ViewBag.ViewTitle = "Add New Book";
-            // Get all tags
-            var tags = SelectAllTags();
+            
+            BookTagViewModel bt = new BookTagViewModel();
 
-            ViewBag.Tags = new MultiSelectList(tags, "Id", "Name");
+            bt.AllTags = SelectAllTags();
 
-            return View();
+            return View(bt);
         }
 
         [HttpPost]
-        public ActionResult AddBook(HttpPostedFileBase file, Book model, int[] tagId)
+        public ActionResult AddBook(HttpPostedFileBase file, BookTagViewModel model)
         {
-            if (!ModelState.IsValid || tagId == null)
+            if (!ModelState.IsValid)
             {
-                IEnumerable<Tag> tags = SelectAllTags(); ;
-
-                if (tagId == null)
-                {
-                    ModelState.AddModelError("", "Select at least one tag.");
-                    ViewBag.Tags = new MultiSelectList(tags, "Id", "Name");
-                }
-                else
-                {
-                    ViewBag.Tags = new MultiSelectList(tags, "Id", "Name", selectedValues: tags);
-                }
+                model.AllTags = SelectAllTags();
 
                 ViewBag.ViewTitle = "Add New Book";
                 return View(model);
@@ -49,23 +40,23 @@ namespace OnlineBookLibrary.Controllers
             // Save image in folder
             if (file != null)
             {
-                SaveImage(file, model);
+                SaveImage(file, model.Book);
             }
             else
-                model.Image = "no_cover.jpg";
+                model.Book.Image = "no_cover.jpg";
 
-            model.Status = BookStatus.Available;
-            bRepo.AddBook(model, tagId);
+            model.Book.Status = BookStatus.Available;
+
+            bRepo.AddBook(model);
 
             return RedirectToAction("Index", "Librarian");
         }
-
         private IEnumerable<Tag> SelectAllTags()
         {
             var tags = bRepo.GetTags().Select(t => new Tag
             {
                 Id = t.Id, 
-                Name = t.Name,
+                Name = t.Name
             }).ToList();
 
             // Remove tag - "All"
@@ -86,10 +77,17 @@ namespace OnlineBookLibrary.Controllers
 
         public ActionResult EditBook(int id)
         {
-            ViewBag.ViewTitle = "Edit Book";
-            return RedirectToAction("Index", "Librarian");
-        }
+            BookTagViewModel btmodel = new BookTagViewModel();
 
+            Book model = bRepo.GetBookDetailsById(id);
+
+            btmodel.Book = model;
+            btmodel.AllTags = SelectAllTags();
+            btmodel.selectedTags = model.Tags.Select(t => t.Id).ToList();
+
+            ViewBag.ViewTitle = "Edit Book";
+            return View("AddBook", btmodel);
+        }
         public ActionResult DeleteBook(int id)
         {
             bRepo.DeleteBook(id);
