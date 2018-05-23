@@ -2,9 +2,9 @@
 
 
 <div id="addTagForm2">
-    @using (Html.BeginForm("AddTag", "Librarian", FormMethod.Post))
+    @using (Html.BeginForm("AddTag", "Librarian", FormMethod.Post, new { @action = "", onsubmit = "return false" }))
     {
-        
+
         @Html.LabelFor(m => m.Name)
         @Html.TextBoxFor(m => m.Name)
         @Html.ValidationMessageFor(m=>m.Name)

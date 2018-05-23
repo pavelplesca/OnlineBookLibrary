@@ -31,7 +31,7 @@ namespace OnlineBookLibrary.Controllers
         public ActionResult AddTag(Tag tag)
         {
             var tags = bookRepository.GetTags();
-            if (tags.Any(x => x.Name.ToUpper() == tag.Name.ToUpper()))
+            if (tags.Any(x => x.Name.ToUpper() == tag.Name?.ToUpper()))
                 ModelState.AddModelError("Name", "This Tag already exists");
             if (ModelState.IsValid)
             {
@@ -66,6 +66,8 @@ namespace OnlineBookLibrary.Controllers
         public ActionResult EditTag(Tag tag)
         {
             string responseMessage = "";
+            if (bookRepository.GetTags().Any(x => x.Name.ToUpper() == tag.Name?.ToUpper()))
+                return Content("Duplicate value");
             if (!ModelState.IsValid)
             {
                 responseMessage = "Form not valid!";
@@ -80,7 +82,7 @@ namespace OnlineBookLibrary.Controllers
             {
                 bookRepository.EditTag(tag);
             }
-            catch (EntityException e)
+            catch (EntityException)
             {
                 responseMessage = "Sorry,we couldn't update this tag,please try again later.";
             }
