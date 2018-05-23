@@ -14,9 +14,6 @@ namespace OnlineBookLibrary.Persistence
         public OnlineLibraryDbContext()
             : base("onlinelibrary2018", throwIfV1Schema: false)
         {
-            var logger = new Logger("OnlineLibraryDbContext ctor");
-            logger.Log("connection string:"+Database.Connection.ConnectionString);
-            logger.Dispose();
         }
 
         public DbSet<Book> Books { get; set; }
