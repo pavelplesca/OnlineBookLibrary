@@ -7,13 +7,13 @@ namespace OnlineBookLibrary.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class TagNameUniqueMaxLength : IMigrationMetadata
+    public sealed partial class BookModelChanges : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(TagNameUniqueMaxLength));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(BookModelChanges));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805181110425_TagNameUniqueMaxLength"; }
+            get { return "201805211041496_BookModelChanges"; }
         }
         
         string IMigrationMetadata.Source
