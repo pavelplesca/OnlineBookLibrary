@@ -9,23 +9,143 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <td></td>
+        <td></td>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
+            <td >
+                <div id="form_@item.Id" hidden>
+                    @using (Html.BeginForm())
+                    {
+                        <input id="inputName_@item.Id" name="Name"/>
+                    }
+
+                </div>
+                <div id="name_@item.Id">@item.Name</div>
             </td>
 
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+            <td >
+                <div>
+                    <button class="btn btn-info" id="edit_@item.Id" onclick="TryEdit(@item.Id)">Edit</button>
+                </div>
+                <div hidden>
+                    <button class="btn btn-success" id="save_@item.Id" onclick="EditTag(@item.Id)">Submit</button>
+                </div>
+            </td>
+            <td class="float-right">
+                <div>
+                    <button class=" btn btn-danger" id="@item.Id" onclick="TryDelete(@item.Id)">Delete </button>
+                </div>
+                <div hidden>
+                    <button class='btn btn-danger' id="rem_@item.Id" onclick='RemoveTag(@item.Id)'>Yep</button>
+                    <button class='btn btn-info' id="del_@item.Id" onclick='DontDelete(@item.Id)'> Nope</button>
+                </div>
             </td>
         </tr>
     }
-        <tr>
-            <td colspan="2">
-                <button class="active" onclick="AddLibrarian()">+</button>
-            </td>
-        </tr>
+    <tr>
+        <td colspan="2">
+            <button class="active" onclick="AddTag()">+</button>
+        </td>
+    </tr>
+
+
+
 </table>
+
+
+<div id="addTagForm">
+
+</div>
+
+
+
+<script>
+
+
+    function TryEdit(itemId) {
+        $("#edit_" + itemId + "").parent().attr("hidden", "");
+        $("#save_" + itemId + "").parent().removeAttr("hidden");
+
+        $("#form_" + itemId + "").removeAttr("hidden");
+        let myForm = $("#form_" + itemId + "").outerHTML();
+
+        let myName = $("#name_" + itemId + "").text();
+
+        $("#form_" + itemId + "").parent().html(myForm);
+
+        $("#inputName_" + itemId + "").val(myName);
+
+    }
+
+
+    /* 
+ * Return outerHTML for the first element in a jQuery object,
+ * or an empty string if the jQuery object is empty;  
+ */
+    jQuery.fn.outerHTML = function () {
+        return (this[0]) ? this[0].outerHTML : '';
+    };
+
+    function EditTag(itemId) {
+                $.post("@Url.Action("EditTag")",
+            {
+                Id: itemId,
+                Name: $("#inputName_" + itemId + "").val()
+            },
+            function (data) {
+                if (data != "")
+                {
+                    $("#form_" + itemId + "").after("<p>"+data+"</p>");
+                }
+                else {
+                    $("#librarian-tab").load("@Url.Action("Tags")");
+                    $("#edit_" + itemId + "").parent().removeAttr("hidden");
+                    $("#save_" + itemId + "").parent().attr("hidden", "");
+                }
+
+          });
+
+
+    }
+
+
+    function AddTag() {
+        $("#addTagForm").load("@Url.Action("AddTag","Librarian")");
+
+    }
+
+    function TryDelete(itemId) {
+        $("#" + itemId + "").parent().attr("hidden", "");
+        $("#rem_" + itemId + "").parent().removeAttr("hidden");
+        }
+
+    function DontDelete(itemId) {
+        $("#" + itemId + "").parent().removeAttr("hidden");
+        $("#rem_" + itemId + "").parent().attr("hidden", "");
+    }
+
+    function RemoveTag(itemId) {
+
+        $.post("@Url.Action("RemoveTag")",
+            {
+                Id: itemId
+            },
+            function (data) {
+                if (data != "")
+                    $("#rem_" + itemId + "").parent().val("Deletion failed");
+                else
+                     $("#librarian-tab").load("@Url.Action("Tags")");
+
+          });
+    }
+
+
+
+
+</script>
+
+
+

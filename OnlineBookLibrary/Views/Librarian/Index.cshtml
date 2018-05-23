@@ -67,15 +67,22 @@
                 $("#librarian-tab").load("@Url.Action("Users")");
             }
 
+
+
+
+           
+           
+
+
             $("#tab-users").click(
-                function() {
+                function () {
                     loadUsers();
-                }
-            )
+                });
+            
 
             $("#tab-tags").click(
                 function() {
-                    $("#librarian-tab").load("@Url.Action("Tags")");
+                     $("#librarian-tab").load("@Url.Action("Tags")");
                 });
 
             $("#tab-books").click(
@@ -83,6 +90,11 @@
                     $("#librarian-tab").load("@Url.Action("Books")");
                 });
             loadUsers();
+
+
+
+
+           
 
         })
 

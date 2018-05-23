@@ -13,7 +13,7 @@ using OnlineBookLibrary.Persistence;
 namespace OnlineBookLibrary.Controllers
 {
     [Authorize(Roles = "librarian")]
-    public class LibrarianController : Controller
+    public partial class LibrarianController : Controller
     {
         public ActionResult Index()
         {
