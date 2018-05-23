@@ -23,7 +23,7 @@ namespace OnlineBookLibrary.Controllers
 
             bt.AllTags = SelectAllTags();
 
-            return View(bt);
+            return View("AddEditBook", bt);
         }
 
         [HttpPost]
@@ -34,7 +34,7 @@ namespace OnlineBookLibrary.Controllers
                 model.AllTags = SelectAllTags();
 
                 ViewBag.ViewTitle = "Add New Book";
-                return View(model);
+                return View("AddEditBook", model);
             }
 
             // Save image in folder
@@ -64,16 +64,6 @@ namespace OnlineBookLibrary.Controllers
 
             return tags;
         }
-        private void SaveImage(HttpPostedFileBase file, Book model)
-        {
-            Random rand = new Random();
-            string prefix = rand.Next(int.MaxValue).ToString();
-            string pic = prefix + System.IO.Path.GetFileName(file.FileName);
-            string path = System.IO.Path.Combine(Server.MapPath("~/Content/Images/Books"), pic);
-            file.SaveAs(path);
-
-            model.Image = pic;
-        }
 
         public ActionResult EditBook(int id)
         {
@@ -86,8 +76,40 @@ namespace OnlineBookLibrary.Controllers
             btmodel.selectedTags = model.Tags.Select(t => t.Id).ToList();
 
             ViewBag.ViewTitle = "Edit Book";
-            return View("AddBook", btmodel);
+            return View("AddEditBook", btmodel);
         }
+
+        [HttpPost]
+        public ActionResult EditBook(HttpPostedFileBase file, BookTagViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.AllTags = SelectAllTags();
+
+                ViewBag.ViewTitle = "Edit Book";
+                return View("AddEditBook", model);
+            }
+
+            // Save image in folder
+            if (file != null)
+            {
+                SaveImage(file, model.Book);
+            }
+
+            bRepo.EditBook(model);
+            return RedirectToAction("Index", "Librarian");
+        }
+        private void SaveImage(HttpPostedFileBase file, Book model)
+        {
+            Random rand = new Random();
+            string prefix = rand.Next(int.MaxValue).ToString();
+            string pic = prefix + System.IO.Path.GetFileName(file.FileName);
+            string path = System.IO.Path.Combine(Server.MapPath("~/Content/Images/Books"), pic);
+            file.SaveAs(path);
+
+            model.Image = pic;
+        }
+
         public ActionResult DeleteBook(int id)
         {
             bRepo.DeleteBook(id);
