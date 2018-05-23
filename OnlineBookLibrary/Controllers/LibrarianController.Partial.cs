@@ -83,6 +83,8 @@ namespace OnlineBookLibrary.Controllers
         {
             if (!ModelState.IsValid)
             {
+                model.Book.Image = bRepo.GetBookDetailsById(model.Book.Id).Image;
+
                 model.AllTags = SelectAllTags();
                 ViewBag.ViewTitle = "Edit Book";
                 return View("AddEditBook", model);
