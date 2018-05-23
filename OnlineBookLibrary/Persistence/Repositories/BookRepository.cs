@@ -17,7 +17,7 @@ namespace OnlineBookLibrary.Persistence.Repositories
         void AddTag(Tag tag);
         void RemoveTag(Tag tag);
         Tag GetTag(int id);
-
+        void EditTag(Tag tag);
     }
 
     public class BookRepository : IDisposable, IBookRepository
@@ -92,6 +92,13 @@ namespace OnlineBookLibrary.Persistence.Repositories
             return tag;
         }
 
+        public void EditTag(Tag tag)
+        {
+            var oldTag = _context.Tags.FirstOrDefault(x=>x.Id == tag.Id);
+            oldTag.Name = tag.Name;
+            _context.SaveChanges();
+            return;
+        }
 
         public void Dispose()
         {

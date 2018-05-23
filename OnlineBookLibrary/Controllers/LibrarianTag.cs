@@ -3,6 +3,7 @@ using OnlineBookLibrary.Models;
 using OnlineBookLibrary.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -29,15 +30,16 @@ namespace OnlineBookLibrary.Controllers
         [HttpPost]
         public ActionResult AddTag(Tag tag)
         {
+            var tags = bookRepository.GetTags();
+            if (tags.Any(x => x.Name.ToUpper() == tag.Name.ToUpper()))
+                ModelState.AddModelError("Name", "This Tag already exists");
             if (ModelState.IsValid)
             {
                 var newTag = new Tag()
                 {
                     Name = tag.Name
                 };
-                if (bookRepository.GetTags().Any(x => x.Name == tag.Name))
-                    ModelState.AddModelError("", "This Tag already exists");
-                else
+
                     bookRepository.AddTag(newTag);
             }
             
@@ -59,6 +61,30 @@ namespace OnlineBookLibrary.Controllers
             }
             return Content("");
                 
+        }
+        [HttpPost]
+        public ActionResult EditTag(Tag tag)
+        {
+            string responseMessage = "";
+            if (!ModelState.IsValid)
+            {
+                responseMessage = "Form not valid!";
+                return Content(responseMessage);
+            }
+            Tag oldTag = bookRepository.GetTag(tag.Id);
+            if (oldTag == null)
+            {
+                responseMessage = "Sorry,couldn't find this tag";
+            }
+            try
+            {
+                bookRepository.EditTag(tag);
+            }
+            catch (EntityException e)
+            {
+                responseMessage = "Sorry,we couldn't update this tag,please try again later.";
+            }
+            return Content(responseMessage);
         }
 
 

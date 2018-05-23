@@ -70,7 +70,7 @@
         $("#save_" + itemId + "").parent().removeAttr("hidden");
 
         $("#form_" + itemId + "").removeAttr("hidden");
-        let myForm = $("#form_" + itemId + "").html();
+        let myForm = $("#form_" + itemId + "").outerHTML();
 
         let myName = $("#name_" + itemId + "").text();
 
@@ -79,12 +79,36 @@
         $("#inputName_" + itemId + "").val(myName);
 
     }
+
+
+    /* 
+ * Return outerHTML for the first element in a jQuery object,
+ * or an empty string if the jQuery object is empty;  
+ */
+    jQuery.fn.outerHTML = function () {
+        return (this[0]) ? this[0].outerHTML : '';
+    };
+
     function EditTag(itemId) {
+                $.post("@Url.Action("EditTag")",
+            {
+                Id: itemId,
+                Name: $("#inputName_" + itemId + "").val()
+            },
+            function (data) {
+                if (data != "")
+                {
+                    $("#form_" + itemId + "").after("<p>"+data+"</p>");
+                }
+                else {
+                    $("#librarian-tab").load("@Url.Action("Tags")");
+                    $("#edit_" + itemId + "").parent().removeAttr("hidden");
+                    $("#save_" + itemId + "").parent().attr("hidden", "");
+                }
+
+          });
 
 
-
-        $("#edit_" + itemId + "").parent().removeAttr("hidden");
-        $("#save_" + itemId + "").parent().attr("hidden", "");
     }
 
 

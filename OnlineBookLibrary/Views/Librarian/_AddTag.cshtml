@@ -4,12 +4,10 @@
 <div id="addTagForm2">
     @using (Html.BeginForm("AddTag", "Librarian", FormMethod.Post))
     {
-        @Html.ValidationSummary(true)
-
-
+        
         @Html.LabelFor(m => m.Name)
         @Html.TextBoxFor(m => m.Name)
-        
+        @Html.ValidationMessageFor(m=>m.Name)
 
 
         <input class="btn btn-success" id="SubmitTag" type="button" value="Submit" />
@@ -36,6 +34,7 @@
             },
             function (data) {
                 $("#addTagForm2").html(data);
+                
               //  loadTags();
             });
 
