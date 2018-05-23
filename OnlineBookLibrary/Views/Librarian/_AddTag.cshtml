@@ -1,0 +1,43 @@
+﻿@model OnlineBookLibrary.Models.Tag
+
+
+<div id="addTagForm2">
+    @using (Html.BeginForm("AddTag", "Librarian", FormMethod.Post, new { @action = "", onsubmit = "return false" }))
+    {
+
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name)
+        @Html.ValidationMessageFor(m=>m.Name)
+
+
+        <input class="btn btn-success" id="SubmitTag" type="button" value="Submit" />
+
+    }
+</div>
+
+<script>
+
+
+
+
+    function loadTags() {
+            $("#librarian-tab").load("@Url.Action("Tags")");
+    }
+
+
+
+    $("#SubmitTag").click(function () {
+
+        $.post("@Url.Action("AddTag")",
+            {
+                Name: $("#Name").val()
+            },
+            function (data) {
+                $("#addTagForm2").html(data);
+                
+              //  loadTags();
+            });
+
+    });
+
+</script>

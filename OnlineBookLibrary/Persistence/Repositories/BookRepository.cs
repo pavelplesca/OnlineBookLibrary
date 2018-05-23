@@ -18,6 +18,10 @@ namespace OnlineBookLibrary.Persistence.Repositories
         IEnumerable<Book> GetPageOfBooks(IEnumerable<Book> books, int pageNum = 1, int booksOnPage = 6);
         IEnumerable<Book> GetBooksByTag(string tag = "All");
         IEnumerable<Tag> GetTags();
+        void AddTag(Tag tag);
+        void RemoveTag(Tag tag);
+        Tag GetTag(int id);
+        void EditTag(Tag tag);
     }
 
     public class BookRepository : IDisposable, IBookRepository
@@ -141,6 +145,34 @@ namespace OnlineBookLibrary.Persistence.Repositories
             return tags;
         }
 
+        public void AddTag(Tag newTag)
+        {
+
+            _context.Tags.Add(newTag);
+            _context.SaveChanges();
+            return ;
+        }
+
+        public void RemoveTag(Tag tag)
+        {
+            _context.Tags.Remove(tag);
+            _context.SaveChanges();
+            return ;
+        }
+
+        public Tag GetTag(int id)
+        {
+            Tag tag = _context.Tags.Find(id);
+            return tag;
+        }
+
+        public void EditTag(Tag tag)
+        {
+            var oldTag = _context.Tags.FirstOrDefault(x=>x.Id == tag.Id);
+            oldTag.Name = tag.Name;
+            _context.SaveChanges();
+            return;
+        }
 
         public void Dispose()
         {

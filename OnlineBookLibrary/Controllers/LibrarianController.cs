@@ -15,7 +15,6 @@ namespace OnlineBookLibrary.Controllers
     [Authorize(Roles = "librarian")]
     public partial class LibrarianController : Controller
     {
-        
         public ActionResult Index()
         {
             return View();
@@ -26,7 +25,7 @@ namespace OnlineBookLibrary.Controllers
             var _db = new OnlineLibraryDbContext();
             var tags = _db.Tags;
 
-            return PartialView("_TagList",tags);
+            return PartialView("_TagList", tags);
         }
 
 
@@ -46,7 +45,7 @@ namespace OnlineBookLibrary.Controllers
             return PartialView("_BookList", books);
         }
 
-        
+        [HttpPost]
         public ActionResult AddLibrarian()
         {
             var context = new OnlineLibraryDbContext();
@@ -59,16 +58,29 @@ namespace OnlineBookLibrary.Controllers
 
             var user = new User();
 
-            user.UserName = name;
-            user.Email = email;
-            if (!userManager.Users.Any(u => u.UserName == name))
+            if (name != "")
             {
-                var adminresult = userManager.Create(user, password);
+                user.UserName = name;
+                user.Email = email;
 
-                if (adminresult.Succeeded)
+
+                if (!userManager.Users.Any(u => u.UserName == name))
                 {
-                    var result = userManager.AddToRole(user.Id, role);
+                    var adminresult = userManager.Create(user, password);
+
+                    if (adminresult.Succeeded)
+                    {
+                        var result = userManager.AddToRole(user.Id, role);
+                    }
                 }
+                else
+                {
+                    ModelState.AddModelError("Email", @"Email already exists!");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("Email", @"Email adn password are required!");
             }
 
             return View("Index");
