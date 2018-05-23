@@ -70,7 +70,6 @@ namespace OnlineBookLibrary.Controllers
             BookTagViewModel btmodel = new BookTagViewModel();
 
             Book model = bRepo.GetBookDetailsById(id);
-
             btmodel.Book = model;
             btmodel.AllTags = SelectAllTags();
             btmodel.selectedTags = model.Tags.Select(t => t.Id).ToList();
@@ -85,7 +84,6 @@ namespace OnlineBookLibrary.Controllers
             if (!ModelState.IsValid)
             {
                 model.AllTags = SelectAllTags();
-
                 ViewBag.ViewTitle = "Edit Book";
                 return View("AddEditBook", model);
             }

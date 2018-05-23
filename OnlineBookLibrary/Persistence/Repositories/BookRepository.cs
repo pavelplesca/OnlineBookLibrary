@@ -58,7 +58,6 @@ namespace OnlineBookLibrary.Persistence.Repositories
         public void EditBook(BookTagViewModel model)
         {
             Book oldBook = _context.Books.Include("Tags").Where(b => b.Id == model.Book.Id).SingleOrDefault();
-            //ICollection<Tag> selectedTags = GetSelectedTags(model.selectedTags);
             ICollection<Tag> selectedTags = _context.Tags.Where( t => model.selectedTags.Contains(t.Id)).ToList();
 
             if (oldBook != null)
@@ -71,35 +70,15 @@ namespace OnlineBookLibrary.Persistence.Repositories
                 if (model.Book.Image != null)
                     oldBook.Image = model.Book.Image;
 
-                foreach (var tag in oldBook.Tags.ToList())
-                {
-                    if (!selectedTags.Contains(tag))
-                        oldBook.Tags.Remove(tag);
-                }
+                oldBook.Tags.Clear();
 
-                foreach (var newTag in model.selectedTags)
+                foreach (var tag in selectedTags)
                 {
-                    if (!oldBook.Tags.Any(r => r.Id == newTag))
-                    {
-                        var nTag = new Tag {  Id = newTag };
-                        _context.Tags.Attach(nTag);
-                        oldBook.Tags.Add(nTag);
-                    }
+                    oldBook.Tags.Add(tag);
                 }
 
                 _context.SaveChanges();
             }
-        }
-        private ICollection<Tag> GetSelectedTags(IEnumerable<int> selectedTags)
-        {
-            IEnumerable<Tag> allTags = GetTags();
-            ICollection<Tag> selTags = null;
-
-            foreach (var tagId in selectedTags)
-            {
-                selTags.Add(allTags.Where(x => x.Id == tagId).Single());
-            }
-            return selTags;
         }
 
         public void DeleteBook(int id)
