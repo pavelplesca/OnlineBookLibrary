@@ -91,6 +91,7 @@ namespace OnlineBookLibrary.Controllers
             }
 
             // Save image in folder
+            // TODO: Delete old file
             if (file != null)
             {
                 SaveImage(file, model.Book);

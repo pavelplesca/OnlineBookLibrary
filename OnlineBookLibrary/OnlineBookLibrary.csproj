@@ -21,9 +21,9 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44376</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication/>
-    <IISExpressWindowsAuthentication/>
-    <IISExpressUseClassicPipelineMode/>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -221,9 +221,9 @@
     <Compile Include="Migrations\201805180853075_TagNameRequired.Designer.cs">
       <DependentUpon>201805180853075_TagNameRequired.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805181110425_TagNameUniqueMaxLength.cs" />
-    <Compile Include="Migrations\201805181110425_TagNameUniqueMaxLength.Designer.cs">
-      <DependentUpon>201805181110425_TagNameUniqueMaxLength.cs</DependentUpon>
+    <Compile Include="Migrations\201805231401149_TagNameUnique.cs" />
+    <Compile Include="Migrations\201805231401149_TagNameUnique.Designer.cs">
+      <DependentUpon>201805231401149_TagNameUnique.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
@@ -394,17 +394,14 @@
     <EmbeddedResource Include="Migrations\201805081056581_InitialCreate.resx">
       <DependentUpon>201805081056581_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-
     <EmbeddedResource Include="Migrations\201805211041496_BookModelChanges.resx">
       <DependentUpon>201805211041496_BookModelChanges.cs</DependentUpon>
-	</EmbeddedResource>
-
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805180853075_TagNameRequired.resx">
       <DependentUpon>201805180853075_TagNameRequired.cs</DependentUpon>
     </EmbeddedResource>
-
-    <EmbeddedResource Include="Migrations\201805181110425_TagNameUniqueMaxLength.resx">
-      <DependentUpon>201805181110425_TagNameUniqueMaxLength.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805231401149_TagNameUnique.resx">
+      <DependentUpon>201805231401149_TagNameUnique.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
