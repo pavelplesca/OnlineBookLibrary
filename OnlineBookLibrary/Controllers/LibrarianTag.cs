@@ -39,8 +39,12 @@ namespace OnlineBookLibrary.Controllers
                 {
                     Name = tag.Name
                 };
-
+                
                     bookRepository.AddTag(newTag);
+            }
+            else
+            {
+                Response.StatusCode = 302;
             }
             
             var result = PartialView("_AddTag",tag);
@@ -65,18 +69,17 @@ namespace OnlineBookLibrary.Controllers
         [HttpPost]
         public ActionResult EditTag(Tag tag)
         {
-            string responseMessage = "";
+            
             if (bookRepository.GetTags().Any(x => x.Name.ToUpper() == tag.Name?.ToUpper()))
                 return Content("Duplicate value");
             if (!ModelState.IsValid)
             {
-                responseMessage = "Form not valid!";
-                return Content(responseMessage);
+                return Content("Form not valid!");
             }
             Tag oldTag = bookRepository.GetTag(tag.Id);
             if (oldTag == null)
             {
-                responseMessage = "Sorry,couldn't find this tag";
+                return Content("Sorry,couldn't find this tag");
             }
             try
             {
@@ -84,9 +87,9 @@ namespace OnlineBookLibrary.Controllers
             }
             catch (EntityException)
             {
-                responseMessage = "Sorry,we couldn't update this tag,please try again later.";
+                return Content("Sorry,we couldn't update this tag,please try again later");
             }
-            return Content(responseMessage);
+            return Content("");
         }
 
 
