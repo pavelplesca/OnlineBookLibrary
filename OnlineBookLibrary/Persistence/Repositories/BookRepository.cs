@@ -72,7 +72,12 @@ namespace OnlineBookLibrary.Persistence.Repositories
                 oldBook.Year = model.Book.Year;
 
                 if (model.Book.Image != null)
+                {
+                    string oldImage = Path.Combine(HostingEnvironment.MapPath("~/Content/Images/Books"), oldBook.Image);
                     oldBook.Image = model.Book.Image;
+
+                    File.Delete(oldImage);
+                }
 
                 oldBook.Tags.Clear();
 
