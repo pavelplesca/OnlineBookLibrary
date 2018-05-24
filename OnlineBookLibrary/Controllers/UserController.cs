@@ -139,9 +139,7 @@ namespace OnlineBookLibrary.Controllers
                     {
                         if (user.ChangedPassword == false)
                         {
-                            LibrarianPasswordModel usr = new LibrarianPasswordModel();
-                            usr.Email = user.Email;
-                            return View("ChangePassword", usr);
+                            return RedirectToAction("ChangeLibrarianPassword", user);
                         }
 
                         return RedirectToAction("Index", "Home");
@@ -152,17 +150,26 @@ namespace OnlineBookLibrary.Controllers
             return View("Authentication", model);
         }
 
+        public ActionResult ChangeLibrarianPassword(User user)
+        {
+            LibrarianPasswordModel usr = new LibrarianPasswordModel();
+            usr.Email = user.Email;
+            return View("ChangePassword", usr);
+        }
+
         [HttpPost]
         public ActionResult ChangeLibrarianPassword(LibrarianPasswordModel model)
         {
             if (!ModelState.IsValid)
             {
-                if (model.OldPassword == model.NewPassword)
-                {
-                    ModelState.AddModelError("", "New password must differ from old password.");
-                }
-
                 return View("ChangePassword", model);
+            }
+
+            if (model.OldPassword == model.NewPassword)
+            {
+                ModelState.AddModelError("", "New password must differ from old password.");
+                return View("ChangePassword", model);
+
             }
 
             User user = UserManager.Find(model.Email, model.OldPassword);
