@@ -76,7 +76,10 @@ namespace OnlineBookLibrary.Persistence.Repositories
                     string oldImage = Path.Combine(HostingEnvironment.MapPath("~/Content/Images/Books"), oldBook.Image);
                     oldBook.Image = model.Book.Image;
 
-                    File.Delete(oldImage);
+                    if (File.Exists(oldImage))
+                    {
+                        File.Delete(oldImage);
+                    }
                 }
 
                 oldBook.Tags.Clear();
@@ -99,7 +102,10 @@ namespace OnlineBookLibrary.Persistence.Repositories
                 if(book.Image != "no_cover.jpg")
                 {
                     string imagePath = Path.Combine(HostingEnvironment.MapPath("~/Content/Images/Books"), book.Image);
-                    File.Delete(imagePath);
+                    if (File.Exists(imagePath))
+                    {
+                        File.Delete(imagePath);
+                    }
                 }
 
                 _context.Books.Remove(book);
