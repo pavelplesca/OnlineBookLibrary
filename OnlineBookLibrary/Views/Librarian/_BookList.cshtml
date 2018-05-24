@@ -36,13 +36,16 @@
             </td>
 
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                @Html.ActionLink("Edit", "EditBook", "Librarian", new { id = item.Id }, null)
+            </td>
+            <td>
+                @Html.ActionLink("Delete","DeleteBook", "Librarian", new { id = item.Id }, null)
             </td>
         </tr>
     }
     <tr>
         <td colspan="4">
-            <button class="active" onclick="AddLibrarian()">+</button>
+            <a href="@Url.Action("AddBook", "Librarian")"><button class="active">+</button></a>
         </td>
     </tr>
 </table>
