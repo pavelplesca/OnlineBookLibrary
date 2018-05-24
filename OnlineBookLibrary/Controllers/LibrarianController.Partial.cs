@@ -104,7 +104,7 @@ namespace OnlineBookLibrary.Controllers
         {
             Random rand = new Random();
             string prefix = rand.Next(int.MaxValue).ToString();
-            string pic = prefix + System.IO.Path.GetFileName(file.FileName);
+            string pic = prefix + "_" + System.IO.Path.GetFileName(file.FileName);
             string path = System.IO.Path.Combine(Server.MapPath("~/Content/Images/Books"), pic);
             file.SaveAs(path);
 
