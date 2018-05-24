@@ -4,8 +4,11 @@
 
 <table class="table">
     <tr>
-
-
+        <td colspan="4">
+            <a href="@Url.Action("AddBook", "Librarian")"><button class="active">Add new book</button></a>
+        </td>
+    </tr>
+    <tr>
         <th>
             @Html.DisplayNameFor(model => model.Image)
         </th>
@@ -39,14 +42,10 @@
                 @Html.ActionLink("Edit", "EditBook", "Librarian", new { id = item.Id }, null)
             </td>
             <td>
-                @Html.ActionLink("Delete","DeleteBook", "Librarian", new { id = item.Id }, null)
+                @Html.ActionLink("Delete", "DeleteBook", "Librarian", new { id = item.Id }, null)
             </td>
         </tr>
     }
-    <tr>
-        <td colspan="4">
-            <a href="@Url.Action("AddBook", "Librarian")"><button class="active">+</button></a>
-        </td>
-    </tr>
+
 </table>
 
