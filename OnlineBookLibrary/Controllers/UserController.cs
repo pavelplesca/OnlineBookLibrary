@@ -136,12 +136,57 @@ namespace OnlineBookLibrary.Controllers
                     AuthenticationManager.SignOut();
                     AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claim);
                     if (String.IsNullOrEmpty(returnUrl))
+                    {
+                        if (user.ChangedPassword == false)
+                        {
+                            LibrarianPasswordModel usr = new LibrarianPasswordModel();
+                            usr.Email = user.Email;
+                            return View("ChangePassword", usr);
+                        }
+
                         return RedirectToAction("Index", "Home");
+                    }
                     return Redirect(returnUrl);
                 }
             }
             return View("Authentication", model);
         }
+
+        [HttpPost]
+        public ActionResult ChangeLibrarianPassword(LibrarianPasswordModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                if (model.OldPassword == model.NewPassword)
+                {
+                    ModelState.AddModelError("", "New password must differ from old password.");
+                }
+
+                return View("ChangePassword", model);
+            }
+
+            User user = UserManager.Find(model.Email, model.OldPassword);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Wrong old password.");
+                return View("ChangePassword", model);
+            }
+            else
+                ChangePassword(user, model);
+            
+            return RedirectToAction("Index", "Home");
+        }
+        private void ChangePassword(User user, LibrarianPasswordModel model)
+        {
+            UserManager.ChangePassword(user.Id, model.OldPassword, model.NewPassword);
+
+            User userDb = _db.Users.Find(user.Id);
+
+            userDb.ChangedPassword = true;
+            _db.SaveChanges();
+        }
+
 
         // [ValidateAntiForgeryToken]
         public ActionResult Logout()
