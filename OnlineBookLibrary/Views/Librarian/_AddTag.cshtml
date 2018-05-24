@@ -12,6 +12,7 @@
 
         <input class="btn btn-success" id="SubmitTag" type="button" value="Submit" />
 
+
     }
 </div>
 
@@ -26,18 +27,21 @@
 
 
 
-    $("#SubmitTag").click(function () {
+
+
+    $("#SubmitTag").click(function() {
 
         $.post("@Url.Action("AddTag")",
             {
                 Name: $("#Name").val()
-            },
-            function (data) {
-                $("#addTagForm2").html(data);
-                
-              //  loadTags();
-            });
-
+            }).done(
+            function(response) {
+                loadTags();
+            }).fail(
+            function(jqXHR, textStatus, errorThrown) {
+                $("#addTagForm2").html(jqXHR.responseText);
+            }
+        );
     });
 
 </script>
