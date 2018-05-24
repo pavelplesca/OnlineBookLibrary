@@ -20,6 +20,7 @@
                     @using (Html.BeginForm(null, null, FormMethod.Post, new { @action = "", onsubmit = "return false" }))
                     {
                         <input id="inputName_@item.Id" name="Name"/>
+                        <div id="error_@item.Id" data-old="0" ></div>
                     }
 
                 </div>
@@ -34,7 +35,7 @@
                     <button class="btn btn-success" id="save_@item.Id" onclick="EditTag(@item.Id)">Submit</button>
                 </div>
             </td>
-            <td class="float-right">
+            <td >
                 <div>
                     <button class=" btn btn-danger" id="@item.Id" onclick="TryDelete(@item.Id)">Delete </button>
                 </div>
@@ -73,10 +74,15 @@
         $("#edit_" + itemId + "").parent().attr("hidden", "");
         $("#save_" + itemId + "").parent().removeAttr("hidden");
 
+       
+
         $("#form_" + itemId + "").removeAttr("hidden");
-        let myForm = $("#form_" + itemId + "").outerHTML();
+       
 
         let myName = $("#name_" + itemId + "").text();
+        
+        $("#error_" + itemId + "").attr("data-old", myName);
+        let myForm = $("#form_" + itemId + "").outerHTML();
 
         $("#form_" + itemId + "").parent().html(myForm);
 
@@ -94,6 +100,13 @@
     };
 
     function EditTag(itemId) {
+        
+        if ($("#error_" + itemId + "").attr("data-old") == $("#inputName_" + itemId + "").val())
+        {
+            $("#librarian-tab").load("@Url.Action("Tags")");
+                
+            return false;
+        }
                 $.post("@Url.Action("EditTag")",
             {
                 Id: itemId,
@@ -102,12 +115,11 @@
             function (data) {
                 if (data != "")
                 {
-                    $("#form_" + itemId + "").after("<p>"+data+"</p>");
+                    $("#error_" + itemId + "").html("<p class=\"text-danger\">"+data+"</p>");
                 }
                 else {
                     $("#librarian-tab").load("@Url.Action("Tags")");
-                    $("#edit_" + itemId + "").parent().removeAttr("hidden");
-                    $("#save_" + itemId + "").parent().attr("hidden", "");
+                    
                 }
 
           });
