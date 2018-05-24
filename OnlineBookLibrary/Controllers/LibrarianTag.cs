@@ -39,8 +39,12 @@ namespace OnlineBookLibrary.Controllers
                 {
                     Name = tag.Name
                 };
-
+                
                     bookRepository.AddTag(newTag);
+            }
+            else
+            {
+                Response.StatusCode = 302;
             }
             
             var result = PartialView("_AddTag",tag);
