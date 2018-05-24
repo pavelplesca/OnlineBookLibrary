@@ -225,6 +225,10 @@
     <Compile Include="Migrations\201805231401149_TagNameUnique.Designer.cs">
       <DependentUpon>201805231401149_TagNameUnique.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805240900210_AddChangedPassField.cs" />
+    <Compile Include="Migrations\201805240900210_AddChangedPassField.Designer.cs">
+      <DependentUpon>201805240900210_AddChangedPassField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Loan.cs" />
@@ -373,6 +377,7 @@
     <Content Include="Views\Librarian\_TagList.cshtml" />
     <Content Include="Views\Librarian\AddEditBook.cshtml" />
     <Content Include="Views\Librarian\_AddTag.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -402,6 +407,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805231401149_TagNameUnique.resx">
       <DependentUpon>201805231401149_TagNameUnique.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805240900210_AddChangedPassField.resx">
+      <DependentUpon>201805240900210_AddChangedPassField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

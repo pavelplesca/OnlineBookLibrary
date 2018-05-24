@@ -48,4 +48,25 @@ namespace OnlineBookLibrary.Models
     {
         public string ReturnUrl { get; set; }
     }
+
+    public class LibrarianPasswordModel
+    {
+        public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name ="Old Password")]
+        public string OldPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "New Password")]
+        public string NewPassword { get; set; }
+
+        [Required(ErrorMessage = "Password confirm field is required")]
+        [Compare("NewPassword", ErrorMessage = "Passwords do not match ")]
+        [Display(Name = "Confirm new password")]
+        [DataType(DataType.Password)]
+        public string NewPasswordConfirm { get; set; }
+    }
 }
