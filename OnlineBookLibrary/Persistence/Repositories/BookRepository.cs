@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using System.Web.Hosting;
 using OnlineBookLibrary.Models;
+using OnlineBookLibrary.Models.ViewModels;
 
 namespace OnlineBookLibrary.Persistence.Repositories
 {
@@ -27,6 +31,81 @@ namespace OnlineBookLibrary.Persistence.Repositories
         public BookRepository()
         {
             _context = new OnlineLibraryDbContext();
+        }
+        
+        public void AddBook(BookTagViewModel model)
+        {
+            ICollection<Tag> bookTags = new List<Tag>();
+
+            var allTags = GetTags();
+
+            foreach (int tagId in model.selectedTags)
+            {
+                bookTags.Add(allTags.Where(t => t.Id == tagId).SingleOrDefault());
+            }
+
+            Book newBook = new Book()
+            {
+                 Author = model.Book.Author,
+                 Name = model.Book.Name,
+                 Description = model.Book.Description,
+                 Image = model.Book.Image,
+                 Year = model.Book.Year,
+                 Tags = bookTags
+            };
+
+            _context.Books.Add(newBook);
+
+            _context.SaveChanges();
+        }
+
+        public void EditBook(BookTagViewModel model)
+        {
+            Book oldBook = _context.Books.Include("Tags").Where(b => b.Id == model.Book.Id).SingleOrDefault();
+            ICollection<Tag> selectedTags = _context.Tags.Where( t => model.selectedTags.Contains(t.Id)).ToList();
+
+            if (oldBook != null)
+            {
+                oldBook.Name = model.Book.Name;
+                oldBook.Author = model.Book.Author;
+                oldBook.Description = model.Book.Description;
+                oldBook.Year = model.Book.Year;
+
+                if (model.Book.Image != null)
+                {
+                    string oldImage = Path.Combine(HostingEnvironment.MapPath("~/Content/Images/Books"), oldBook.Image);
+                    oldBook.Image = model.Book.Image;
+
+                    File.Delete(oldImage);
+                }
+
+                oldBook.Tags.Clear();
+
+                foreach (var tag in selectedTags)
+                {
+                    oldBook.Tags.Add(tag);
+                }
+
+                _context.SaveChanges();
+            }
+        }
+
+        public void DeleteBook(int id)
+        {
+            Book book = _context.Books.Where(b => b.Id == id).SingleOrDefault();
+
+            if (book != null)
+            {
+                if(book.Image != "no_cover.jpg")
+                {
+                    string imagePath = Path.Combine(HostingEnvironment.MapPath("~/Content/Images/Books"), book.Image);
+                    File.Delete(imagePath);
+                }
+
+                _context.Books.Remove(book);
+
+                _context.SaveChanges();
+            }
         }
 
         public Book GetBookDetailsById(int id)

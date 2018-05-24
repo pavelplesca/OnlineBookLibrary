@@ -21,9 +21,9 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44376</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication/>
-    <IISExpressWindowsAuthentication/>
-    <IISExpressUseClassicPipelineMode/>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -200,6 +200,7 @@
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\LibrarianController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
+    <Compile Include="Controllers\LibrarianController.Partial.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -207,23 +208,29 @@
     </Compile>
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\Logger.cs" />
+    <Compile Include="Helpers\TagValidator.cs" />
     <Compile Include="Migrations\201805081056581_InitialCreate.cs" />
     <Compile Include="Migrations\201805081056581_InitialCreate.Designer.cs">
       <DependentUpon>201805081056581_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805211041496_BookModelChanges.cs" />
+    <Compile Include="Migrations\201805211041496_BookModelChanges.Designer.cs">
+      <DependentUpon>201805211041496_BookModelChanges.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201805180853075_TagNameRequired.cs" />
     <Compile Include="Migrations\201805180853075_TagNameRequired.Designer.cs">
       <DependentUpon>201805180853075_TagNameRequired.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805181110425_TagNameUniqueMaxLength.cs" />
-    <Compile Include="Migrations\201805181110425_TagNameUniqueMaxLength.Designer.cs">
-      <DependentUpon>201805181110425_TagNameUniqueMaxLength.cs</DependentUpon>
+    <Compile Include="Migrations\201805231401149_TagNameUnique.cs" />
+    <Compile Include="Migrations\201805231401149_TagNameUnique.Designer.cs">
+      <DependentUpon>201805231401149_TagNameUnique.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Loan.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\ViewModels\BookTagViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\UserAuthModel.cs" />
     <Compile Include="Models\ViewModels\UserWithRolesViewModel.cs" />
@@ -246,10 +253,12 @@
     <Content Include="Content\Images\Books\CSharpInANutshell.jpg" />
     <Content Include="Content\Images\Books\DarkTower1.JPG" />
     <Content Include="Content\Images\Books\GameOfThrones.jpg" />
-    <Content Include="Content\Images\Books\HarryPotter1.jpg" />
     <Content Include="Content\Images\Books\java.jpg" />
+    <Content Include="Content\Images\Books\no_cover.jpg" />
     <Content Include="Content\Images\Books\ReadyPlayerOne.jpg" />
     <Content Include="Content\Images\Capture.PNG" />
+    <Content Include="Content\Images\placeholder2.png" />
+    <Content Include="Content\Images\placeholder.png" />
     <Content Include="Content\sticky-footer.css" />
     <Content Include="Content\LoginButtonIcon.css" />
     <Content Include="Content\LibrarianTabMenu.css" />
@@ -263,6 +272,7 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\BsMultiSelect.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -281,6 +291,7 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Scripts\BsMultiSelect.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -291,6 +302,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\LoadImage.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\MyScripts\ajax.js" />
     <Content Include="Scripts\popper-utils.js" />
@@ -359,6 +371,7 @@
     <Content Include="Views\Librarian\_UserList.cshtml" />
     <Content Include="Views\Librarian\_BookList.cshtml" />
     <Content Include="Views\Librarian\_TagList.cshtml" />
+    <Content Include="Views\Librarian\AddEditBook.cshtml" />
     <Content Include="Views\Librarian\_AddTag.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -381,11 +394,14 @@
     <EmbeddedResource Include="Migrations\201805081056581_InitialCreate.resx">
       <DependentUpon>201805081056581_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805211041496_BookModelChanges.resx">
+      <DependentUpon>201805211041496_BookModelChanges.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805180853075_TagNameRequired.resx">
       <DependentUpon>201805180853075_TagNameRequired.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805181110425_TagNameUniqueMaxLength.resx">
-      <DependentUpon>201805181110425_TagNameUniqueMaxLength.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805231401149_TagNameUnique.resx">
+      <DependentUpon>201805231401149_TagNameUnique.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

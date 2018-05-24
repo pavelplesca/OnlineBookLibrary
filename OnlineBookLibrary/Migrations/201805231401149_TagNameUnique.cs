@@ -3,7 +3,7 @@ namespace OnlineBookLibrary.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class TagNameUniqueMaxLength : DbMigration
+    public partial class TagNameUnique : DbMigration
     {
         public override void Up()
         {
@@ -14,7 +14,7 @@ namespace OnlineBookLibrary.Migrations
         public override void Down()
         {
             DropIndex("dbo.Tags", new[] { "Name" });
-            AlterColumn("dbo.Tags", "Name", c => c.String(nullable: false));
+            AlterColumn("dbo.Tags", "Name", c => c.String());
         }
     }
 }
