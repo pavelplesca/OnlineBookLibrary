@@ -72,6 +72,10 @@ namespace OnlineBookLibrary.Controllers
                     {
                         var result = userManager.AddToRole(user.Id, role);
                     }
+                    else
+                    {
+                        ModelState.AddModelError("Password", @"Invalid password");
+                    }
                 }
                 else
                 {
