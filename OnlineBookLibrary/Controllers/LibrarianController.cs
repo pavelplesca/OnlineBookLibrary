@@ -62,7 +62,7 @@ namespace OnlineBookLibrary.Controllers
             {
                 user.UserName = name;
                 user.Email = email;
-
+                user.ChangedPassword = false;
 
                 if (!userManager.Users.Any(u => u.UserName == name))
                 {

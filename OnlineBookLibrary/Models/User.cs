@@ -21,5 +21,7 @@ namespace OnlineBookLibrary.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public bool? ChangedPassword { get; set; }
     }
 }
