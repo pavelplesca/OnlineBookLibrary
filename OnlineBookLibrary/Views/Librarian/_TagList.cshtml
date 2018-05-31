@@ -65,22 +65,16 @@
 
 <script>
 
-
- 
-
-    
-
     function TryEdit(itemId) {
         $("#edit_" + itemId + "").parent().attr("hidden", "");
         $("#save_" + itemId + "").parent().removeAttr("hidden");
 
-       
 
         $("#form_" + itemId + "").removeAttr("hidden");
-       
+
 
         let myName = $("#name_" + itemId + "").text();
-        
+
         $("#error_" + itemId + "").attr("data-old", myName);
         let myForm = $("#form_" + itemId + "").outerHTML();
 
@@ -95,14 +89,13 @@
  * Return outerHTML for the first element in a jQuery object,
  * or an empty string if the jQuery object is empty;  
  */
-    jQuery.fn.outerHTML = function () {
+    jQuery.fn.outerHTML = function() {
         return (this[0]) ? this[0].outerHTML : '';
     };
 
     function EditTag(itemId) {
-        
-        if ($("#error_" + itemId + "").attr("data-old") == $("#inputName_" + itemId + "").val())
-        {
+
+        if ($("#error_" + itemId + "").attr("data-old") == $("#inputName_" + itemId + "").val()) {
             $("#librarian-tab").load("@Url.Action("Tags")");
                 
             return false;

@@ -28,27 +28,23 @@ namespace OnlineBookLibrary.Controllers
         }
 
         [HttpPost]
+        [ValidateAjax]
         public ActionResult AddTag(Tag tag)
         {
             var tags = bookRepository.GetTags();
             if (tags.Any(x => x.Name.ToUpper() == tag.Name?.ToUpper()))
                 ModelState.AddModelError("Name", "This Tag already exists");
-            if (ModelState.IsValid)
-            {
+            
                 var newTag = new Tag()
                 {
                     Name = tag.Name
                 };
                 
                     bookRepository.AddTag(newTag);
-            }
-            else
-            {
-                Response.StatusCode = 302;
-            }
+                return Json(new {Success = true});
             
-            var result = PartialView("_AddTag",tag);
-            return result;
+            
+           
         }
 
         [HttpPost]
