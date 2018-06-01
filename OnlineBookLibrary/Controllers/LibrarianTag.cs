@@ -1,10 +1,10 @@
-﻿using OnlineBookLibrary.Controllers.Attributes;
-using OnlineBookLibrary.Models;
+﻿using OnlineBookLibrary.Models;
 using OnlineBookLibrary.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -39,15 +39,27 @@ namespace OnlineBookLibrary.Controllers
                 {
                     Name = tag.Name
                 };
-                
-                    bookRepository.AddTag(newTag);
+
+                bookRepository.AddTag(newTag);
+                return Json(new {Success = true});
             }
-            else
+
+            var errorModel =
+                    from x in ModelState.Keys
+                    where ModelState[x].Errors.Count > 0
+                    select new
+                    {
+                        key = x,
+                        errors = ModelState[x].Errors.
+                            Select(y => y.ErrorMessage).
+                            ToArray()
+                    };
+
+            var result = new JsonResult()
             {
-                Response.StatusCode = 302;
-            }
-            
-            var result = PartialView("_AddTag",tag);
+                Data = errorModel
+            };
+            Response.StatusCode = 301;
             return result;
         }
 

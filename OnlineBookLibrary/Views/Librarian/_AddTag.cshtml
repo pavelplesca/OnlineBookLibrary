@@ -21,15 +21,13 @@
 
 
 
-    function loadTags() {
-            $("#librarian-tab").load("@Url.Action("Tags")");
-    }
 
 
 
 
 
-    $("#SubmitTag").click(function() {
+
+    @*$("#SubmitTag").click(function() {
 
         $.post("@Url.Action("AddTag")",
             {
@@ -42,6 +40,6 @@
                 $("#addTagForm2").html(jqXHR.responseText);
             }
         );
-    });
+    });*@
 
 </script>
