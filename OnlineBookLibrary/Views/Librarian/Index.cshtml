@@ -63,24 +63,27 @@
     <script>
 
         $(function() {
-            
+
             loadUsers();
 
             function loadUsers() {
                 $("#librarian-tab").load("@Url.Action("Users")");
             }
+
             function loadTags() {
                 $("#librarian-tab").load("@Url.Action("Tags")");
             }
+
             function loadBooks() {
                 $("#librarian-tab").load("@Url.Action("Books")");
             }
+
             /* Swap tabs */
             $("#tab-users").click(
-                function () {
+                function() {
                     loadUsers();
                 });
-            
+
 
             $("#tab-tags").click(
                 function() {
@@ -91,15 +94,12 @@
                 function() {
                     loadBooks();
                 });
-           
 
 
 
-
-
-            
-
-            $(document).on("click","#SubmitTag",
+            //Add tag ajax post script
+            $(document).on("click",
+                "#SubmitTag",
                 function(event) {
 
                     $.ajax({
@@ -111,18 +111,21 @@
                             Name: $("#Name").val()
                         },
                         success:
-                            function(response) {
+                            function() {
                                 loadTags();
                             },
                         error:
-                            function(jqXHR, textStatus, errorThrown) {
-                                $("#addTagForm2").html(jqXHR.responseText);
+                            function (message) {
+                                let myErrors = JSON.parse(message.responseText);
+                                for (var i = 0; i < myErrors.length; i++) {
+                                    $('span[data-valmsg-for="' + myErrors[i].key + '"]').text(myErrors[i].errors);
+                                    $('span[data-valmsg-for="' + myErrors[i].key + '"]').attr("class","field-validation-error");
+                                }
+                                
                             }
                     });
                 });
 
-
-           
 
         })
 
